@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:general.footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "menu": "",
+        "show_payment_icons": true,
+        "hours": "Monday-Friday 9 am-9 pm PST",
+        "phone_number": "800-331-3331",
+        "email": "anvas848@gmail.com"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

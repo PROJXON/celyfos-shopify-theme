@@ -1,0 +1,112 @@
+<footer>
+  <div>
+    <h2>Custom Service</h2>
+    {% if section.settings.hours %}
+      <p>{{ section.settings.hours }}</p>
+    {% endif %}
+    {% if section.settings.phone_number %}
+      <p>{{ section.settings.phone_number }}</p>
+    {% endif %}
+    {% unless section.settings.email == blank %}
+      <a id="email" href="mailto:{{ section.settings.email }}">Email</a>
+    {% endunless %}
+  </div>
+  <div id="trackOrderContainer">
+    <a href="#" class="btn">Track Order</a>
+  </div>
+  <div>
+    <h1>Follow Us</h1>
+    <div id="socialIcons">
+      {% unless settings.instagram == blank %}
+        <a href="{{ settings.instagram }}" target="_blank" rel="noopener">
+          <img src="{{ 'Instagram.png' | asset_url }}" alt="Instagram logo" height="50" width="50">
+        </a>
+      {% endunless %}
+
+      {% unless settings.facebook == blank %}
+        <a href="{{ settings.facebook }}" target="_blank" rel="noopener">
+          <img src="{{ 'Facebook.png' | asset_url }}" alt="Facebook logo" height="50" width="50">
+        </a>
+      {% endunless %}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  footer {
+    background: #E7DDD8;
+    gap: 2rem;
+    padding: 2rem;
+    font-weight: bold;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  h1, h2 {
+    text-transform: uppercase;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  a {
+    color: black;
+  }
+
+  div#trackOrderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  div#trackOrderContainer a {
+    width: fit-content;
+    height: fit-content;
+    font-size: 1.25rem;
+    padding: 0.7rem;
+    border-radius: 999rem;
+    text-decoration: none;
+  }
+
+  div#socialIcons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:labels.menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:labels.show_payment_icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "t:labels.hours"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "t:labels.phone_number"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "t:labels.email"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,83 @@
+<header>
+  <div id="headerTop">
+    <nav id="topMenu">
+      {% for link in section.settings.top_menu.links %}
+        {{ link.title | link_to: link.url }}
+      {% endfor %}
+    </nav>
+
+    <a href="{{ routes.root_url }}">
+      <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150">
+    </a>
+  </div>
+
+  <nav id="sectionsMenu">
+    {% for link in section.settings.sections.links %}
+      {{ link.title | link_to: link.url }}
+    {% endfor %}
+  </nav>
+</header>
+
+{% stylesheet %}
+  header {
+    padding-block: 1rem;
+    font-weight: bold;
+  }
+
+  div#headerTop {
+    position: relative;
+  }
+
+  img {
+    margin: auto;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  nav#topMenu {
+    position: absolute;
+    right: 0;
+    gap: 1rem;
+    font-size: 1.1rem;
+  }
+
+  nav#sectionsMenu {
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    nav#topMenu {
+      position: initial;
+      justify-content: flex-end;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "top_menu",
+      "label": "t:labels.top_menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "sections",
+      "label": "t:labels.sections",
+      "default": "main-menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ]
+}
+{% endschema %}
