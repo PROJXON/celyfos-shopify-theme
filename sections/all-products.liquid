@@ -1,0 +1,62 @@
+{% comment %}
+  This section displays all products in the store.
+{% endcomment %}
+
+<h1>{{ 'All Products' | t }}</h1>
+
+<div class="all-products">
+  {% paginate collections.all.products by 20 %}
+    {% for product in collections.all.products %}
+      <div class="product-card">
+        {% if product.featured_image %}
+          {% render 'image',
+            class: 'product-card__image',
+            image: product.featured_image,
+            url: product.url,
+            width: 400,
+            height: 400,
+            crop: 'center'
+          %}
+        {% endif %}
+        <div class="product-card__content">
+          <p>{{ product.title | escape | link_to: product.url }}</p>
+          <p>{{ product.price | money }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+    {{ paginate | default_pagination }}
+  {% endpaginate %}
+</div>
+
+{% stylesheet %}
+  .all-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .product-card__image {
+    margin-bottom: 8px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "All Products",
+  "settings": [],
+  "presets": [
+    {
+      "name": "All Products",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

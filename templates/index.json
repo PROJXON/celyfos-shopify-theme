@@ -9,13 +9,9 @@
  */
 {
   "sections": {
-    "collections": {
-      "type": "collections",
-      "settings": {
-        "grid_item_width": "collections--full",
-        "grid_gap": 10
-      }
+    "all-products": {
+      "type": "all-products"
     }
   },
-  "order": ["collections"]
+  "order": ["all-products"]
 }
