@@ -95,6 +95,10 @@ button {
   box-shadow: 1.5px 1.5px 2px var(--text-color);
 }
 
+main#mainArea {
+  flex: 1;
+}
+
 /** Section layout utilities */
 
 /**
