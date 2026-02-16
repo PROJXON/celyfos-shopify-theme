@@ -6,7 +6,7 @@
       {% endfor %}
     </nav>
 
-    <a href="{{ routes.root_url }}">
+    <a href="{{ routes.root_url }}" id="logo">
       <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150">
     </a>
   </div>
@@ -35,6 +35,12 @@
   nav {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  #logo {
+    display: block;
+    margin: auto;
+    width: fit-content;
   }
 
   nav#topMenu {

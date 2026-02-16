@@ -7,22 +7,36 @@
   {% paginate collections.all.products by 20 %}
     <div class="all-products">
       {% for product in collections.all.products %}
-        <div class="product-card">
+        <a href="{{ product.url }}">
+          <div class="product-card">
           {% if product.featured_image %}
-            {% render 'image',
-              class: 'product-card__image',
-              image: product.featured_image,
-              url: product.url,
-              width: 400,
-              height: 400,
-              crop: 'center'
-            %}
+            {% assign alternate_images = product.media | where: "media_type", "image" %}
+            {% assign alternate_image = alternate_images[1] %}
+
+            <div class="product-card__image-wrapper">
+              {% render 'image',
+                class: alternate_image ? 'product-card__image product-card__image--default' : 'product-card__image',
+                image: product.featured_image,
+                width: 400,
+                height: 400,
+                crop: 'center'
+              %}
+
+              {% if alternate_image %}
+                {% render 'image',
+                  class: 'product-card__image product-card__image--hover alternate-img',
+                  image: alternate_image.image,
+                  width: 400,
+                  height: 400,
+                  crop: 'center'
+                %}
+              {% endif %}
+            </div>
           {% endif %}
-          <div class="product-card__content">
-            <p>{{ product.title | escape | link_to: product.url }}</p>
-            <p>{{ product.price | money }}</p>
-          </div>
+          <p class="productTitle">{{ product.title | escape }}</p>
+          <p>{{ product.price | money }}</p>
         </div>
+        </a>
       {% endfor %}
     </div>
 
@@ -35,20 +49,62 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
+
   .product-card {
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
-    padding: 16px;
+    padding: 1rem;
     border-radius: 8px;
     text-align: center;
+    overflow: hidden;
+    height: 100%;
+
   }
+  
+  .product-card__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
   .product-card__image {
-    margin-bottom: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-card__image--default {
+    opacity: 1;
+  }
+
+  .product-card__image--hover {
+    opacity: 0;
+  }
+
+  .product-card:hover .product-card__image--default {
+    opacity: 0;
+  }
+
+  .product-card:hover .product-card__image--hover {
+    opacity: 1;
   }
 
   div.pagination {
     margin: 1rem auto 0;
+  }
+
+  .alternate-img {
+    position: absolute !important;
+  }
+
+  p.productTitle {
+    margin: 1rem 0;
+    flex: 1;
   }
 {% endstylesheet %}
 
