@@ -21,8 +21,8 @@
     {% endif %}
   </div>
   <div>
-    <div class="product-info">
-      <h1>{{ product.title }}</h1>
+    <div id="productInfo">
+      <h2>{{ product.title }}</h2>
       <p>{{ product.price | money }}</p>
       <p>{{ product.description }}</p>
     </div>
@@ -43,7 +43,7 @@
             {% endfor %}
           </select>
           <input type="text" name="quantity" min="1" value="1">
-          <input type="submit" value="Add to cart">
+          <input type="submit" value="Add to cart" class="roundBtn">
         </div>
         {{ form | payment_button }}
       {% endform %}
@@ -117,6 +117,10 @@ button.shopify-payment-button__button {
   background: var(--accent-color) !important;
   box-shadow: 1.5px 1.5px 2px var(--text-color) !important;
   border-radius: 999rem !important;
+}
+
+div#productInfo h2 {
+  text-align: center;
 }
 {% endstylesheet %}
 

@@ -90,9 +90,15 @@ body {
 }
 
 a.btn,
-button {
+button,
+input[type='submit'] {
   background: var(--accent-color);
   box-shadow: 1.5px 1.5px 2px var(--text-color);
+}
+
+.roundBtn {
+  padding: 0.7rem;
+  border-radius: 999rem;
 }
 
 main#mainArea {
