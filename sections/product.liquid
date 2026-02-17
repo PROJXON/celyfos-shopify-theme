@@ -5,10 +5,16 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
+<div id="imageSlideshow">
+  <div class="slides-track">
+    {% for image in product.images %}
+      <div class="product-slide">
+        {% render 'image', class: 'product-image', image: image %}
+      </div>
+    {% endfor %}
+  </div>
+  <button class="slideshow-button prev" aria-label="Previous slide">&lt;</button>
+  <button class="slideshow-button next" aria-label="Next slide">&gt;</button>
 </div>
 
 <div class="product-info">
@@ -40,6 +46,77 @@
     {{ form | payment_button }}
   {% endform %}
 </div>
+
+{% stylesheet %}
+div#imageSlideshow {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slides-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.product-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.slideshow-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.slideshow-button.prev {
+  left: 10px;
+}
+
+.slideshow-button.next {
+  right: 10px;
+}
+{% endstylesheet %}
+
+{% javascript %}
+  const track = document.querySelector('#imageSlideshow .slides-track');
+  const slides = document.querySelectorAll('#imageSlideshow .product-slide');
+  const prevButton = document.querySelector('.slideshow-button.prev');
+  const nextButton = document.querySelector('.slideshow-button.next');
+
+  let currentIndex = 0;
+
+  function updateSlidePosition() {
+    const slideWidth = track.parentElement.offsetWidth;
+    const margin = window.innerWidth - slideWidth;
+    track.style.transform = `translateX(-${currentIndex * slideWidth + margin * currentIndex}px)`;
+  }
+  window.addEventListener('resize', updateSlidePosition);
+
+  prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+    updateSlidePosition();
+  });
+
+  nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+    updateSlidePosition();
+  });
+{% endjavascript %}
 
 {% schema %}
 {
