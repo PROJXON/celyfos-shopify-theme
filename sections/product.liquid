@@ -76,6 +76,8 @@ div#imageSlideshow {
 
 .product-slide {
   min-width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .product-image {
@@ -121,6 +123,17 @@ button.shopify-payment-button__button {
 
 div#productInfo h2 {
   text-align: center;
+}
+
+@media screen and (max-width: 1150px) {
+  div#productPage {
+    grid-template-columns: 1fr;
+  }
+
+  div#imageSlideshow {
+    width: 50%;
+    margin: auto;
+  }
 }
 {% endstylesheet %}
 
