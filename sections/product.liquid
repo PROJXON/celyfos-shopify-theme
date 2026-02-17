@@ -7,15 +7,18 @@
 
 <div id="productPage">
   <div id="imageSlideshow">
-    <div class="slides-track">
-      {% for image in product.images %}
+    {% assign images = product.images %}
+    <div id="slidesTrack">
+      {% for image in images %}
         <div class="product-slide">
           {% render 'image', class: 'product-image', image: image %}
         </div>
       {% endfor %}
     </div>
-    <button class="slideshow-button prev" aria-label="Previous slide">&lt;</button>
-    <button class="slideshow-button next" aria-label="Next slide">&gt;</button>
+    {% if images.size > 1 %}
+      <button class="slideshow-button prev" aria-label="Previous slide">&lt;</button>
+      <button class="slideshow-button next" aria-label="Next slide">&gt;</button>
+    {% endif %}
   </div>
   <div>
     <div class="product-info">
@@ -26,22 +29,22 @@
     <div class="product-form">
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
-        <select name="id">
-          {% for variant in product.variants %}
-            <option
-              value="{{ variant.id }}"
-              {% if variant == current_variant %}
-                selected="selected"
-              {% endif %}
-            >
-              {{ variant.title }} - {{ variant.price | money }}
-            </option>
-          {% endfor %}
-        </select>
-
-        <input type="text" name="quantity" min="1" value="1">
-
-        <input type="submit" value="Add to cart">
+        <div id="cartAdder">
+          <select name="id">
+            {% for variant in product.variants %}
+              <option
+                value="{{ variant.id }}"
+                {% if variant == current_variant %}
+                  selected="selected"
+                {% endif %}
+              >
+                {{ variant.title }} - {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+          <input type="text" name="quantity" min="1" value="1">
+          <input type="submit" value="Add to cart">
+        </div>
         {{ form | payment_button }}
       {% endform %}
     </div>
@@ -62,8 +65,11 @@ div#imageSlideshow {
   height: fit-content;
 }
 
-.slides-track {
+#slidesTrack, #cartAdder {
   display: flex;
+}
+
+#slidesTrack {
   transition: transform 0.5s ease-in-out;
   width: 100%;
 }
@@ -96,13 +102,26 @@ div#imageSlideshow {
   right: 10px;
 }
 
-.shopify-product-form, .shopify-payment-button {
-  margin-top: 1rem;
+#cartAdder {
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+#cartAdder * {
+  flex: 1;
+}
+
+button.shopify-payment-button__button {
+  color: black !important;
+  font-weight: bold !important;
+  background: var(--accent-color) !important;
+  box-shadow: 1.5px 1.5px 2px var(--text-color) !important;
+  border-radius: 999rem !important;
 }
 {% endstylesheet %}
 
 {% javascript %}
-  const track = document.querySelector('#imageSlideshow .slides-track');
+  const track = document.querySelector('#slidesTrack');
   const slides = document.querySelectorAll('#imageSlideshow .product-slide');
   const prevButton = document.querySelector('.slideshow-button.prev');
   const nextButton = document.querySelector('.slideshow-button.next');
