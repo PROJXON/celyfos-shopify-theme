@@ -1,0 +1,44 @@
+{% if section.settings.show %}
+  <div class="celyfos-announcement">
+    {{ section.settings.text }}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  div#shopify-section-sections--26986324689282__announcement {
+    position: sticky;
+    display: block;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .celyfos-announcement{
+    background: #1a1a1a;
+    color: white;
+    padding: 8px;
+    font-size: 9px;
+    letter-spacing: .3em;
+    text-align: center;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Celyfos Announcement",
+  "settings": [
+    {
+    "type": "checkbox",
+    "id": "show",
+    "default": true,
+    "label": "Show"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Celyfos Atelier:  Handcrafted Excellence Since 1994",
+      "label": "Announcement Text"
+    }
+  ],
+  "presets": [{ "name": "Celyfos Announcement" }]
+}
+{% endschema %}
