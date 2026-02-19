@@ -1,30 +1,24 @@
-<header>
-  <div id="headerTop">
-    <nav id="topMenu">
-      {% for link in section.settings.top_menu.links %}
-        {{ link.title | link_to: link.url }}
-      {% endfor %}
-    </nav>
-
-    <a href="{{ routes.root_url }}" id="logo">
-      <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150">
-    </a>
-  </div>
-
+<header id="celyfosHeader">
   <nav id="sectionsMenu">
     {% for link in section.settings.sections.links %}
       {{ link.title | link_to: link.url }}
     {% endfor %}
   </nav>
+  
+  <nav id="topMenu">
+    <a href="{{ routes.search_url }}">Search</a>
+    <a href="{{ routes.cart_url }}">Cart</a>
+  </nav>
+
+  <a href="{{ routes.root_url }}" id="logo">
+    <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150">
+  </a>
 </header>
 
 {% stylesheet %}
   header {
     padding-block: 1rem;
     font-weight: bold;
-  }
-
-  div#headerTop {
     position: relative;
   }
 
@@ -43,16 +37,18 @@
     width: fit-content;
   }
 
-  nav#topMenu {
+  header nav {
     position: absolute;
-    right: 0;
     gap: 1rem;
     font-size: 1.1rem;
   }
 
   nav#sectionsMenu {
-    justify-content: space-between;
-    margin-top: 1rem;
+    left: 0;
+  }
+
+  nav#topMenu {
+    right: 0;
   }
 
   @media screen and (max-width: 749px) {
