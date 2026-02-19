@@ -44,68 +44,68 @@
   {% endpaginate %}
 
 {% stylesheet %}
-  .all-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-  }
+.all-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
 
-  .product-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    overflow: hidden;
-    height: 100%;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  overflow: hidden;
+  height: 100%;
 
-  }
-  
-  .product-card__image-wrapper {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
+}
 
-  .product-card__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-  }
+.product-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
 
-  .product-card__image--default {
-    opacity: 1;
-  }
+.product-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
 
-  .product-card__image--hover {
-    opacity: 0;
-  }
+.product-card__image--default {
+  opacity: 1;
+}
 
-  .product-card:hover .product-card__image--default {
-    opacity: 0;
-  }
+.product-card__image--hover {
+  opacity: 0;
+}
 
-  .product-card:hover .product-card__image--hover {
-    opacity: 1;
-  }
+.product-card:hover .product-card__image--default {
+  opacity: 0;
+}
 
-  div.pagination {
-    margin: 1rem auto 0;
-  }
+.product-card:hover .product-card__image--hover {
+  opacity: 1;
+}
 
-  .alternate-img {
-    position: absolute !important;
-  }
+div.pagination {
+  margin: 1rem auto 0;
+}
 
-  p.productTitle {
-    margin: 1rem 0;
-    flex: 1;
-  }
+.alternate-img {
+  position: absolute !important;
+}
+
+p.productTitle {
+  margin: 1rem 0;
+  flex: 1;
+}
 {% endstylesheet %}
 
 {% schema %}

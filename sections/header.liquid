@@ -16,47 +16,55 @@
 </header>
 
 {% stylesheet %}
-  header {
-    padding-block: 1rem;
-    font-weight: bold;
-    position: relative;
-  }
+header {
+  padding-block: 1rem;
+  font-weight: bold;
+  position: relative;
+}
 
-  img {
-    margin: auto;
-  }
+img {
+  margin: auto;
+}
 
-  nav {
-    display: flex;
-    flex-wrap: wrap;
-  }
+nav {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  #logo {
-    display: block;
-    margin: auto;
-    width: fit-content;
-  }
+#logo {
+  display: block;
+  margin: auto;
+  width: fit-content;
+}
 
+header nav {
+  position: absolute;
+  gap: 1rem;
+  font-size: 1.1rem;
+}
+
+nav#sectionsMenu {
+  left: 0;
+}
+
+nav#topMenu {
+  right: 0;
+}
+
+@media screen and (max-width: 749px) {
   header nav {
-    position: absolute;
-    gap: 1rem;
-    font-size: 1.1rem;
+    position: initial;
+    margin-bottom: 0.5rem;
   }
 
   nav#sectionsMenu {
-    left: 0;
+    justify-content: space-between;
   }
 
   nav#topMenu {
-    right: 0;
+    justify-content: flex-end;
   }
-
-  @media screen and (max-width: 749px) {
-    nav#topMenu {
-      position: initial;
-      justify-content: flex-end;
-    }
-  }
+}
 {% endstylesheet %}
 
 {% schema %}

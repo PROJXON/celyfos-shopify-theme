@@ -138,29 +138,29 @@ div#productInfo h2 {
 {% endstylesheet %}
 
 {% javascript %}
-  const track = document.querySelector('#slidesTrack');
-  const slides = document.querySelectorAll('#imageSlideshow .product-slide');
-  const prevButton = document.querySelector('.slideshow-button.prev');
-  const nextButton = document.querySelector('.slideshow-button.next');
+const track = document.querySelector('#slidesTrack');
+const slides = document.querySelectorAll('#imageSlideshow .product-slide');
+const prevButton = document.querySelector('.slideshow-button.prev');
+const nextButton = document.querySelector('.slideshow-button.next');
 
-  let currentIndex = 0;
+let currentIndex = 0;
 
-  function updateSlidePosition() {
-    const slideWidth = track.parentElement.offsetWidth;
-    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-  }
+function updateSlidePosition() {
+  const slideWidth = track.parentElement.offsetWidth;
+  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+}
 
-  window.addEventListener('resize', updateSlidePosition);
+window.addEventListener('resize', updateSlidePosition);
 
-  prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-    updateSlidePosition();
-  });
+prevButton.addEventListener('click', () => {
+  currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+  updateSlidePosition();
+});
 
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-    updateSlidePosition();
-  });
+nextButton.addEventListener('click', () => {
+  currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+  updateSlidePosition();
+});
 {% endjavascript %}
 
 {% schema %}
