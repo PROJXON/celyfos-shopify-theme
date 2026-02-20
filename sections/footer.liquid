@@ -1,46 +1,53 @@
 <footer>
-  <div>
-    <h2>Custom Service</h2>
-    {% if section.settings.hours %}
-      <p>{{ section.settings.hours }}</p>
-    {% endif %}
-    {% if section.settings.phone_number %}
-      <p>{{ section.settings.phone_number }}</p>
-    {% endif %}
-    {% unless section.settings.email == blank %}
-      <a id="email" href="mailto:{{ section.settings.email }}">Email</a>
-    {% endunless %}
-  </div>
-  <div id="trackOrderContainer">
-    <a href="#" class="btn roundBtn">Track Order</a>
-  </div>
-  <div>
-    <h1>Follow Us</h1>
-    <div id="socialIcons">
-      {% unless settings.instagram == blank %}
-        <a href="{{ settings.instagram }}" target="_blank" rel="noopener">
-          <img src="{{ 'Instagram.png' | asset_url }}" alt="Instagram logo" height="50" width="50">
-        </a>
-      {% endunless %}
-
-      {% unless settings.facebook == blank %}
-        <a href="{{ settings.facebook }}" target="_blank" rel="noopener">
-          <img src="{{ 'Facebook.png' | asset_url }}" alt="Facebook logo" height="50" width="50">
-        </a>
+  <div id="footerGrid">
+    <div>
+      <h2>Custom Service</h2>
+      {% if section.settings.hours %}
+        <p>{{ section.settings.hours }}</p>
+      {% endif %}
+      {% if section.settings.phone_number %}
+        <p>{{ section.settings.phone_number }}</p>
+      {% endif %}
+      {% unless section.settings.email == blank %}
+        <a id="email" href="mailto:{{ section.settings.email }}">Email</a>
       {% endunless %}
     </div>
+    <div id="trackOrderContainer">
+      <a href="#" class="btn roundBtn">Track Order</a>
+    </div>
+    <div>
+      <h1>Follow Us</h1>
+      <div id="socialIcons">
+        {% unless settings.instagram == blank %}
+          <a href="{{ settings.instagram }}" target="_blank" rel="noopener">
+            <img src="{{ 'Instagram.png' | asset_url }}" alt="Instagram logo" height="50" width="50">
+          </a>
+        {% endunless %}
+
+        {% unless settings.facebook == blank %}
+          <a href="{{ settings.facebook }}" target="_blank" rel="noopener">
+            <img src="{{ 'Facebook.png' | asset_url }}" alt="Facebook logo" height="50" width="50">
+          </a>
+        {% endunless %}
+      </div>
+    </div>
   </div>
+  <p>© {{ 'now' | date: "%Y" }} {{ shop.name }}</p>
+  <p>Powered by PROJXON</p>
 </footer>
 
 {% stylesheet %}
   footer {
     background: #E7DDD8;
     gap: 2rem;
-    padding: 2rem;
+    padding: 2rem 2rem 1rem;
+    margin-top: 1rem;
+  }
+
+  div#footerGrid {
     font-weight: bold;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    margin-top: 1rem;
   }
 
   h1, h2 {
@@ -73,6 +80,11 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 0.5rem;
+  }
+
+  footer > p {
+    text-align: center;
+    font-size: 0.8rem;
   }
 {% endstylesheet %}
 
