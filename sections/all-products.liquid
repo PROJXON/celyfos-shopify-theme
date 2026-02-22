@@ -3,110 +3,47 @@
 {% endcomment %}
 
 <h1>All Products</h1>
+{% paginate collections.all.products by 20 %}
+  <div class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
+    {% for product in collections.all.products %}
+      <a href="{{ product.url }}">
+        <div class="product-card flex flex-col border border-[#ddd] p-4 rounded-lg text-center overflow-hidden h-full">
+        {% if product.featured_image %}
+          {% assign alternate_images = product.media | where: "media_type", "image" %}
+          {% assign alternate_image = alternate_images[1] %}
 
-  {% paginate collections.all.products by 20 %}
-    <div class="all-products">
-      {% for product in collections.all.products %}
-        <a href="{{ product.url }}">
-          <div class="product-card">
-          {% if product.featured_image %}
-            {% assign alternate_images = product.media | where: "media_type", "image" %}
-            {% assign alternate_image = alternate_images[1] %}
+          <div class="relative h-full h-auto group">
+            {% assign image_classes_base = "absolute top-0 left-0 w-full h-auto object-cover duration-300 ease-in-out" %}
+            {% assign image_classes_default = image_classes_base | append: " opacity-100 group-hover:opacity-0" %}
+            {% render 'image',
+              class: alternate_image ? image_classes_default : image_classes_base,
+              image: product.featured_image,
+              width: 400,
+              height: 400,
+              crop: 'center'
+            %}
 
-            <div class="product-card__image-wrapper">
+            {% if alternate_image %}
+              {% assign image_classes_hover = image_classes_base | append: " opacity-0 group-hover:opacity-100 !absolute" %}
               {% render 'image',
-                class: alternate_image ? 'product-card__image product-card__image--default' : 'product-card__image',
-                image: product.featured_image,
+                class: image_classes_hover,
+                image: alternate_image.image,
                 width: 400,
                 height: 400,
                 crop: 'center'
               %}
+            {% endif %}
+          </div>
+        {% endif %}
+        <p class="!my-4 flex-1">{{ product.title | escape }}</p>
+        <p>{{ product.price | money }}</p>
+      </div>
+      </a>
+    {% endfor %}
+  </div>
 
-              {% if alternate_image %}
-                {% render 'image',
-                  class: 'product-card__image product-card__image--hover alternate-img',
-                  image: alternate_image.image,
-                  width: 400,
-                  height: 400,
-                  crop: 'center'
-                %}
-              {% endif %}
-            </div>
-          {% endif %}
-          <p class="productTitle">{{ product.title | escape }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
-        </a>
-      {% endfor %}
-    </div>
-
-    <div class="pagination">{{ paginate | default_pagination }}</div>
-  {% endpaginate %}
-
-{% stylesheet %}
-.all-products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.product-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 8px;
-  text-align: center;
-  overflow: hidden;
-  height: 100%;
-
-}
-
-.product-card__image-wrapper {
-  position: relative;
-  width: 100%;
-  height: auto;
-}
-
-.product-card__image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-}
-
-.product-card__image--default {
-  opacity: 1;
-}
-
-.product-card__image--hover {
-  opacity: 0;
-}
-
-.product-card:hover .product-card__image--default {
-  opacity: 0;
-}
-
-.product-card:hover .product-card__image--hover {
-  opacity: 1;
-}
-
-div.pagination {
-  margin: 1rem auto 0;
-}
-
-.alternate-img {
-  position: absolute !important;
-}
-
-p.productTitle {
-  margin: 1rem 0;
-  flex: 1;
-}
-{% endstylesheet %}
+  <div class="!mt-3 !mx-auto">{{ paginate | default_pagination }}</div>
+{% endpaginate %}
 
 {% schema %}
 {
