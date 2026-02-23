@@ -2,7 +2,7 @@
   This section displays all products in the store.
 {% endcomment %}
 
-<h1>All Products</h1>
+<h1 class="topHeader">All Products</h1>
 {% paginate collections.all.products by 20 %}
   <div class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
     {% for product in collections.all.products %}

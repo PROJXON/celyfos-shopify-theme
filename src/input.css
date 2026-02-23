@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+.topHeader {
+  @apply text-3xl !my-3 font-bold;
+}
+
+.roundBtn {
+  @apply rounded-full p-3;
+}
