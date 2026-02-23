@@ -9,7 +9,7 @@
         <p>{{ section.settings.phone_number }}</p>
       {% endif %}
       {% unless section.settings.email == blank %}
-        <a id="email" href="mailto:{{ section.settings.email }}" class="underline">Email</a>
+        <a id="email" href="mailto:{{ section.settings.email }}" class="hoverGray">Email</a>
       {% endunless %}
     </div>
     <div id="trackOrderContainer" class="flex items-center justify-center">
@@ -19,13 +19,13 @@
       <h1 class="text-2xl uppercase text-center">Follow Us</h1>
       <div id="socialIcons" class="flex justify-center gap-4 !mt-2">
         {% unless settings.instagram == blank %}
-          <a href="{{ settings.instagram }}" target="_blank" rel="noopener" class="text-black">
+          <a href="{{ settings.instagram }}" target="_blank" rel="noopener" class="text-black hover:opacity-50 duration-300">
             <img src="{{ 'Instagram.png' | asset_url }}" alt="Instagram logo" height="50" width="50">
           </a>
         {% endunless %}
 
         {% unless settings.facebook == blank %}
-          <a href="{{ settings.facebook }}" target="_blank" rel="noopener" class="text-black">
+          <a href="{{ settings.facebook }}" target="_blank" rel="noopener" class="text-black hover:opacity-50 duration-300">
             <img src="{{ 'Facebook.png' | asset_url }}" alt="Facebook logo" height="50" width="50">
           </a>
         {% endunless %}

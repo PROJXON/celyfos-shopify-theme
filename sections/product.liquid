@@ -43,7 +43,7 @@
             {% endfor %}
           </select>
           <input type="text" name="quantity" min="1" value="1" class="min-w-0 grow shrink">
-          <input type="submit" value="Add to cart" class="roundBtn !font-bold flex-1">
+          <input type="submit" value="Add to cart" class="roundBtn !font-bold flex-1 cursor-pointer">
         </div>
         {{ form | payment_button }}
       {% endform %}
@@ -53,11 +53,12 @@
 
 {% stylesheet %}
 button.shopify-payment-button__button {
-  color: black !important;
-  font-weight: bold !important;
+  color: black;
+  font-weight: bold;
   background: var(--accent-color) !important;
-  box-shadow: 1.5px 1.5px 2px var(--text-color) !important;
-  border-radius: 999rem !important;
+  box-shadow: 1.5px 1.5px 2px var(--text-color);
+  border-radius: 999rem;
+  transition: opacity 0.3s;
 }
 {% endstylesheet %}
 

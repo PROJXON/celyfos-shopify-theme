@@ -1,9 +1,13 @@
 @import 'tailwindcss';
 
 .topHeader {
-  @apply text-3xl !my-3 font-bold;
+  @apply text-3xl !my-3 font-bold uppercase;
 }
 
 .roundBtn {
   @apply rounded-full p-3;
+}
+
+.hoverGray {
+  @apply underline hover:text-gray-500 duration-300;
 }

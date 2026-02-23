@@ -1,13 +1,13 @@
 <header class="py-2 font-bold relative">
   <nav class="flex flex-wrap static md:absolute gap-3 text-lg left-0 justify-between">
     {% for link in section.settings.sections.links %}
-      {{ link.title | link_to: link.url }}
+      {{ link.title | link_to: link.url, class: 'hoverGray' }}
     {% endfor %}
   </nav>
   
   <nav class="flex flex-wrap static md:absolute gap-3 text-lg right-0 justify-end">
-    <a href="{{ routes.search_url }}">Search</a>
-    <a href="{{ routes.cart_url }}">Cart</a>
+    <a href="{{ routes.search_url }}" class="hoverGray">Search</a>
+    <a href="{{ routes.cart_url }}" class="hoverGray">Cart</a>
   </nav>
 
   <a href="{{ routes.root_url }}" id="logo" class="block !m-auto w-fit">
