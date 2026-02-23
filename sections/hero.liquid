@@ -1,48 +1,28 @@
-<section class="h-[30vh] relative">
-  <img
-    src="{{ section.settings.image | image_url: width: 2000 }}"
-    class="absolute size-full object-cover opacity-50"
-  />
-  <div class="relative z-2 flex flex-col items-center justify-center h-full">
-    <h1>{{ section.settings.title }}</h1>
-    <p>{{ section.settings.text }}</p>
-    <a href="{{ section.settings.link }}">
-      {{ section.settings.button }}
-    </a>
-  </div>
-</section>
+{% comment %}
+  learn_shopify_api
+{% endcomment %}
+
+{% if page.metafields.custom.hero_image %}
+  <section class="h-[30vh] relative overflow-hidden">
+    <img
+      src="{{ page.metafields.custom.hero_image | image_url: width: 2000 }}"
+      class="absolute size-full object-cover object-center opacity-50"
+    />
+    <div class="relative z-2 flex flex-col items-center justify-center h-full">
+      <h1 class="topHeader">{{ page.metafields.custom.hero_title }}</h1>
+      <p>{{ page.metafields.custom.hero_text }}</p>
+      {% if page.metafields.custom.hero_button_text and page.metafields.custom.hero_button_link %}
+        <a href="{{ page.metafields.custom.hero_button_link }}" class="btn roundBtn" style="margin-top: 1rem;">
+          {{ page.metafields.custom.hero_button_text }}
+        </a>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
 
 {% schema %}
 {
   "name": "Hero",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Protective Elegance"
-    },
-    {
-      "type": "textarea",
-      "id": "text",
-      "label": "Hero Text"
-    },
-    {
-      "type": "text",
-      "id": "button",
-      "label": "Button Text"
-    },
-    {
-      "type": "url",
-      "id": "link",
-      "label": "Button URL"
-    }
-  ],
-  "presets": [{"name": "Hero"}]
+  "settings": []
 }
 {% endschema %}
