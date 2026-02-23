@@ -89,7 +89,7 @@ body {
   color: var(--color-foreground);
 }
 
-a.btn,
+.btn,
 button,
 input[type='submit'] {
   background: var(--accent-color);
@@ -97,7 +97,7 @@ input[type='submit'] {
   transition: opacity 0.3s;
 }
 
-a.btn:hover,
+.btn:hover,
 button:hover,
 input[type='submit']:hover {
   opacity: 0.5;

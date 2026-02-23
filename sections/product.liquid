@@ -29,27 +29,39 @@
     <div class="product-form">
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
-        <div id="cartAdder" class="flex !my-3 gap-3">
-          <select name="id" class="min-w-0 grow shrink">
+        <div id="cartAdder" class="flex !my-3 gap-3 items-center">
+          <select name="id" class="flex-1">
             {% for variant in product.variants %}
               <option
                 value="{{ variant.id }}"
                 {% if variant == current_variant %}
                   selected="selected"
                 {% endif %}
+                data-price="{{ variant.price | money_without_currency }}"
               >
                 {{ variant.title }} - {{ variant.price | money }}
               </option>
             {% endfor %}
           </select>
-          <input type="text" name="quantity" min="1" value="1" class="min-w-0 grow shrink">
-          <input type="submit" value="Add to cart" class="roundBtn !font-bold flex-1 cursor-pointer">
+          <div class="flex items-center rounded-2xl">
+            <div class="qtyBtn roundBtn btn w-12 h-12 flex items-center justify-center rounded-xl disabled:opacity-30 disabled:hover:bg-transparent transition-all duration-200 active:scale-90 cursor-pointer font-bold text-3xl" aria-label="Decrease quantity">
+              -
+            </div>
+            <span id="qty" class="w-14 text-center font-bold text-2xl text-slate-800 select-none">
+              1
+            </span>
+            <div class="qtyBtn roundBtn btn w-12 h-12 flex items-center justify-center rounded-xl disabled:opacity-30 disabled:hover:bg-transparent transition-all duration-200 active:scale-90 cursor-pointer font-bold text-3xl" aria-label="Increase quantity">+</div>
+          </div>
+          <span class="text-lg"><b>Price: </b><span id="price" class="inline-block w-30"></span></span>
         </div>
         {{ form | payment_button }}
       {% endform %}
     </div>
   </div>
 </div>
+<script>
+  const productData = {{ product | json }};
+</script>
 
 {% stylesheet %}
 button.shopify-payment-button__button {
@@ -67,6 +79,11 @@ const track = document.querySelector('#slidesTrack');
 const slides = document.querySelectorAll('#imageSlideshow .productSlide');
 const prevButton = document.querySelector('#prevBtn');
 const nextButton = document.querySelector('#nextBtn');
+const qtySpan = document.querySelector('#qty');
+const priceSpan = document.querySelector('#price');
+const variantSelect = document.querySelector('select[name="id"]');
+const decreaseQtyBtn = document.querySelectorAll('.qtyBtn')[0];
+const increaseQtyBtn = document.querySelectorAll('.qtyBtn')[1];
 
 let currentIndex = 0;
 
@@ -85,6 +102,40 @@ prevButton.addEventListener('click', () => {
 nextButton.addEventListener('click', () => {
   currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
   updateSlidePosition();
+});
+
+function updatePrice() {
+  const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
+  const variantPrice = parseFloat(selectedVariant.getAttribute('data-price'));
+  const quantity = parseInt(qtySpan.textContent, 10);
+  const totalPrice = (variantPrice * quantity).toFixed(2);
+  priceSpan.textContent = `${totalPrice}`;
+}
+
+decreaseQtyBtn.addEventListener('click', () => {
+  let quantity = parseInt(qtySpan.textContent, 10);
+  if (quantity > 1) {
+    qtySpan.textContent = quantity - 1;
+    updatePrice();
+  }
+});
+
+increaseQtyBtn.addEventListener('click', () => {
+  let quantity = parseInt(qtySpan.textContent, 10);
+  qtySpan.textContent = quantity + 1;
+  updatePrice();
+});
+
+variantSelect.addEventListener('change', updatePrice);
+
+document.addEventListener('DOMContentLoaded', () => {
+  Array.from(variantSelect.options).forEach(option => {
+    const variantId = option.value;
+    const variant = productData.variants.find(v => v.id == variantId);
+    if (variant) option.setAttribute('data-price', variant.price / 100);
+  });
+
+  updatePrice();
 });
 {% endjavascript %}
 
