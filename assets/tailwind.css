@@ -514,6 +514,7 @@
 }
 .topHeader {
   margin-block: calc(var(--spacing) * 3) !important;
+  text-align: center;
   font-size: var(--text-3xl);
   line-height: var(--tw-leading, var(--text-3xl--line-height));
   --tw-font-weight: var(--font-weight-bold);
