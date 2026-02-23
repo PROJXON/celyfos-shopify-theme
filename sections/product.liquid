@@ -10,7 +10,7 @@
     {% assign images = product.images %}
     <div id="slidesTrack" class="duration-300 ease-in-out w-full flex">
       {% for image in images %}
-        <div class="min-w-full flex items-center">
+        <div class="productSlide min-w-full flex items-center">
           {% render 'image', class: 'object-cover', image: image %}
         </div>
       {% endfor %}
@@ -64,7 +64,8 @@ button.shopify-payment-button__button {
 
 {% javascript %}
 const track = document.querySelector('#slidesTrack');
-const slides = document.querySelectorAll('#imageSlideshow .product-slide');
+const slides = document.querySelectorAll('#imageSlideshow .productSlide');
+console.log(slides)
 const prevButton = document.querySelector('#prevBtn');
 const nextButton = document.querySelector('#nextBtn');
 
