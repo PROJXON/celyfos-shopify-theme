@@ -5,32 +5,32 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
-<div id="productPage">
-  <div id="imageSlideshow">
+<div class="flex gap-4 flex-col lg:flex-row">
+  <div id="imageSlideshow" class="flex-1 relative overflow-hidden w-1/2 lg:w-full h-fit !mx-auto">
     {% assign images = product.images %}
-    <div id="slidesTrack">
+    <div id="slidesTrack" class="duration-300 ease-in-out w-full flex">
       {% for image in images %}
-        <div class="product-slide">
-          {% render 'image', class: 'product-image', image: image %}
+        <div class="min-w-full flex items-center">
+          {% render 'image', class: 'object-cover', image: image %}
         </div>
       {% endfor %}
     </div>
     {% if images.size > 1 %}
-      <button class="slideshow-button prev" aria-label="Previous slide">&lt;</button>
-      <button class="slideshow-button next" aria-label="Next slide">&gt;</button>
+      <button id="prevBtn" class="absolute top-1/2 -translate-y-1/2 !bg-black opacity-50 text-white p-2 cursor-pointer z-10 left-2" aria-label="Previous slide">&lt;</button>
+      <button id="nextBtn" class="absolute top-1/2 -translate-y-1/2 !bg-black opacity-50 text-white p-2 cursor-pointer z-10 right-2" aria-label="Next slide">&gt;</button>
     {% endif %}
   </div>
-  <div>
+  <div class="flex-1">
     <div id="productInfo">
-      <h2>{{ product.title }}</h2>
+      <h2 class="text-center topHeader">{{ product.title }}</h2>
       <p>{{ product.price | money }}</p>
       <p>{{ product.description }}</p>
     </div>
     <div class="product-form">
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
-        <div id="cartAdder">
-          <select name="id">
+        <div id="cartAdder" class="flex !my-3 gap-3">
+          <select name="id" class="min-w-0 grow shrink">
             {% for variant in product.variants %}
               <option
                 value="{{ variant.id }}"
@@ -42,8 +42,8 @@
               </option>
             {% endfor %}
           </select>
-          <input type="text" name="quantity" min="1" value="1">
-          <input type="submit" value="Add to cart" class="roundBtn">
+          <input type="text" name="quantity" min="1" value="1" class="min-w-0 grow shrink">
+          <input type="submit" value="Add to cart" class="roundBtn !font-bold flex-1 cursor-pointer">
         </div>
         {{ form | payment_button }}
       {% endform %}
@@ -52,96 +52,21 @@
 </div>
 
 {% stylesheet %}
-div#productPage {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-div#imageSlideshow {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: fit-content;
-}
-
-#slidesTrack, #cartAdder {
-  display: flex;
-}
-
-#slidesTrack {
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-}
-
-.product-slide {
-  min-width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.product-image {
-  object-fit: cover;
-}
-
-.slideshow-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.slideshow-button.prev {
-  left: 10px;
-}
-
-.slideshow-button.next {
-  right: 10px;
-}
-
-#cartAdder {
-  margin: 1rem 0;
-  gap: 1rem;
-}
-
-#cartAdder * {
-  flex: 1;
-}
-
 button.shopify-payment-button__button {
-  color: black !important;
-  font-weight: bold !important;
+  color: black;
+  font-weight: bold;
   background: var(--accent-color) !important;
-  box-shadow: 1.5px 1.5px 2px var(--text-color) !important;
-  border-radius: 999rem !important;
-}
-
-div#productInfo h2 {
-  text-align: center;
-}
-
-@media screen and (max-width: 1150px) {
-  div#productPage {
-    grid-template-columns: 1fr;
-  }
-
-  div#imageSlideshow {
-    width: 50%;
-    margin: auto;
-  }
+  box-shadow: 1.5px 1.5px 2px var(--text-color);
+  border-radius: 999rem;
+  transition: opacity 0.3s;
 }
 {% endstylesheet %}
 
 {% javascript %}
 const track = document.querySelector('#slidesTrack');
 const slides = document.querySelectorAll('#imageSlideshow .product-slide');
-const prevButton = document.querySelector('.slideshow-button.prev');
-const nextButton = document.querySelector('.slideshow-button.next');
+const prevButton = document.querySelector('#prevBtn');
+const nextButton = document.querySelector('#nextBtn');
 
 let currentIndex = 0;
 

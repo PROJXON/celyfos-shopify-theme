@@ -94,11 +94,13 @@ button,
 input[type='submit'] {
   background: var(--accent-color);
   box-shadow: 1.5px 1.5px 2px var(--text-color);
+  transition: opacity 0.3s;
 }
 
-.roundBtn {
-  padding: 0.7rem;
-  border-radius: 999rem;
+a.btn:hover,
+button:hover,
+input[type='submit']:hover {
+  opacity: 0.5;
 }
 
 main#mainArea {

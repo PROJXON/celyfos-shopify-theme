@@ -1,71 +1,19 @@
-<header id="celyfosHeader">
-  <nav id="sectionsMenu">
+<header class="py-2 font-bold relative">
+  <nav class="flex flex-wrap static md:absolute gap-3 text-lg left-0 justify-between">
     {% for link in section.settings.sections.links %}
-      {{ link.title | link_to: link.url }}
+      {{ link.title | link_to: link.url, class: 'hoverGray' }}
     {% endfor %}
   </nav>
   
-  <nav id="topMenu">
-    <a href="{{ routes.search_url }}">Search</a>
-    <a href="{{ routes.cart_url }}">Cart</a>
+  <nav class="flex flex-wrap static md:absolute gap-3 text-lg right-0 justify-end">
+    <a href="{{ routes.search_url }}" class="hoverGray">Search</a>
+    <a href="{{ routes.cart_url }}" class="hoverGray">Cart</a>
   </nav>
 
-  <a href="{{ routes.root_url }}" id="logo">
-    <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150">
+  <a href="{{ routes.root_url }}" id="logo" class="block !m-auto w-fit">
+    <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150" class="m-auto">
   </a>
 </header>
-
-{% stylesheet %}
-header {
-  padding-block: 1rem;
-  font-weight: bold;
-  position: relative;
-}
-
-img {
-  margin: auto;
-}
-
-nav {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#logo {
-  display: block;
-  margin: auto;
-  width: fit-content;
-}
-
-header nav {
-  position: absolute;
-  gap: 1rem;
-  font-size: 1.1rem;
-}
-
-nav#sectionsMenu {
-  left: 0;
-}
-
-nav#topMenu {
-  right: 0;
-}
-
-@media screen and (max-width: 749px) {
-  header nav {
-    position: initial;
-    margin-bottom: 0.5rem;
-  }
-
-  nav#sectionsMenu {
-    justify-content: space-between;
-  }
-
-  nav#topMenu {
-    justify-content: flex-end;
-  }
-}
-{% endstylesheet %}
 
 {% schema %}
 {
