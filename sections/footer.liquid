@@ -1,6 +1,6 @@
 <footer class="bg-[#E7DDD8] pt-8 px-8 pb-4 !mt-4">
-  <div class="font-bold grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]">
-    <div>
+  <div class="font-bold flex flex-wrap justify-between gap-1">
+    <div class="grow-0 shrink-1 basis-auto">
       <h2 class="text-xl uppercase">Customer Service</h2>
       {% if section.settings.hours %}
         <p>{{ section.settings.hours }}</p>
@@ -12,10 +12,10 @@
         <a id="email" href="mailto:{{ section.settings.email }}" class="hoverGray">Email</a>
       {% endunless %}
     </div>
-    <div id="trackOrderContainer" class="flex items-center justify-center">
+    <div id="trackOrderContainer" class="flex items-center justify-center grow-0 shrink-1 basis-auto">
       <a href="#" class="btn roundBtn text-black w-fit h-fit text-lg no-underline">Track Order</a>
     </div>
-    <div>
+    <div class="grow-0 shrink-1 basis-auto">
       <h1 class="text-2xl uppercase text-center">Follow Us</h1>
       <div id="socialIcons" class="flex justify-center gap-4 !mt-2">
         {% unless settings.instagram == blank %}

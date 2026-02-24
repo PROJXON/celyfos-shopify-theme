@@ -209,6 +209,9 @@
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
+  .top-1 {
+    top: calc(var(--spacing) * 1);
+  }
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
@@ -272,6 +275,9 @@
   .inline-block {
     display: inline-block;
   }
+  .table {
+    display: table;
+  }
   .size-full {
     width: 100%;
     height: 100%;
@@ -290,6 +296,9 @@
   }
   .h-full {
     height: 100%;
+  }
+  .w-1 {
+    width: calc(var(--spacing) * 1);
   }
   .w-1\/2 {
     width: calc(1 / 2 * 100%);
@@ -312,8 +321,27 @@
   .flex-1 {
     flex: 1;
   }
-  .flex-3 {
-    flex: 3;
+  .flex-shrink {
+    flex-shrink: 1;
+  }
+  .shrink-1 {
+    flex-shrink: 1;
+  }
+  .flex-grow {
+    flex-grow: 1;
+  }
+  .grow-0 {
+    flex-grow: 0;
+  }
+  .basis-auto {
+    flex-basis: auto;
+  }
+  .border-collapse {
+    border-collapse: collapse;
+  }
+  .-translate-y-1 {
+    --tw-translate-y: calc(var(--spacing) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .-translate-y-1\/2 {
     --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
@@ -330,6 +358,9 @@
   }
   .grid-cols-\[repeat\(auto-fill\,_minmax\(300px\,_1fr\)\)\] {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .grid-cols-\[repeat\(auto-fit\,_max-content\)\] {
+    grid-template-columns: repeat(auto-fit, max-content);
   }
   .grid-cols-\[repeat\(auto-fit\,_minmax\(200px\,_1fr\)\)\] {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -474,6 +505,9 @@
   .no-underline {
     text-decoration-line: none;
   }
+  .underline {
+    text-decoration-line: underline;
+  }
   .opacity-0 {
     opacity: 0%;
   }
@@ -482,6 +516,10 @@
   }
   .opacity-100 {
     opacity: 100%;
+  }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
   }
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
@@ -642,6 +680,11 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
 @property --tw-blur {
   syntax: "*";
   inherits: false;
@@ -732,6 +775,7 @@
       --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-tracking: initial;
+      --tw-outline-style: solid;
       --tw-blur: initial;
       --tw-brightness: initial;
       --tw-contrast: initial;
