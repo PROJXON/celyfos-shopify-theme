@@ -9,9 +9,9 @@
  */
 {
   "sections": {
-    "all-products": {
-      "type": "all-products"
+    "collections": {
+      "type": "collections"
     }
   },
-  "order": ["all-products"]
+  "order": ["collections"]
 }
