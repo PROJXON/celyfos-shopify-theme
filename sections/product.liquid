@@ -118,12 +118,10 @@ function formatMoney(cents, format) {
   format = format || '{{ amount }}';
 
   function formatWithDelimiters(number, precision, thousands, decimal) {
+    if (isNaN(number) || number == null) return 0;
     precision = precision || 2;
     thousands = thousands || ',';
     decimal = decimal || '.';
-
-    if (isNaN(number) || number == null) return 0;
-
     number = (number / 1).toFixed(precision);
 
     const parts = number.split('.');
@@ -163,7 +161,6 @@ function updatePrice() {
     const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
     currPrice = parseInt(selectedVariant.getAttribute('data-price'), 10);
   } else currPrice = productData.price;
-  console.log("currPrice", currPrice)
 
   const quantity = parseInt(qtySpan.textContent, 10);
   const totalPrice = currPrice * quantity;
