@@ -30,19 +30,21 @@
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
         <div id="cartAdder" class="flex !my-3 gap-3 items-center flex-wrap">
-          <select name="id" class="flex-1">
-            {% for variant in product.variants %}
-              <option
-                value="{{ variant.id }}"
-                {% if variant == current_variant %}
-                  selected="selected"
-                {% endif %}
-                data-price="{{ variant.price | money_without_currency }}"
-              >
-                {{ variant.title }} - {{ variant.price | money }}
-              </option>
-            {% endfor %}
-          </select>
+          {% if product.variants.size > 1 %}
+            <select name="id" class="flex-1">
+              {% for variant in product.variants %}
+                <option
+                  value="{{ variant.id }}"
+                  {% if variant == current_variant %}
+                    selected="selected"
+                  {% endif %}
+                  data-price="{{ variant.price | money_without_currency }}"
+                >
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+          {% endif %}
           <div class="flex items-center rounded-2xl">
             <a class="qtyBtn roundBtn btn w-12 h-12 flex items-center justify-center rounded-xl disabled:opacity-30 disabled:hover:bg-transparent transition-all duration-200 active:scale-90 text-3xl" aria-label="Decrease quantity">
               -
@@ -96,22 +98,76 @@ function updateSlidePosition() {
 
 window.addEventListener('resize', updateSlidePosition);
 
-prevButton.addEventListener('click', () => {
-  currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-  updateSlidePosition();
-});
+if (prevButton) {
+  prevButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+    updateSlidePosition();
+  });
+}
 
-nextButton.addEventListener('click', () => {
-  currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-  updateSlidePosition();
-});
+if (nextButton) {
+  nextButton.addEventListener('click', () => {
+    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+    updateSlidePosition();
+  });
+}
+
+function formatMoney(cents, format) {
+  if (typeof cents === 'string') cents = cents.replace('.', '');
+  const value = parseFloat(cents) / 100;
+  format = format || '{{ amount }}';
+
+  function formatWithDelimiters(number, precision, thousands, decimal) {
+    precision = precision || 2;
+    thousands = thousands || ',';
+    decimal = decimal || '.';
+
+    if (isNaN(number) || number == null) return 0;
+
+    number = (number / 1).toFixed(precision);
+
+    const parts = number.split('.');
+    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+    const decimalPart = parts[1] ? decimal + parts[1] : '';
+
+    return integerPart + decimalPart;
+  }
+
+  let formattedValue = '';
+
+  switch (format) {
+    case '{{ amount }}':
+      formattedValue = formatWithDelimiters(value, 2);
+      break;
+    case '{{ amount_no_decimals }}':
+      formattedValue = formatWithDelimiters(value, 0);
+      break;
+    case '{{ amount_with_comma_separator }}':
+      formattedValue = formatWithDelimiters(value, 2, '.', ',');
+      break;
+    case '{{ amount_no_decimals_with_comma_separator }}':
+      formattedValue = formatWithDelimiters(value, 0, '.', ',');
+      break;
+    default:
+      formattedValue = formatWithDelimiters(value, 2);
+      break;
+  }
+
+  return formattedValue;
+}
 
 function updatePrice() {
-  const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
-  const variantPrice = parseFloat(selectedVariant.getAttribute('data-price'));
+  let currPrice;
+
+  if (variantSelect && variantSelect.options.length > 1) {
+    const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
+    currPrice = parseInt(selectedVariant.getAttribute('data-price'), 10);
+  } else currPrice = productData.price;
+  console.log("currPrice", currPrice)
+
   const quantity = parseInt(qtySpan.textContent, 10);
-  const totalPrice = (variantPrice * quantity).toFixed(2);
-  priceSpan.textContent = `${totalPrice}`;
+  const totalPrice = currPrice * quantity;
+  priceSpan.textContent = formatMoney(totalPrice, "{{ shop.money_format }}");
 }
 
 decreaseQtyBtn.addEventListener('click', () => {
@@ -128,14 +184,16 @@ increaseQtyBtn.addEventListener('click', () => {
   updatePrice();
 });
 
-variantSelect.addEventListener('change', updatePrice);
+if (variantSelect) variantSelect.addEventListener('change', updatePrice);
 
 document.addEventListener('DOMContentLoaded', () => {
-  Array.from(variantSelect.options).forEach(option => {
-    const variantId = option.value;
-    const variant = productData.variants.find(v => v.id == variantId);
-    if (variant) option.setAttribute('data-price', variant.price / 100);
-  });
+  if (variantSelect) {
+    Array.from(variantSelect.options).forEach(option => {
+      const variantId = option.value;
+      const variant = productData.variants.find(v => v.id == variantId);
+      if (variant) option.setAttribute('data-price', variant.price);
+    });
+  }
 
   updatePrice();
 });
