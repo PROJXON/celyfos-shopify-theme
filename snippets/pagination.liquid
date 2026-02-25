@@ -1,0 +1,19 @@
+{% if paginate.pages > 1 %}
+  <div class="!mt-3 text-center">
+    {% if paginate.previous %}
+      <a href="{{ paginate.previous.url }}" class="hoverGray font-bold">Previous</a>
+    {% endif %}
+
+    {% for part in paginate.parts %}
+      {% if part.is_link %}
+        <a href="{{ part.url }}" class="hoverGray font-bold">{{ part.title }}</a>
+      {% else %}
+        <span>{{ part.title }}</span>
+      {% endif %}
+    {% endfor %}
+
+    {% if paginate.next %}
+      <a href="{{ paginate.next.url }}" class="hoverGray font-bold">Next</a>
+    {% endif %}
+  </div>
+{% endif %}

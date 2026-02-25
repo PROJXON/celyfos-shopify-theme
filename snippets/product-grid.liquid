@@ -1,0 +1,46 @@
+{% doc %}
+  Renders a grid of products or search results.
+
+  @param {array} items - The paginated array of products or search results.
+
+  @example
+  {% render 'product-grid', items: collection.products %}
+{% enddoc %}
+
+<div class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
+  {% for product in items %}
+    <a href="{{ product.url }}">
+      <div class="product-card flex flex-col border border-[#ddd] p-4 rounded-lg text-center overflow-hidden h-full">
+      {% if product.featured_image %}
+        {% assign alternate_images = product.media | where: "media_type", "image" %}
+        {% assign alternate_image = alternate_images[1] %}
+
+        <div class="relative h-full h-auto group">
+          {% assign image_classes_base = "absolute top-0 left-0 w-full h-auto object-cover duration-300 ease-in-out" %}
+          {% assign image_classes_default = image_classes_base | append: " opacity-100 group-hover:opacity-0" %}
+          {% render 'image',
+            class: alternate_image ? image_classes_default : image_classes_base,
+            image: product.featured_image,
+            width: 400,
+            height: 400,
+            crop: 'center'
+          %}
+
+          {% if alternate_image %}
+            {% assign image_classes_hover = image_classes_base | append: " opacity-0 group-hover:opacity-100 !absolute" %}
+            {% render 'image',
+              class: image_classes_hover,
+              image: alternate_image.image,
+              width: 400,
+              height: 400,
+              crop: 'center'
+            %}
+          {% endif %}
+        </div>
+      {% endif %}
+      <p class="!my-4 flex-1">{{ product.title | escape }}</p>
+      <p>{{ product.price | money }}</p>
+    </div>
+    </a>
+  {% endfor %}
+</div>
