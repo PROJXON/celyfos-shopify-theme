@@ -5,7 +5,7 @@
 }
 
 .roundBtn {
-  @apply rounded-full p-3;
+  @apply rounded-full p-3 font-bold cursor-pointer;
 }
 
 .hoverGray {
