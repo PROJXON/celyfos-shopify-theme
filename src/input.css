@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .topHeader {
-  @apply text-3xl !my-3 font-bold uppercase text-center;
+  @apply text-2xl md:text-3xl !my-3 font-bold uppercase text-center;
 }
 
 .roundBtn {

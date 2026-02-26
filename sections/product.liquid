@@ -5,8 +5,10 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
+<h2 class="text-center topHeader">{{ product.title }}</h2>
+
 <div class="flex gap-4 flex-col lg:flex-row">
-  <div id="imageSlideshow" class="flex-1 relative overflow-hidden w-1/2 lg:w-full h-fit !mx-auto">
+  <div id="imageSlideshow" class="flex-1 relative overflow-hidden max-w-125 lg:max-w-1/2 w-full h-fit !mx-auto">
     {% assign images = product.images %}
     <div id="slidesTrack" class="duration-300 ease-in-out w-full flex">
       {% for image in images %}
@@ -21,11 +23,7 @@
     {% endif %}
   </div>
   <div class="flex-1">
-    <div id="productInfo">
-      <h2 class="text-center topHeader">{{ product.title }}</h2>
-      <p>{{ product.price | money }}</p>
-      <p>{{ product.description }}</p>
-    </div>
+    <p>{{ product.description }}</p>
     <div class="product-form">
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
