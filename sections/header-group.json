@@ -18,11 +18,7 @@
     "announcement": {
       "type": "announcement",
       "settings": {}
-    },
-    "hero": {
-      "type": "hero",
-      "settings": {}
     }
   },
-  "order": ["announcement", "header", "hero"]
+  "order": ["announcement", "header"]
 }
