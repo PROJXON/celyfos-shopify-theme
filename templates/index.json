@@ -10,8 +10,11 @@
 {
   "sections": {
     "collections": {
-      "type": "collections"
+      "type": "collections",
+      "settings": {}
     }
   },
-  "order": ["collections"]
+  "order": [
+    "collections"
+  ]
 }

@@ -509,6 +509,9 @@
     --tw-tracking: var(--tracking-widest);
     letter-spacing: var(--tracking-widest);
   }
+  .text-wrap {
+    text-wrap: wrap;
+  }
   .text-\[var\(--accent-color\)\] {
     color: var(--accent-color);
   }
