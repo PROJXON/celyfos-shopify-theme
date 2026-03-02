@@ -22,8 +22,30 @@
       <button id="nextBtn" class="absolute top-1/2 -translate-y-1/2 !bg-black opacity-50 text-white p-2 cursor-pointer z-10 right-2" aria-label="Next slide">&gt;</button>
     {% endif %}
   </div>
+  
   <div class="flex-1">
     <p>{{ product.description }}</p>
+    {% if product.metafields.custom.feature_bullets.value != blank %}
+      <div id="featureBullets" class="!my-1 flex flex-col gap-1">
+        {% for bullet in product.metafields.custom.feature_bullets.value %}
+          <div class="flex gap-3 items-center mb-6">
+            {% if bullet.svg_icon != blank %}
+              <div class="p-1 bg-blue-300 rounded-full">{{ bullet.svg_icon | raw }}</div>
+            {% endif %}
+
+            <div>
+              {% if bullet.heading != blank %}
+                <h3 class="font-bold uppercase tracking-wide">{{ bullet.heading }}</h3>
+              {% endif %}
+
+              {% if bullet.description != blank %}
+                <p class="text-gray-600">{{ bullet.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
     <div class="product-form">
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
@@ -61,11 +83,18 @@
     </div>
   </div>
 </div>
+
 <script>
   const productData = {{ product | json }};
 </script>
 
 {% stylesheet %}
+div#featureBullets svg {
+  max-width: fit-content;
+  width: 2rem;
+  fill: var(--accent-color);
+}
+
 button.shopify-payment-button__button {
   color: black;
   font-weight: bold;
