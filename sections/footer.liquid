@@ -8,9 +8,15 @@
       {% if section.settings.phone_number %}
         <p>{{ section.settings.phone_number }}</p>
       {% endif %}
-      {% unless section.settings.email == blank %}
-        <a id="email" href="mailto:{{ section.settings.email }}" class="hoverGray">Email</a>
-      {% endunless %}
+      <div class="flex justify-between">
+        {% unless section.settings.email == blank %}
+          <a id="email" href="mailto:{{ section.settings.email }}" class="hoverGray">Email</a>
+        {% endunless %}
+        {% for link in section.settings.footer_menu.links %}
+          {{ link.title | link_to: link.url, class: 'hoverGray' }}
+        {% endfor %}
+      </div>
+
     </div>
     <div id="trackOrderContainer" class="flex items-center justify-center">
       <a href="#" class="btn roundBtn text-black w-fit h-fit text-lg no-underline">Track Order</a>
@@ -71,6 +77,12 @@
       "type": "text",
       "id": "email",
       "label": "t:labels.email"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "t:labels.footer_menu",
+      "default": "footer"
     }
   ]
 }
