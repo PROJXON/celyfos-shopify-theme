@@ -8,6 +8,7 @@
   @apply rounded-full p-3 font-bold cursor-pointer;
 }
 
-.hoverGray {
+.hoverGray,
+.shopify-payment-button__more-options {
   @apply underline hover:text-gray-500 duration-300;
 }

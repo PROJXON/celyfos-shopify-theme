@@ -352,9 +352,6 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
-  .content-between {
-    align-content: space-between;
-  }
   .items-center {
     align-items: center;
   }
@@ -625,7 +622,7 @@
   --tw-font-weight: var(--font-weight-bold);
   font-weight: var(--font-weight-bold);
 }
-.hoverGray {
+.hoverGray, .shopify-payment-button__more-options {
   text-decoration-line: underline;
   --tw-duration: 300ms;
   transition-duration: 300ms;

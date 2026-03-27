@@ -61,7 +61,7 @@
                   {% if variant == current_variant %}
                     selected="selected"
                   {% endif %}
-                  data-price="{{ variant.price | money_without_currency }}"
+                  data-price="{{ variant.price }}"
                 >
                   {{ variant.title }} - {{ variant.price | money }}
                 </option>
@@ -89,6 +89,7 @@
 
 <script>
   const productData = {{ product | json }};
+  const moneyFormat = {{ shop.money_format | json }};
 </script>
 
 {% stylesheet %}
@@ -161,40 +162,36 @@ function formatMoney(cents, format) {
     return integerPart + decimalPart;
   }
 
-  let formattedValue = '';
+  let formattedValue;
 
-  switch (format) {
-    case '{{ amount }}':
-      formattedValue = formatWithDelimiters(value, 2);
-      break;
-    case '{{ amount_no_decimals }}':
-      formattedValue = formatWithDelimiters(value, 0);
-      break;
-    case '{{ amount_with_comma_separator }}':
-      formattedValue = formatWithDelimiters(value, 2, '.', ',');
-      break;
-    case '{{ amount_no_decimals_with_comma_separator }}':
-      formattedValue = formatWithDelimiters(value, 0, '.', ',');
-      break;
-    default:
-      formattedValue = formatWithDelimiters(value, 2);
-      break;
+  console.log(format);
+
+  if (format.includes('{{amount_no_decimals}}')) {
+    formattedValue = formatWithDelimiters(value, 0);
+  } else if (format.includes('{{amount_with_comma_separator}}')) {
+    console.log("Here 1");
+    formattedValue = formatWithDelimiters(value, 2, '.', ',');
+  } else if (format.includes('{{amount_no_decimals_with_comma_separator}}')) {
+    formattedValue = formatWithDelimiters(value, 0, '.', ',');
+  } else {
+    console.log("Here 2");
+    formattedValue = formatWithDelimiters(value, 2);
   }
 
-  return formattedValue;
-}
+  return format.replace(/{{.*}}/, formattedValue);
+};
 
 function updatePrice() {
   let currPrice;
 
   if (variantSelect && variantSelect.options.length > 1) {
     const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
-    currPrice = parseInt(selectedVariant.getAttribute('data-price'), 10);
+    currPrice = Number(selectedVariant.getAttribute('data-price'));
   } else currPrice = productData.price;
 
   const quantity = parseInt(qtySpan.textContent, 10);
   const totalPrice = currPrice * quantity;
-  priceSpan.textContent = formatMoney(totalPrice, "{{ shop.money_format }}");
+  priceSpan.textContent = formatMoney(totalPrice, moneyFormat);
 }
 
 decreaseQtyBtn.addEventListener('click', () => {
