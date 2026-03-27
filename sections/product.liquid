@@ -164,17 +164,13 @@ function formatMoney(cents, format) {
 
   let formattedValue;
 
-  console.log(format);
-
   if (format.includes('{{amount_no_decimals}}')) {
     formattedValue = formatWithDelimiters(value, 0);
   } else if (format.includes('{{amount_with_comma_separator}}')) {
-    console.log("Here 1");
     formattedValue = formatWithDelimiters(value, 2, '.', ',');
   } else if (format.includes('{{amount_no_decimals_with_comma_separator}}')) {
     formattedValue = formatWithDelimiters(value, 0, '.', ',');
   } else {
-    console.log("Here 2");
     formattedValue = formatWithDelimiters(value, 2);
   }
 
