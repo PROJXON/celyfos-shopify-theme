@@ -54,7 +54,9 @@
     {% assign limit = shop.metafields.custom.monthly_limit %}
 
     {% if queue > limit %}
-      <div class="text-white bg-black text-center !my-2 p-1">Note: Celyfos has currently exceeded its monthly order limit. You can place your order now, but you will be put onto a waitlist.</div>
+      <div class="text-white bg-black text-center !my-2 p-1">
+        {{ shop.metafields.custom.waitlist_message }}
+      </div>
     {% endif %}
     
     <div class="product-form">
