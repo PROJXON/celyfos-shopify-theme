@@ -1,9 +1,69 @@
+{% liquid
+  assign available_options = collection.metafields.custom.available_options.value
+  assign selected_option = ''
+
+  for filter in collection.filters
+    if filter.param_name == 'filter.p.m.custom.option'
+      for value in filter.values
+        if value.active
+          assign selected_option = value.label
+        endif
+      endfor
+    endif
+  endfor
+%}
+
 <section>
-  <h1 class="topHeader">{{ collection.title }}</h1>
-  {% paginate collection.products by 20 %}
-    {% render 'product-grid', items: collection.products %}
-    {% render 'pagination', paginate: paginate %}
-  {% endpaginate %}
+  {% if selected_option != blank %}
+    <h1 class="topHeader">{{ collection.title }}</h1>
+  {% else %}
+    <h1 class="topHeader">{{ collection.title }} - {{ selected_option }}</h1>
+  {% endif %}
+
+  {% if available_options != blank %}
+    {% if selected_option == blank %}
+      <div
+        class="collections collections--full"
+        style="--grid-gap: 10px"
+      >
+        {% for option in available_options %}
+          {% for filter in collection.filters %}
+            {% if filter.param_name == 'filter.p.m.custom.option' %}
+              {% for value in filter.values %}
+                {% if value.label == option.name %}
+                  <a href="{{ value.url_to_add }}" class="option-card">
+                    <div class="collection-card__content">
+                      <h2 class="text-center text-2xl uppercase font-bold">
+                        {{ option.name }}
+                      </h2>
+                    </div>
+                  </a>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    
+    {% else %}
+      {%- comment -%} An option is selected — show filtered products + back link {%- endcomment -%}
+      <div class="hoverGray !mb-4 font-bold">
+        <a href="{{ collection.url }}">&larr; All {{ collection.title }}</a>
+      </div>
+
+      {% paginate collection.products by 20 %}
+        {% render 'product-grid', items: collection.products %}
+        {% render 'pagination', paginate: paginate %}
+      {% endpaginate %}
+
+    {% endif %}
+
+  {% else %}
+    {% paginate collection.products by 20 %}
+      {% render 'product-grid', items: collection.products %}
+      {% render 'pagination', paginate: paginate %}
+    {% endpaginate %}
+  {% endif %}
 </section>
 
 {% schema %}
