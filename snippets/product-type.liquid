@@ -1,7 +1,7 @@
-<a class="collection-card" href="{{ url }}">
-  <h2 class="text-center text-2xl uppercase font-bold">{{ title }}</h2>
+<a class="collectionCard block border border-[#E0D6CA] no-underline hover:border-[#4A2E12] after:content-['→'] after:block after:text-right after:text-[12px] after:text-[#9A7235] after:px-[16px] after:pb-[14px] after:opacity-0 after:transition-opacity after:duration-[0.18s] hover:after:opacity-100" href="{{ url }}">
+  <h2 class="text-center text-[22px] uppercase font-semibold text-[#4A2E12] pt-[18px] px-[20px] pb-[6px] tracking-[0.02em]">{{ title }}</h2>
   
-  <div>
+  <div class="bg-[#F7F0E8] overflow-hidden aspect-[1]">
     {% if image != blank %}
       {% render 'image',
         image: image,
@@ -9,10 +9,26 @@
         height: 600,
         crop: 'center'
       %}
+      {% else %}
+        <div class="w-full aspect-[1] bg-[#F7F0E8]"></div>
     {% endif %}
   </div>
 
   {% if description != blank %}
-    <p>{{ description | strip_html | truncatewords: 15 }}</p>
+    <p class="text-[12px] text-[#555555] font-light leading-[1.65] px-[20px] pb-[18px]">{{ description | strip_html | truncatewords: 15 }}</p>
   {% endif %}
 </a>
+
+{% stylesheet %}
+.collectionCard > div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.18s;
+}
+
+.collectionCard:hover > div img {
+  opacity: 0.9;
+}
+{% endstylesheet %}

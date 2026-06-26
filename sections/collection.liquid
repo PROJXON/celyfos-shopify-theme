@@ -56,8 +56,8 @@
     
     {% else %}
       {%- comment -%} An option is selected — show filtered products + back link {%- endcomment -%}
-      <div class="hoverGray !mb-4 font-bold">
-        <a href="{{ collection.url }}">&larr; All {{ collection.title }}</a>
+      <div class="!mb-4 font-bold">
+        <a class="font-['Lato',_system-ui,_sans-serif] text-[12px] text-[#555555] tracking-[0.04em]" href="{{ collection.url }}">&larr; All {{ collection.title }}</a>
       </div>
 
       {% paginate collection.products by 20 %}
