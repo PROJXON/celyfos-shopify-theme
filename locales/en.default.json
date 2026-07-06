@@ -57,5 +57,54 @@
     "submit": "Search",
     "no_results_html": "No results found for \"{{ terms }}\"",
     "results_for_html": "{{ count }} results found for \"{{ terms }}\""
+  },
+  "product": {
+    "breadcrumb_home": "Celyfos",
+    "breadcrumb_shop": "Shop",
+    "shipping_note": "Shipping to United States: Free $0.00",
+    "view_image": "View image {{ index }}",
+    "variant": "Color",
+    "quantity": "Quantity",
+    "decrease_quantity": "Decrease quantity",
+    "increase_quantity": "Increase quantity",
+    "add_to_cart": "Add to cart",
+    "reviews_link": "({{ count }} reviews)",
+    "ask_a_question": "Ask a question",
+    "tabs": {
+      "details": "Details",
+      "shipping": "Shipping & Policies"
+    },
+    "at_a_glance": "At a Glance",
+    "top_highlights": "Top Highlights",
+    "highlights": {
+      "crafted": "Handmade in Athens, Greece and built one at a time at the maker's bench.",
+      "materials": "Crafted in full-grain Greek vachetta leather that develops a rich patina over time.",
+      "fit": "Designed for larger frames and a comfortable, secure fit for everyday carry.",
+      "personalized": "Personalized to order with a choice of leather colour and hardware finish.",
+      "guarantee": "Backed by a lifetime guarantee for repairs and long-term care.",
+      "pouch": "Ships with a hand-stamped white linen pouch for safe storage."
+    },
+    "story_label": "The Story",
+    "story_title": "About this piece",
+    "story_body": "A refined hard-shell sunglasses case made for daily use and long-lasting character.",
+    "story_support": "The Atlas pairs timeless craftsmanship with practical protection for your favourite frames.",
+    "materials_label": "What it is made of",
+    "materials_title": "Materials & Construction",
+    "materials_body": "The exterior is shaped from vegetable-tanned leather and reinforced for structure and durability.",
+    "materials_note": "All finishes are chosen for a clean, understated look that will age gracefully.",
+    "shipping": {
+      "heading": "Shipping from Greece",
+      "processing": "Processing time",
+      "processing_time": "1–5 business days",
+      "delivery": "Estimated delivery",
+      "delivery_time": "5–9 business days for Europe and 7–20 business days for North America."
+    },
+    "policy": {
+      "heading": "Returns & Exchanges",
+      "returns": "Returns accepted within 21 days",
+      "returns_body": "Buyers are responsible for return shipping costs. Personalized items are non-returnable unless faulty.",
+      "cancellations": "Cancellations",
+      "cancellations_body": "Request a cancellation within 3 hours of purchase."
+    }
   }
 }
