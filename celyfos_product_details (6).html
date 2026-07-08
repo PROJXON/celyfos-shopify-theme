@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+<title>Leather sunglasses Case Personalized glasses Case Custom hard sunglass Case for Wayfarer, Persol</title>
+<meta name="description" content="The Atlas by Celyfos® — handmade leather hard case for sunglasses. Greek Vachetta leather, Athens-made, personalised to order. Fits Ray-Ban Wayfarer, Persol 649, Maui Jim & more. Lifetime guarantee.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── Site tokens — matched to celyfos.com ──────────────────────── */
+:root {
+  --site-bg:      #FFFFFF;
+  --site-tan:     #F7F0E8;
+  --site-border:  #E0D6CA;
+  --site-brown:   #4A2E12;
+  --site-gold:    #9A7235;
+  --site-ink:     #222222;
+  --site-mid:     #555555;
+  --site-light:   #888888;
+  --site-red:     #C0392B;
+  --ff-head:      'Playfair Display', Georgia, serif;
+  --ff-body:      'Lato', system-ui, sans-serif;
+}
+
+body {
+  background: var(--site-bg);
+  color: var(--site-ink);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { display: block; max-width: 100%; }
+
+/* ══════════════════════════════════════════════════════════════════
+   SITE NAV  (matches celyfos.com header)
+══════════════════════════════════════════════════════════════════ */
+.site-nav {
+  border-bottom: 1px solid var(--site-border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-family: var(--ff-head);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--site-brown);
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--site-mid);
+}
+
+.nav-links a:hover { color: var(--site-brown); }
+
+/* ══════════════════════════════════════════════════════════════════
+   BREADCRUMB
+══════════════════════════════════════════════════════════════════ */
+.breadcrumb {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 32px;
+  font-size: 12px;
+  color: var(--site-light);
+  letter-spacing: 0.04em;
+}
+.breadcrumb a { color: var(--site-light); }
+.breadcrumb a:hover { color: var(--site-brown); text-decoration: underline; }
+.breadcrumb span { margin: 0 6px; }
+
+/* ══════════════════════════════════════════════════════════════════
+   LISTING LAYOUT  (left: gallery · right: purchase panel)
+══════════════════════════════════════════════════════════════════ */
+.listing-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 60px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ── Left: image gallery ───────────────────────────────────────── */
+.gallery { position: sticky; top: 80px; }
+
+.gallery-main {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--site-border);
+  margin-bottom: 10px;
+}
+
+.gallery-thumbs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gallery-thumbs img {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border: 1px solid var(--site-border);
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+
+.gallery-thumbs img.active,
+.gallery-thumbs img:hover {
+  opacity: 1;
+  border-color: var(--site-brown);
+}
+
+/* ── Right: purchase panel ──────────────────────────────────────── */
+.purchase-panel {}
+
+.listing-title {
+  font-family: var(--ff-head);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--site-ink);
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+
+.listing-price {
+  margin-bottom: 6px;
+}
+
+.price-sale {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--site-red);
+  margin-right: 10px;
+}
+
+.price-original {
+  font-size: 15px;
+  color: var(--site-light);
+  text-decoration: line-through;
+}
+
+.shipping-note {
+  font-size: 12px;
+  color: var(--site-light);
+  margin-bottom: 20px;
+}
+
+/* Variant selects */
+.variant-group { margin-bottom: 16px; }
+
+.variant-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--site-mid);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.variant-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--site-border);
+  background: var(--site-bg);
+  font-family: var(--ff-body);
+  font-size: 13px;
+  color: var(--site-ink);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.qty-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--site-mid);
+}
+
+.qty-select {
+  padding: 8px 10px;
+  border: 1px solid var(--site-border);
+  font-family: var(--ff-body);
+  font-size: 13px;
+  width: 70px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.btn-cart {
+  width: 100%;
+  padding: 14px;
+  background: var(--site-brown);
+  color: #fff;
+  font-family: var(--ff-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.18s;
+}
+.btn-cart:hover { background: #3a2210; }
+
+.reviews-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--site-mid);
+  margin-bottom: 18px;
+}
+
+.stars { color: var(--site-gold); font-size: 13px; letter-spacing: 1px; }
+
+.action-links {
+  display: flex;
+  gap: 18px;
+  font-size: 12px;
+  color: var(--site-mid);
+  border-top: 1px solid var(--site-border);
+  padding-top: 14px;
+  margin-bottom: 20px;
+}
+.action-links a:hover { color: var(--site-brown); }
+
+/* ══════════════════════════════════════════════════════════════════
+   TABS  (Details / Shipping & Policies)
+══════════════════════════════════════════════════════════════════ */
+.tabs-bar {
+  display: flex;
+  border-bottom: 1px solid var(--site-border);
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--site-mid);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+
+.tab-btn.active {
+  color: var(--site-brown);
+  border-bottom-color: var(--site-brown);
+  font-weight: 700;
+}
+
+.tab-panel { display: none; padding: 24px 0 0; }
+.tab-panel.active { display: block; }
+
+/* ══════════════════════════════════════════════════════════════════
+   DETAILS TAB CONTENT
+══════════════════════════════════════════════════════════════════ */
+.details-section { margin-bottom: 36px; }
+
+.details-eyebrow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--site-gold);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.details-heading {
+  font-family: var(--ff-head);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--site-brown);
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid #D4B896;
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+/* Highlights — plain bullet list */
+.hl-list { list-style: none; padding: 0; }
+
+.hl-list li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--site-border);
+  font-size: 13.5px;
+  color: var(--site-mid);
+  line-height: 1.5;
+}
+.hl-list li:first-child { border-top: 1px solid var(--site-border); }
+
+.hl-dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--site-gold);
+  border-radius: 50%;
+  margin-top: 7px;
+}
+
+/* About entries */
+.about-list { display: flex; flex-direction: column; }
+
+.about-entry {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 0 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--site-border);
+}
+.about-entry:first-child { border-top: 1px solid var(--site-border); }
+
+.about-num {
+  font-family: var(--ff-head);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--site-border);
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.about-title {
+  font-family: var(--ff-head);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--site-brown);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.about-body {
+  font-size: 13px;
+  color: var(--site-mid);
+  line-height: 1.7;
+}
+.about-body em { font-style: italic; color: var(--site-brown); }
+
+/* Accordions */
+.accordion {
+  border: 1px solid var(--site-border);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.acc-btn {
+  width: 100%;
+  background: var(--site-bg);
+  border: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  transition: background 0.14s;
+}
+.acc-btn:hover, .acc-btn[aria-expanded="true"] { background: var(--site-tan); }
+.acc-btn[aria-expanded="true"] { border-bottom: 1px solid var(--site-border); }
+
+.acc-title {
+  font-family: var(--ff-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--site-brown);
+}
+.acc-hint {
+  font-size: 11px;
+  color: var(--site-light);
+  font-style: italic;
+  margin-left: 6px;
+  font-weight: 300;
+}
+.acc-icon {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--site-gold);
+  color: var(--site-gold);
+  font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s;
+}
+.acc-btn[aria-expanded="true"] .acc-icon { transform: rotate(180deg); }
+
+.acc-body { display: none; }
+.acc-body.open { display: block; animation: fd .18s ease; }
+@keyframes fd { from { opacity:0; transform:translateY(-3px); } to { opacity:1; transform:translateY(0); } }
+
+/* Spec table inside accordion */
+.spec-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.spec-table tbody tr:nth-child(odd)  { background: #fff; }
+.spec-table tbody tr:nth-child(even) { background: var(--site-tan); }
+.spec-table tbody tr:hover           { background: #f0e6d8; }
+.spec-table td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--site-border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.spec-table td:first-child {
+  font-weight: 700;
+  color: var(--site-brown);
+  font-size: 11.5px;
+  white-space: nowrap;
+  width: 38%;
+}
+.spec-table td:last-child { color: var(--site-mid); }
+
+/* ══════════════════════════════════════════════════════════════════
+   SHIPPING TAB
+══════════════════════════════════════════════════════════════════ */
+.policy-block { margin-bottom: 24px; }
+
+.policy-block h3 {
+  font-family: var(--ff-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--site-brown);
+  margin-bottom: 8px;
+}
+
+.policy-block h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--site-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+  margin-top: 14px;
+}
+
+.policy-block p, .policy-block li {
+  font-size: 13px;
+  color: var(--site-mid);
+  line-height: 1.65;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FULL-WIDTH LOWER SECTIONS  (below 2-col layout)
+══════════════════════════════════════════════════════════════════ */
+.lower-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+  border-top: 1px solid var(--site-border);
+}
+
+/* Reviews */
+.reviews-section { padding: 40px 0; }
+
+.reviews-heading {
+  font-family: var(--ff-head);
+  font-size: 20px;
+  color: var(--site-brown);
+  margin-bottom: 6px;
+}
+
+.reviews-avg {
+  font-size: 12px;
+  color: var(--site-light);
+  margin-bottom: 28px;
+}
+
+.review-card {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--site-border);
+}
+.review-card:first-of-type { border-top: 1px solid var(--site-border); }
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.reviewer-name { font-weight: 700; font-size: 13px; }
+.review-date   { font-size: 11px; color: var(--site-light); }
+.review-body   { font-size: 13px; color: var(--site-mid); }
+
+/* ── Site footer ─────────────────────────────────────────────── */
+.site-footer {
+  background: var(--site-tan);
+  border-top: 1px solid var(--site-border);
+  padding: 32px;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.footer-col h4 {
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--site-brown);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 5px; }
+.footer-col a { font-size: 12.5px; color: var(--site-mid); }
+.footer-col a:hover { color: var(--site-brown); }
+
+.footer-copy {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--site-border);
+  font-size: 11px;
+  color: var(--site-light);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 780px) {
+  .listing-wrap { grid-template-columns: 1fr; gap: 24px; }
+  .gallery { position: static; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .site-nav { padding: 0 18px; }
+  .breadcrumb, .listing-wrap, .lower-wrap { padding-left: 18px; padding-right: 18px; }
+  .about-entry { grid-template-columns: 36px 1fr; gap: 0 12px; }
+  .about-num { font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .nav-links { gap: 16px; font-size: 11px; }
+  .spec-table td:first-child { white-space: normal; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SITE NAV
+══════════════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <a class="nav-logo" href="https://www.celyfos.com/">Celyfos</a>
+  <ul class="nav-links">
+    <li><a href="https://www.celyfos.com/shop">Shop</a></li>
+    <li><a href="https://www.celyfos.com/about">About</a></li>
+    <li><a href="https://www.celyfos.com/contact-us">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a href="https://www.celyfos.com/">Celyfos</a>
+  <span>›</span>
+  <a href="https://www.celyfos.com/shop">Shop</a>
+  <span>›</span>
+  Leather Sunglasses Case — The Atlas
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     MAIN LISTING GRID
+══════════════════════════════════════════════════════════════════ -->
+<div class="listing-wrap">
+
+  <!-- LEFT: gallery -->
+  <div class="gallery">
+    <img class="gallery-main" id="main-img"
+      src="https://i.etsystatic.com/9714261/r/il/700950/7901884543/il_fullxfull.7901884543_q94h.jpg"
+      alt="Celyfos Atlas leather sunglasses case — main view">
+    <div class="gallery-thumbs">
+      <img class="active" src="https://i.etsystatic.com/9714261/r/il/700950/7901884543/il_fullxfull.7901884543_q94h.jpg" alt="Atlas case front view" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/0f6d2b/3789236632/il_fullxfull.3789236632_k42i.jpg" alt="Atlas case side view" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/4570c9/7423046485/il_fullxfull.7423046485_3y8x.jpg" alt="Atlas case open" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/e4ee6a/3836833379/il_fullxfull.3836833379_fwxz.jpg" alt="Atlas case with glasses" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/bc50df/3789237934/il_fullxfull.3789237934_s6q5.jpg" alt="Atlas case hardware detail" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/81d5ad/3836833659/il_fullxfull.3836833659_5y5g.jpg" alt="Atlas case belt loop" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/fd1587/4038297575/il_fullxfull.4038297575_ferd.jpg" alt="Atlas case monogram" onclick="swapImg(this)">
+      <img src="https://i.etsystatic.com/9714261/r/il/c76a6d/7901896387/il_fullxfull.7901896387_biwb.jpg" alt="Atlas case leather texture" onclick="swapImg(this)">
+    </div>
+  </div>
+
+  <!-- RIGHT: purchase panel -->
+  <div class="purchase-panel">
+
+    <h1 class="listing-title">Leather sunglasses Case Personalized glasses Case Custom hard sunglass Case for Wayfarer, Persol</h1>
+
+    <div class="listing-price">
+      <span class="price-sale">$103.94</span>
+      <span class="price-original">$159.92</span>
+    </div>
+    <p class="shipping-note">Shipping to United States: <strong>Free $0.00</strong></p>
+
+    <div class="variant-group">
+      <label class="variant-label" for="sel-color">Color</label>
+      <select class="variant-select" id="sel-color">
+        <option>Black – Nickel snap</option>
+        <option>Black – Brass snap</option>
+        <option>Vintage – Nickel snap</option>
+        <option>Vintage – Brass snap</option>
+        <option>Nude – Nickel snap</option>
+        <option>Nude – Brass snap</option>
+      </select>
+    </div>
+
+    <div class="variant-group">
+      <label class="variant-label" for="sel-personal">Personalization</label>
+      <select class="variant-select" id="sel-personal">
+        <option>Case only ($103.94)</option>
+        <option>Add Monogramming ($110.56)</option>
+        <option>Add Belt Loop ($118.46)</option>
+        <option>Add Hook ($110.56)</option>
+        <option>+ Belt Loop + Monogram ($120.83)</option>
+        <option>+ Hook + Monogram ($116.09)</option>
+      </select>
+    </div>
+
+    <div class="qty-row">
+      <span class="qty-label">Quantity</span>
+      <select class="qty-select">
+        <option>1</option><option>2</option><option>3</option>
+        <option>4</option><option>5</option>
+      </select>
+    </div>
+
+    <button class="btn-cart">Add to Cart</button>
+
+    <div class="reviews-link">
+      <span class="stars">★★★★★</span>
+      <a href="#reviews-module">(23 reviews)</a>
+    </div>
+
+    <div class="action-links">
+      <a href="https://www.celyfos.com/contact-us">Ask a question</a>
+    </div>
+
+    <!-- ── TABS ─────────────────────────────────────────────── -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-details')">Details</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-shipping')">Shipping &amp; Policies</button>
+    </div>
+
+    <!-- ▸ DETAILS TAB ───────────────────────────────────────── -->
+    <div class="tab-panel active" id="tab-details">
+
+      <!-- 1. Top Highlights -->
+      <div class="details-section">
+        <p class="details-eyebrow">At a Glance</p>
+        <h2 class="details-heading">Top Highlights</h2>
+        <ul class="hl-list">
+          <li><span class="hl-dot"></span>Handmade in Athens, Greece — built one at a time at the maker's bench since 2014</li>
+          <li><span class="hl-dot"></span>Full-Grain Greek Vachetta leather — vegetable tanned, ages into a patina unique to you</li>
+          <li><span class="hl-dot"></span>Designed for larger frames — fits Ray-Ban Wayfarer, Persol 649 &amp; 714, Maui Jim Kahi and more</li>
+          <li><span class="hl-dot"></span>Personalised to order — choose your leather colour, hardware finish, and add a monogram</li>
+          <li><span class="hl-dot"></span>Lifetime guarantee — if the case ever fails, it returns to Andrew's bench for repair, free of charge</li>
+          <li><span class="hl-dot"></span>Ships with a hand-stamped white linen pouch</li>
+        </ul>
+      </div>
+
+      <!-- 2. About the Atlas -->
+      <div class="details-section">
+        <p class="details-eyebrow">The Story</p>
+        <h2 class="details-heading">About the Atlas</h2>
+        <div class="about-list">
+
+          <div class="about-entry">
+            <span class="about-num">01</span>
+            <div>
+              <h3 class="about-title">Built Like a Flight Component</h3>
+              <p class="about-body">Andrew didn't start with aesthetics — he started with a load specification. Every structural decision in the Atlas exists to protect what's inside. The rigid polymer skeleton, the full-front impact shield, the crush-proof nose bridge — none of it is decorative. <em>This is how an aircraft engineer builds a case.</em></p>
+            </div>
+          </div>
+
+          <div class="about-entry">
+            <span class="about-num">02</span>
+            <div>
+              <h3 class="about-title">Leather That Earns Its Look</h3>
+              <p class="about-body">The outer shell is Full-Grain Vachetta leather, sourced and vegetable-tanned in Greece using an ancient process that lets the hide breathe. It arrives pale and unassuming. Over time it deepens into a patina that belongs to no one else. <em>It doesn't wear out. It wears in.</em></p>
+            </div>
+          </div>
+
+          <div class="about-entry">
+            <span class="about-num">03</span>
+            <div>
+              <h3 class="about-title">For Frames That Don't Fit Anywhere Else</h3>
+              <p class="about-body">Most hard cases weren't built for larger frames. The Atlas was. If you've ever forced a pair of Wayfarers into a case that was never meant to hold them, you'll understand immediately what this was designed to solve.</p>
+            </div>
+          </div>
+
+          <div class="about-entry">
+            <span class="about-num">04</span>
+            <div>
+              <h3 class="about-title">A Craftsman's Word</h3>
+              <p class="about-body">The guarantee isn't a policy — it's a personal commitment: <em>"If this shell ever fails you, it returns to my bench in Athens for repair. As long as I am standing at my workbench, I've got your back."</em> No forms, no fine print.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3. Materials & Construction -->
+      <div class="details-section">
+        <p class="details-eyebrow">What It's Made Of</p>
+        <h2 class="details-heading">Materials &amp; Construction</h2>
+
+        <div class="accordion">
+          <button class="acc-btn" aria-expanded="false" aria-controls="b-leather" onclick="tog(this)">
+            <span><span class="acc-title">Leather &amp; Build</span><span class="acc-hint">material, tanning, structure</span></span>
+            <span class="acc-icon" aria-hidden="true">&#8964;</span>
+          </button>
+          <div class="acc-body" id="b-leather" role="region">
+            <table class="spec-table"><tbody>
+              <tr><td>Outer Material</td><td>Full-Grain Greek Vachetta Leather, 6oz / 2.2mm</td></tr>
+              <tr><td>Tanning</td><td>Vegetable Tanned — no chrome</td></tr>
+              <tr><td>Coloured Variants</td><td>Drum-Dyed — deepens in colour with use</td></tr>
+              <tr><td>Structural Core</td><td>Rigid structural polymer</td></tr>
+              <tr><td>Front Protection</td><td>Integrated high-impact shield + crush-proof nose bridge</td></tr>
+              <tr><td>Stitching</td><td>High-tenacity nylon, standard beige (custom colours on request)</td></tr>
+              <tr><td>Made in</td><td>Athens, Greece — 100% by hand</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="acc-btn" aria-expanded="false" aria-controls="b-hardware" onclick="tog(this)">
+            <span><span class="acc-title">Hardware &amp; Options</span><span class="acc-hint">closure, carry, personalisation</span></span>
+            <span class="acc-icon" aria-hidden="true">&#8964;</span>
+          </button>
+          <div class="acc-body" id="b-hardware" role="region">
+            <table class="spec-table"><tbody>
+              <tr><td>Closure</td><td>Solid bronze snap button</td></tr>
+              <tr><td>Hardware</td><td>Solid bronze snap buttons and rivets</td></tr>
+              <tr><td>Colour &amp; Finish</td><td>Black / Vintage / Nude — each with Nickel or Brass snap</td></tr>
+              <tr><td>Carry</td><td>Belt Loop (fits belts ≤ 1.5″) or Dog Hook — select at checkout</td></tr>
+              <tr><td>Personalisation</td><td>Hand-stamped monogram — select at checkout</td></tr>
+              <tr><td>In the Box</td><td>1 × Atlas Case + 1 × Hand-stamped White Linen Pouch</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Product Details -->
+      <div class="details-section">
+        <p class="details-eyebrow">Fit &amp; Logistics</p>
+        <h2 class="details-heading">Product Details</h2>
+
+        <div class="accordion">
+          <button class="acc-btn" aria-expanded="false" aria-controls="b-fit" onclick="tog(this)">
+            <span><span class="acc-title">Dimensions &amp; Compatibility</span><span class="acc-hint">size, frame types</span></span>
+            <span class="acc-icon" aria-hidden="true">&#8964;</span>
+          </button>
+          <div class="acc-body" id="b-fit" role="region">
+            <table class="spec-table"><tbody>
+              <tr><td>Internal Dimensions</td><td>L 6¼″ × W 1¾″ × H 2½″ (15.5 × 4.3 × 6.2 cm)</td></tr>
+              <tr><td>Item Weight</td><td>Approx. 4–5 oz (113–142 g)</td></tr>
+              <tr><td>Fits</td><td>Ray-Ban Wayfarer, Clubmaster, Justin · Persol 649 &amp; 714 · Maui Jim Kahi · most full-size &amp; prescription frames</td></tr>
+              <tr><td>Frame Style</td><td>Larger frames, acetate, oversized</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="acc-btn" aria-expanded="false" aria-controls="b-order" onclick="tog(this)">
+            <span><span class="acc-title">Ordering &amp; Shipping</span><span class="acc-hint">lead time, processing, origin</span></span>
+            <span class="acc-icon" aria-hidden="true">&#8964;</span>
+          </button>
+          <div class="acc-body" id="b-order" role="region">
+            <table class="spec-table"><tbody>
+              <tr><td>Production</td><td>Made-to-order — see current bench time in shipping details</td></tr>
+              <tr><td>Processing Time</td><td>1–5 business days</td></tr>
+              <tr><td>Ships From</td><td>Athens, Greece</td></tr>
+              <tr><td>Manufacturer</td><td>Celyfos SCE — Andrew Vasilas, Founder &amp; Aircraft Engineer</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Returns & Guarantee -->
+      <div class="details-section">
+        <p class="details-eyebrow">Peace of Mind</p>
+        <h2 class="details-heading">Returns &amp; Guarantee</h2>
+
+        <div class="accordion">
+          <button class="acc-btn" aria-expanded="false" aria-controls="b-returns" onclick="tog(this)">
+            <span><span class="acc-title">Returns Policy</span><span class="acc-hint">timeframe, process, conditions</span></span>
+            <span class="acc-icon" aria-hidden="true">&#8964;</span>
+          </button>
+          <div class="acc-body" id="b-returns" role="region">
+            <table class="spec-table"><tbody>
+              <tr><td>Return Window</td><td>21 days from delivery</td></tr>
+              <tr><td>Condition</td><td>Unused and in original condition</td></tr>
+              <tr><td>Process</td><td>As each Atlas is made to order, please reach out before returning — we'll find the best resolution</td></tr>
+              <tr><td>Return Shipping</td><td>At the buyer's cost</td></tr>
+              <tr><td>Contact</td><td>info@celyfos.com</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="acc-btn" aria-expanded="false" aria-controls="b-guarantee" onclick="tog(this)">
+            <span><span class="acc-title">Lifetime Guarantee</span><span class="acc-hint">what it covers, how it works</span></span>
+            <span class="acc-icon" aria-hidden="true">&#8964;</span>
+          </button>
+          <div class="acc-body" id="b-guarantee" role="region">
+            <table class="spec-table"><tbody>
+              <tr><td>Covers</td><td>Structural failure, stitching, hardware — any defect in craft or materials</td></tr>
+              <tr><td>How It Works</td><td>The case returns to Andrew's bench in Athens. He repairs it and sends it back.</td></tr>
+              <tr><td>Cost to You</td><td>No charge for the repair — for the life of the product</td></tr>
+              <tr><td>Duration</td><td>For as long as Andrew is at his workbench — a craftsman's promise, not a corporate policy</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tab-details -->
+
+    <!-- ▸ SHIPPING & POLICIES TAB ──────────────────────────── -->
+    <div class="tab-panel" id="tab-shipping">
+
+      <div class="policy-block">
+        <h3>Shipping from Greece</h3>
+        <h4>Processing time</h4>
+        <p>1–5 business days</p>
+        <h4>Estimated delivery</h4>
+        <p>5–9 business days for EU · 7–20 business days for North America. Expedited shipping via FedEx available on request.</p>
+        <h4>Customs and import taxes</h4>
+        <p>Buyers are responsible for any customs and import taxes that may apply. We are not responsible for delays due to customs.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Returns &amp; Exchanges</h3>
+        <h4>Returns accepted within 21 days</h4>
+        <p>Buyers are responsible for return shipping costs. If the item is not returned in its original condition, the buyer is responsible for any loss in value. Custom and personalised orders cannot be returned unless faulty.</p>
+        <h4>Cancellations</h4>
+        <p>Request a cancellation within 3 hours of purchase.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Frequently Asked Questions</h3>
+        <h4>Wholesale</h4>
+        <p>We accept wholesale orders. Contact us and we'll respond with an offer.</p>
+        <h4>Care instructions</h4>
+        <p>Keep it dry. Don't leave it under sun or rain. If it gets wet, let it dry naturally away from heat. Treat occasionally with a beeswax-based leather cream — apply by hand, let dry, wipe with soft cotton cloth.</p>
+        <h4>Custom orders</h4>
+        <p>Unique designs and sizes available on request. If a desired colour is not listed, contact us — we may be able to source it.</p>
+      </div>
+
+    </div><!-- /tab-shipping -->
+
+  </div><!-- /purchase-panel -->
+</div><!-- /listing-wrap -->
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     REVIEWS
+══════════════════════════════════════════════════════════════════ -->
+<div class="lower-wrap">
+  <div class="reviews-section" id="reviews-module">
+    <h2 class="reviews-heading">Reviews</h2>
+    <p class="reviews-avg"><span class="stars">★★★★★</span> &nbsp; 23 reviews</p>
+
+    <div class="review-card">
+      <div class="review-meta">
+        <span class="stars" style="font-size:11px">★★★★★</span>
+        <span class="reviewer-name">Mark Margolis</span>
+        <span class="review-date">May 19, 2026</span>
+      </div>
+      <p class="review-body">Great experience, yes I would recommend.</p>
+    </div>
+
+    <div class="review-card">
+      <div class="review-meta">
+        <span class="stars" style="font-size:11px">★★★★★</span>
+        <span class="reviewer-name">Patrick</span>
+        <span class="review-date">May 12, 2026</span>
+      </div>
+      <p class="review-body">Exactly as described. Great fit for my aviators.</p>
+    </div>
+
+    <div class="review-card">
+      <div class="review-meta">
+        <span class="stars" style="font-size:11px">★★★★★</span>
+        <span class="reviewer-name">David Page</span>
+        <span class="review-date">Apr 21, 2026</span>
+      </div>
+      <p class="review-body">Excellent quality and definitely worth the price. Even received high praise from the wife!</p>
+    </div>
+
+    <div class="review-card">
+      <div class="review-meta">
+        <span class="stars" style="font-size:11px">★★★★★</span>
+        <span class="reviewer-name">Dennis</span>
+        <span class="review-date">Mar 24, 2026</span>
+      </div>
+      <p class="review-body">Super case! Really well made and nice customer service.</p>
+    </div>
+
+    <div class="review-card">
+      <div class="review-meta">
+        <span class="stars" style="font-size:11px">★★★★★</span>
+        <span class="reviewer-name">etsyyaarr</span>
+        <span class="review-date">Feb 8, 2026</span>
+      </div>
+      <p class="review-body">I have multiple glasses cases from Celyfos and they are all quite nice.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     SITE FOOTER
+══════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="https://www.celyfos.com/shop">Shop</a></li>
+        <li><a href="https://www.celyfos.com/about">About</a></li>
+        <li><a href="https://www.celyfos.com/policy">Shipping and Policies</a></li>
+        <li><a href="https://www.celyfos.com/contact-us">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://www.facebook.com/celyfos">Facebook</a></li>
+        <li><a href="https://www.instagram.com/celyfos/">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Celyfos®</h4>
+      <ul>
+        <li><a href="#">Est. 2014 · Athens, Greece</a></li>
+        <li><a href="mailto:info@celyfos.com">info@celyfos.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>© 2026 Celyfos · All rights reserved</span>
+    <span>Powered by Etsy Pattern</span>
+  </div>
+</footer>
+
+<script>
+  // Gallery swap
+  function swapImg(thumb) {
+    document.getElementById('main-img').src = thumb.src;
+    document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+
+  // Tab switching
+  function switchTab(btn, panelId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  // Accordion
+  function tog(btn) {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('open', !isOpen);
+  }
+</script>
+</body>
+</html>
