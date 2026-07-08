@@ -7,7 +7,7 @@
   {% render 'product-grid', items: collection.products %}
 {% enddoc %}
 
-<div class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4">
+<div class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 !mb-[2rem]">
   {% for product in items %}
     <a href="{{ product.url }}">
       <div class="product-card flex flex-col border border-[#ddd] p-4 rounded-lg text-center overflow-hidden h-full">

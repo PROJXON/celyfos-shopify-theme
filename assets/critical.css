@@ -103,14 +103,6 @@ body {
   color: var(--color-foreground);
 }
 
-a.btn,
-button,
-input[type='submit'] {
-  background: var(--accent-color);
-  box-shadow: 1.5px 1.5px 2px var(--text-color);
-  transition: opacity 0.3s;
-}
-
 a.btn:hover,
 button:not(.btn-cart):not(.acc-btn):not(.tab-btn):not(.thumb-btn):hover,
 input[type='submit']:hover {
