@@ -1,0 +1,41 @@
+{% doc %}
+  Renders a collapsible product spec accordion with a striped table.
+
+  @param {string} id - Unique accordion element id
+  @param {string} title_key - Locale key for accordion heading
+  @param {string} hint_key - Locale key for accordion hint
+  @param {number} row_count - Number of spec table rows to render
+  @param {string} key_prefix - Locale key prefix for row labels and values
+{% enddoc %}
+
+<div class="accordion mb-[8px] overflow-hidden border border-[#E0D6CA]">
+  <button
+    type="button"
+    class="acc-btn flex w-full items-center justify-between gap-[10px] border-0 bg-white px-[14px] py-[12px] text-left transition hover:bg-[#F7F0E8]"
+    aria-expanded="false"
+    aria-controls="{{ id }}"
+    data-accordion-btn
+  >
+    <span>
+      <span class="acc-title font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ title_key | t }}</span>
+      <span class="acc-hint ml-[6px] text-[11px] font-light italic text-[#888888]">{{ hint_key | t }}</span>
+    </span>
+    <span class="acc-icon flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-[#9A7235] text-[11px] text-[#9A7235]" aria-hidden="true">⌄</span>
+  </button>
+  <div class="acc-body hidden" id="{{ id }}" role="region">
+    <table class="spec-table w-full border-collapse text-[12.5px]">
+      <tbody>
+        {% for i in (1..row_count) %}
+          <tr>
+            <td class="border-b border-[#E0D6CA] px-[14px] py-[8px] align-top text-[11.5px] font-bold leading-[1.5] text-[#4A2E12]">
+              {{ key_prefix | append: '.row_' | append: i | append: '_label' | t }}
+            </td>
+            <td class="border-b border-[#E0D6CA] px-[14px] py-[8px] align-top leading-[1.5] text-[#555555]">
+              {{ key_prefix | append: '.row_' | append: i | append: '_value' | t }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,52 +1,52 @@
-<footer class="bg-[#E7DDD8] pt-8 px-8 pb-4 !mt-4">
-  <div class="font-bold grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2">
-    <div>
-      <h2 class="text-xl uppercase">Customer Service</h2>
-      {% if section.settings.hours %}
-        <p>{{ section.settings.hours }}</p>
-      {% endif %}
-      {% if section.settings.phone_number %}
-        <p>{{ section.settings.phone_number }}</p>
-      {% endif %}
-      <div class="flex justify-between">
-        {% unless section.settings.email == blank %}
-          <a id="email" href="mailto:{{ section.settings.email }}" class="hoverGray">Email</a>
-        {% endunless %}
+<footer class="site-footer border-t border-[#E0D6CA] bg-[#F7F0E8] px-[32px] py-[32px]">
+  <div class="mx-auto grid max-w-[1100px] grid-cols-1 gap-[24px] sm:grid-cols-2 md:grid-cols-3">
+    <div class="footer-col">
+      <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ 'footer.navigate' | t }}</h4>
+      <ul class="list-none">
         {% for link in section.settings.footer_menu.links %}
-          {{ link.title | link_to: link.url, class: 'hoverGray' }}
+          <li class="mb-[5px]">
+            <a href="{{ link.url }}" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">{{ link.title }}</a>
+          </li>
         {% endfor %}
-      </div>
-
+      </ul>
     </div>
-    <div id="trackOrderContainer" class="flex items-center justify-center">
-      <a href="#" class="btn roundBtn text-black w-fit h-fit text-lg no-underline">Track Order</a>
-    </div>
-    <div>
-      <h1 class="text-2xl uppercase text-center">Follow Us</h1>
-      <div id="socialIcons" class="flex justify-center gap-4 !mt-2">
-        {% unless settings.instagram == blank %}
-          <a href="{{ settings.instagram }}" target="_blank" rel="noopener" class="text-black hover:opacity-50 duration-300">
-            <img src="{{ 'Instagram.png' | asset_url }}" alt="Instagram logo" height="50" width="50">
-          </a>
-        {% endunless %}
 
+    <div class="footer-col">
+      <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ 'footer.elsewhere' | t }}</h4>
+      <ul class="list-none">
         {% unless settings.facebook == blank %}
-          <a href="{{ settings.facebook }}" target="_blank" rel="noopener" class="text-black hover:opacity-50 duration-300">
-            <img src="{{ 'Facebook.png' | asset_url }}" alt="Facebook logo" height="50" width="50">
-          </a>
+          <li class="mb-[5px]">
+            <a href="{{ settings.facebook }}" target="_blank" rel="noopener" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">Facebook</a>
+          </li>
         {% endunless %}
-      </div>
+        {% unless settings.instagram == blank %}
+          <li class="mb-[5px]">
+            <a href="{{ settings.instagram }}" target="_blank" rel="noopener" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">Instagram</a>
+          </li>
+        {% endunless %}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ shop.name }}®</h4>
+      <ul class="list-none">
+        <li class="mb-[5px]">
+          <span class="text-[12.5px] text-[#555555]">{{ 'footer.established' | t }}</span>
+        </li>
+        {% unless section.settings.email == blank %}
+          <li class="mb-[5px]">
+            <a href="mailto:{{ section.settings.email }}" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">{{ section.settings.email }}</a>
+          </li>
+        {% endunless %}
+      </ul>
     </div>
   </div>
-  <p class="text-center text-xs !mt-2">© {{ 'now' | date: "%Y" }} {{ shop.name }}</p>
-  <p class="text-center text-xs">Powered by PROJXON</p>
-</footer>
 
-{% stylesheet %}
-.shopify-section-group-footer-group {
-  display: block;
-}
-{% endstylesheet %}
+  <div class="mx-auto mt-[20px] flex max-w-[1100px] flex-col justify-between gap-[8px] border-t border-[#E0D6CA] pt-[16px] text-[11px] text-[#888888] sm:flex-row">
+    <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ 'footer.rights' | t }}</span>
+    <span>{{ 'footer.powered_by' | t }}</span>
+  </div>
+</footer>
 
 {% schema %}
 {
@@ -54,35 +54,15 @@
   "settings": [
     {
       "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "hours",
-      "label": "t:labels.hours"
-    },
-    {
-      "type": "text",
-      "id": "phone_number",
-      "label": "t:labels.phone_number"
+      "id": "footer_menu",
+      "label": "t:labels.footer_menu",
+      "default": "footer"
     },
     {
       "type": "text",
       "id": "email",
-      "label": "t:labels.email"
-    },
-    {
-      "type": "link_list",
-      "id": "footer_menu",
-      "label": "t:labels.footer_menu",
-      "default": "footer"
+      "label": "t:labels.email",
+      "default": "info@celyfos.com"
     }
   ]
 }

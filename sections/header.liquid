@@ -1,18 +1,15 @@
-<header class="py-2 font-bold relative">
-  <nav class="flex flex-wrap static md:absolute gap-3 text-lg left-0 justify-between">
-    {% for link in section.settings.sections.links %}
-      {{ link.title | link_to: link.url, class: 'hoverGray' }}
-    {% endfor %}
-  </nav>
-  
-  <nav class="flex flex-wrap static md:absolute gap-3 text-lg right-0 justify-end">
-    <a href="{{ routes.search_url }}" class="hoverGray">Search</a>
-    <a href="{{ routes.cart_url }}" class="hoverGray">Cart</a>
-  </nav>
-
-  <a href="{{ routes.root_url }}" id="logo" class="block !m-auto w-fit">
-    <img src="{{ section.settings.logo | default: 'https://cdn.shopify.com/s/files/1/0958/7559/6674/files/logo.avif?v=1769729807' }}" alt="{{ shop.name | append: ' logo' }}" height="150" width="150" class="m-auto">
+<header class="site-nav sticky top-0 z-[100] flex h-[64px] items-center justify-between border-b border-[#E0D6CA] bg-white px-[18px] md:px-[32px]">
+  <a href="{{ routes.root_url }}" class="font-['Playfair_Display'] text-[22px] font-semibold tracking-[0.04em] text-[#4A2E12] no-underline hover:no-underline">
+    {{ shop.name }}
   </a>
+
+  <ul class="flex list-none gap-[16px] text-[11px] font-normal uppercase tracking-[0.06em] text-[#555555] md:gap-[28px] md:text-[13px]">
+    {% for link in section.settings.sections.links %}
+      <li>
+        <a href="{{ link.url }}" class="no-underline hover:text-[#4A2E12] hover:no-underline">{{ link.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
 </header>
 
 {% schema %}
@@ -24,11 +21,6 @@
       "id": "sections",
       "label": "t:labels.sections",
       "default": "main-menu"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
     }
   ]
 }
