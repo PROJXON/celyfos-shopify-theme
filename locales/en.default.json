@@ -39,6 +39,13 @@
   "collections": {
     "title": "Collections"
   },
+  "footer": {
+    "navigate": "Navigate",
+    "elsewhere": "Elsewhere",
+    "established": "Est. 2014 · Athens, Greece",
+    "rights": "All rights reserved",
+    "powered_by": "Powered by Shopify"
+  },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
     "card": "Gift card",
@@ -59,6 +66,8 @@
     "results_for_html": "{{ count }} results found for \"{{ terms }}\""
   },
   "product": {
+    "review_count": "Review count",
+    "breadcrumb_label": "Breadcrumb",
     "breadcrumb_home": "Celyfos",
     "breadcrumb_shop": "Shop",
     "shipping_note": "Shipping to United States: Free $0.00",
@@ -77,34 +86,180 @@
     "at_a_glance": "At a Glance",
     "top_highlights": "Top Highlights",
     "highlights": {
-      "crafted": "Handmade in Athens, Greece and built one at a time at the maker's bench.",
-      "materials": "Crafted in full-grain Greek vachetta leather that develops a rich patina over time.",
-      "fit": "Designed for larger frames and a comfortable, secure fit for everyday carry.",
-      "personalized": "Personalized to order with a choice of leather colour and hardware finish.",
-      "guarantee": "Backed by a lifetime guarantee for repairs and long-term care.",
-      "pouch": "Ships with a hand-stamped white linen pouch for safe storage."
+      "crafted": "Handmade in Athens, Greece — built one at a time at the maker's bench since 2014",
+      "materials": "Full-Grain Greek Vachetta leather — vegetable tanned, ages into a patina unique to you",
+      "fit": "Designed for larger frames — fits Ray-Ban Wayfarer, Persol 649 & 714, Maui Jim Kahi and more",
+      "personalized": "Personalised to order — choose your leather colour, hardware finish, and add a monogram",
+      "guarantee": "Lifetime guarantee — if the case ever fails, it returns to Andrew's bench for repair, free of charge",
+      "pouch": "Ships with a hand-stamped white linen pouch"
     },
     "story_label": "The Story",
-    "story_title": "About this piece",
-    "story_body": "A refined hard-shell sunglasses case made for daily use and long-lasting character.",
-    "story_support": "The Atlas pairs timeless craftsmanship with practical protection for your favourite frames.",
-    "materials_label": "What it is made of",
+    "story_title": "About the Atlas",
+    "story": {
+      "entries": {
+        "1": {
+          "title": "Built Like a Flight Component",
+          "body_html": "Andrew didn't start with aesthetics — he started with a load specification. Every structural decision in the Atlas exists to protect what's inside. The rigid polymer skeleton, the full-front impact shield, the crush-proof nose bridge — none of it is decorative. <em>This is how an aircraft engineer builds a case.</em>"
+        },
+        "2": {
+          "title": "Leather That Earns Its Look",
+          "body_html": "The outer shell is Full-Grain Vachetta leather, sourced and vegetable-tanned in Greece using an ancient process that lets the hide breathe. It arrives pale and unassuming. Over time it deepens into a patina that belongs to no one else. <em>It doesn't wear out. It wears in.</em>"
+        },
+        "3": {
+          "title": "For Frames That Don't Fit Anywhere Else",
+          "body_html": "Most hard cases weren't built for larger frames. The Atlas was. If you've ever forced a pair of Wayfarers into a case that was never meant to hold them, you'll understand immediately what this was designed to solve."
+        },
+        "4": {
+          "title": "A Craftsman's Word",
+          "body_html": "The guarantee isn't a policy — it's a personal commitment: <em>\"If this shell ever fails you, it returns to my bench in Athens for repair. As long as I am standing at my workbench, I've got your back.\"</em> No forms, no fine print."
+        }
+      }
+    },
+    "materials_label": "What It's Made Of",
     "materials_title": "Materials & Construction",
-    "materials_body": "The exterior is shaped from vegetable-tanned leather and reinforced for structure and durability.",
-    "materials_note": "All finishes are chosen for a clean, understated look that will age gracefully.",
+    "fit_label": "Fit & Logistics",
+    "product_details_title": "Product Details",
+    "returns_label": "Peace of Mind",
+    "returns_title": "Returns & Guarantee",
+    "accordions": {
+      "materials": {
+        "title": "Leather & Build",
+        "hint": "material, tanning, structure",
+        "row_1_label": "Outer Material",
+        "row_1_value": "Full-Grain Greek Vachetta Leather, 6oz / 2.2mm",
+        "row_2_label": "Tanning",
+        "row_2_value": "Vegetable Tanned — no chrome",
+        "row_3_label": "Coloured Variants",
+        "row_3_value": "Drum-Dyed — deepens in colour with use",
+        "row_4_label": "Structural Core",
+        "row_4_value": "Rigid structural polymer",
+        "row_5_label": "Front Protection",
+        "row_5_value": "Integrated high-impact shield + crush-proof nose bridge",
+        "row_6_label": "Stitching",
+        "row_6_value": "High-tenacity nylon, standard beige (custom colours on request)",
+        "row_7_label": "Made in",
+        "row_7_value": "Athens, Greece — 100% by hand"
+      },
+      "hardware": {
+        "title": "Hardware & Options",
+        "hint": "closure, carry, personalisation",
+        "row_1_label": "Closure",
+        "row_1_value": "Solid bronze snap button",
+        "row_2_label": "Hardware",
+        "row_2_value": "Solid bronze snap buttons and rivets",
+        "row_3_label": "Colour & Finish",
+        "row_3_value": "Black / Vintage / Nude — each with Nickel or Brass snap",
+        "row_4_label": "Carry",
+        "row_4_value": "Belt Loop (fits belts ≤ 1.5″) or Dog Hook — select at checkout",
+        "row_5_label": "Personalisation",
+        "row_5_value": "Hand-stamped monogram — select at checkout",
+        "row_6_label": "In the Box",
+        "row_6_value": "1 × Atlas Case + 1 × Hand-stamped White Linen Pouch"
+      },
+      "fit": {
+        "title": "Dimensions & Compatibility",
+        "hint": "size, frame types",
+        "row_1_label": "Internal Dimensions",
+        "row_1_value": "L 6¼″ × W 1¾″ × H 2½″ (15.5 × 4.3 × 6.2 cm)",
+        "row_2_label": "Item Weight",
+        "row_2_value": "Approx. 4–5 oz (113–142 g)",
+        "row_3_label": "Fits",
+        "row_3_value": "Ray-Ban Wayfarer, Clubmaster, Justin · Persol 649 & 714 · Maui Jim Kahi · most full-size & prescription frames",
+        "row_4_label": "Frame Style",
+        "row_4_value": "Larger frames, acetate, oversized"
+      },
+      "ordering": {
+        "title": "Ordering & Shipping",
+        "hint": "lead time, processing, origin",
+        "row_1_label": "Production",
+        "row_1_value": "Made-to-order — see current bench time in shipping details",
+        "row_2_label": "Processing Time",
+        "row_2_value": "1–5 business days",
+        "row_3_label": "Ships From",
+        "row_3_value": "Athens, Greece",
+        "row_4_label": "Manufacturer",
+        "row_4_value": "Celyfos SCE — Andrew Vasilas, Founder & Aircraft Engineer"
+      },
+      "returns": {
+        "title": "Returns Policy",
+        "hint": "timeframe, process, conditions",
+        "row_1_label": "Return Window",
+        "row_1_value": "21 days from delivery",
+        "row_2_label": "Condition",
+        "row_2_value": "Unused and in original condition",
+        "row_3_label": "Process",
+        "row_3_value": "As each Atlas is made to order, please reach out before returning — we'll find the best resolution",
+        "row_4_label": "Return Shipping",
+        "row_4_value": "At the buyer's cost",
+        "row_5_label": "Contact",
+        "row_5_value": "info@celyfos.com"
+      },
+      "guarantee": {
+        "title": "Lifetime Guarantee",
+        "hint": "what it covers, how it works",
+        "row_1_label": "Covers",
+        "row_1_value": "Structural failure, stitching, hardware — any defect in craft or materials",
+        "row_2_label": "How It Works",
+        "row_2_value": "The case returns to Andrew's bench in Athens. He repairs it and sends it back.",
+        "row_3_label": "Cost to You",
+        "row_3_value": "No charge for the repair — for the life of the product",
+        "row_4_label": "Duration",
+        "row_4_value": "For as long as Andrew is at his workbench — a craftsman's promise, not a corporate policy"
+      }
+    },
     "shipping": {
       "heading": "Shipping from Greece",
       "processing": "Processing time",
       "processing_time": "1–5 business days",
       "delivery": "Estimated delivery",
-      "delivery_time": "5–9 business days for Europe and 7–20 business days for North America."
+      "delivery_time": "5–9 business days for EU · 7–20 business days for North America. Expedited shipping via FedEx available on request.",
+      "customs": "Customs and import taxes",
+      "customs_body": "Buyers are responsible for any customs and import taxes that may apply. We are not responsible for delays due to customs."
     },
     "policy": {
       "heading": "Returns & Exchanges",
       "returns": "Returns accepted within 21 days",
-      "returns_body": "Buyers are responsible for return shipping costs. Personalized items are non-returnable unless faulty.",
+      "returns_body": "Buyers are responsible for return shipping costs. If the item is not returned in its original condition, the buyer is responsible for any loss in value. Custom and personalised orders cannot be returned unless faulty.",
       "cancellations": "Cancellations",
       "cancellations_body": "Request a cancellation within 3 hours of purchase."
+    },
+    "faq": {
+      "heading": "Frequently Asked Questions",
+      "wholesale": "Wholesale",
+      "wholesale_body": "We accept wholesale orders. Contact us and we'll respond with an offer.",
+      "care": "Care instructions",
+      "care_body": "Keep it dry. Don't leave it under sun or rain. If it gets wet, let it dry naturally away from heat. Treat occasionally with a beeswax-based leather cream — apply by hand, let dry, wipe with soft cotton cloth.",
+      "custom": "Custom orders",
+      "custom_body": "Unique designs and sizes available on request. If a desired colour is not listed, contact us — we may be able to source it."
+    },
+    "reviews": {
+      "heading": "Reviews",
+      "count": "{{ count }} reviews",
+      "sample_1": {
+        "name": "Mark Margolis",
+        "date": "May 19, 2026",
+        "body": "Great experience, yes I would recommend."
+      },
+      "sample_2": {
+        "name": "Patrick",
+        "date": "May 12, 2026",
+        "body": "Exactly as described. Great fit for my aviators."
+      },
+      "sample_3": {
+        "name": "David Page",
+        "date": "Apr 21, 2026",
+        "body": "Excellent quality and definitely worth the price. Even received high praise from the wife!"
+      },
+      "sample_4": {
+        "name": "Dennis",
+        "date": "Mar 24, 2026",
+        "body": "Super case! Really well made and nice customer service."
+      },
+      "sample_5": {
+        "name": "etsyyaarr",
+        "date": "Feb 8, 2026",
+        "body": "I have multiple glasses cases from Celyfos and they are all quite nice."
+      }
     }
   }
 }

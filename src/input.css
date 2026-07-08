@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+@source '../sections/**/*.liquid';
+@source '../snippets/**/*.liquid';
+@source '../blocks/**/*.liquid';
+@source '../layout/**/*.liquid';
+@source '../templates/**/*.liquid';
+
 .topHeader {
   @apply text-2xl md:text-3xl !my-3 font-normal text-[#222222] tracking-[0.02em] uppercase text-center mt-[28px] mb-[8px] after:content-[''] after:block after:w-[48px] after:h-[1px] after:bg-[#9A7235] after:mt-[16px] after:mx-auto after:mb-[32px];
 }

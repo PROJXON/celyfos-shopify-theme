@@ -1,268 +1,258 @@
 {% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
+  learn_shopify_api
+  Product page matching celyfos_product_details template layout.
 {% endcomment %}
 
 {% assign featured_image = product.featured_image | default: product.images.first %}
+{% assign current_variant = product.selected_or_first_available_variant %}
 
-<div class="!mx-auto max-w-[1100px] px-[32px] pb-[60px]">
-  <nav class="mb-[14px] text-[12px] uppercase tracking-[0.04em] text-[#888888]">
-    <a class="hover:text-[#4A2E12]" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
-    <span class="mx-[6px]">›</span>
-    <a class="hover:text-[#4A2E12]" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
-    <span class="mx-[6px]">›</span>
-    <span class="text-[#222222]">{{ product.title }}</span>
-  </nav>
+<div class="product-page">
+  <div class="listing-wrap mx-auto max-w-[1100px] px-[18px] pb-[60px] md:px-[32px]">
+    <nav class="breadcrumb py-[14px] text-[12px] tracking-[0.04em] text-[#888888]" aria-label="{{ 'product.breadcrumb_label' | t }}">
+      <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
+      <span class="mx-[6px]">›</span>
+      <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
+      <span class="mx-[6px]">›</span>
+      <span class="text-[#222222]">{{ product.title }}</span>
+    </nav>
 
-  <div class="grid grid-cols-1 items-start gap-[24px] md:grid-cols-[minmax(0,1fr)_420px] md:gap-[48px]">
-    <div class="md:sticky md:top-[80px]">
-      <img
-        id="product-main-image"
-        class="mb-[10px] aspect-square w-full border border-[#E0D6CA] object-cover"
-        src="{{ featured_image | image_url: width: 1600 }}"
-        alt="{{ product.title }}"
-      >
+    <div class="grid grid-cols-1 items-start gap-[24px] md:grid-cols-[minmax(0,1fr)_420px] md:gap-[48px]">
+      <div class="gallery md:sticky md:top-[80px]">
+        <img
+          id="product-main-image"
+          class="gallery-main mb-[10px] aspect-square w-full border border-[#E0D6CA] object-cover"
+          src="{{ featured_image | image_url: width: 1600 }}"
+          alt="{{ featured_image.alt | default: product.title | escape }}"
+          width="{{ featured_image.width }}"
+          height="{{ featured_image.height }}"
+        >
 
-      {% if product.images.size > 1 %}
-        <div class="flex flex-wrap gap-[8px]">
-          {% for image in product.images %}
-            <button
-              type="button"
-              class="thumb-btn {% if forloop.first %}active{% endif %} h-[68px] w-[68px] overflow-hidden border border-[#E0D6CA] transition hover:border-[#4A2E12]"
-              data-image-src="{{ image | image_url: width: 1600 }}"
-              data-image-alt="{{ product.title }}"
-              aria-label="{{ 'product.view_image' | t: index: forloop.index }}"
-            >
-              <img class="h-full w-full object-cover" src="{{ image | image_url: width: 200 }}" alt="">
-            </button>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-
-    <div class="w-full">
-      <h1 class="mb-[14px] font-['Playfair_Display'] text-[22px] font-normal leading-[1.3] text-[#222222]">{{ product.title }}</h1>
-
-      <div class="mb-[6px]">
-        <span id="price" class="mr-[10px] text-[22px] font-bold text-[#C0392B]">{{ product.price | money }}</span>
-        {% if product.compare_at_price > product.price %}
-          <span class="text-[15px] text-[#888888] line-through">{{ product.compare_at_price | money }}</span>
+        {% if product.images.size > 1 %}
+          <div class="gallery-thumbs flex flex-wrap gap-[8px]">
+            {% for image in product.images %}
+              <button
+                type="button"
+                class="thumb-btn {% if forloop.first %}active{% endif %} h-[68px] w-[68px] overflow-hidden border border-[#E0D6CA] opacity-75 transition hover:border-[#4A2E12] hover:opacity-100"
+                data-image-src="{{ image | image_url: width: 1600 }}"
+                data-image-alt="{{ image.alt | default: product.title | escape }}"
+                aria-label="{{ 'product.view_image' | t: index: forloop.index }}"
+              >
+                <img class="h-full w-full object-cover" src="{{ image | image_url: width: 200 }}" alt="" width="68" height="68" loading="lazy">
+              </button>
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
 
-      <p class="mb-[20px] text-[12px] text-[#888888]">{{ 'product.shipping_note' | t }}</p>
+      <div class="purchase-panel w-full">
+        <h1 class="listing-title mb-[14px] font-['Playfair_Display'] text-[22px] font-normal leading-[1.3] text-[#222222]">{{ product.title }}</h1>
 
-      {% form 'product', product, class: 'space-y-[16px]' %}
-        {% assign current_variant = product.selected_or_first_available_variant %}
+        <div class="listing-price mb-[6px]">
+          <span id="price" class="price-sale mr-[10px] text-[22px] font-bold text-[#C0392B]">{{ current_variant.price | money }}</span>
+          {% if current_variant.compare_at_price > current_variant.price %}
+            <span id="compare-price" class="price-original text-[15px] text-[#888888] line-through">{{ current_variant.compare_at_price | money }}</span>
+          {% endif %}
+        </div>
 
-        {% if product.variants.size > 1 %}
-          <div>
-            <label class="mb-[6px] block text-[12px] font-bold uppercase tracking-[0.08em] text-[#555555]" for="product-variant-select">{{ 'product.variant' | t }}</label>
-            <select id="product-variant-select" name="id" class="w-full border border-[#E0D6CA] bg-white px-[12px] py-[10px] text-[13px] text-[#222222]">
-              {% for variant in product.variants %}
-                <option value="{{ variant.id }}" data-price="{{ variant.price }}" {% if variant == current_variant %}selected{% endif %}>
-                  {{ variant.title }}
-                </option>
+        <p class="shipping-note mb-[20px] text-[12px] text-[#888888]">{{ 'product.shipping_note' | t }}</p>
+
+        {% form 'product', product %}
+          <input type="hidden" name="id" id="variant-id" value="{{ current_variant.id }}">
+
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="variant-group mb-[16px]">
+                <label class="variant-label mb-[6px] block text-[12px] font-bold uppercase tracking-[0.08em] text-[#555555]" for="option-{{ option.position }}">
+                  {{ option.name }}
+                </label>
+                <select
+                  id="option-{{ option.position }}"
+                  class="variant-select w-full cursor-pointer appearance-none border border-[#E0D6CA] bg-white px-[12px] py-[10px] text-[13px] text-[#222222]"
+                  data-option-select
+                  data-option-index="{{ option.position | minus: 1 }}"
+                >
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                      {{ value }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <div class="qty-row mb-[20px] flex items-center gap-[12px]">
+            <span class="qty-label text-[12px] font-bold uppercase tracking-[0.08em] text-[#555555]">{{ 'product.quantity' | t }}</span>
+            <select id="qty" name="quantity" class="qty-select w-[70px] cursor-pointer appearance-none border border-[#E0D6CA] px-[10px] py-[8px] text-[13px]">
+              {% for i in (1..5) %}
+                <option value="{{ i }}">{{ i }}</option>
               {% endfor %}
             </select>
           </div>
-        {% endif %}
 
-        <div class="flex items-center gap-[12px]">
-          <span class="text-[12px] font-bold uppercase tracking-[0.08em] text-[#555555]">{{ 'product.quantity' | t }}</span>
-          <div class="flex items-center border border-[#E0D6CA]">
-            <button type="button" class="qtyBtn h-[38px] w-[38px] text-[18px] text-[#4A2E12]" data-qty-action="decrease" aria-label="{{ 'product.decrease_quantity' | t }}">−</button>
-            <input id="qty" name="quantity" type="number" min="1" value="1" class="w-[50px] border-0 bg-transparent text-center text-[13px] outline-none">
-            <button type="button" class="qtyBtn h-[38px] w-[38px] text-[18px] text-[#4A2E12]" data-qty-action="increase" aria-label="{{ 'product.increase_quantity' | t }}">+</button>
+          <button type="submit" class="btn-cart mb-[10px] w-full border-0 bg-[#4A2E12] px-[14px] py-[14px] text-[13px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#3a2210] hover:no-underline">
+            {{ 'product.add_to_cart' | t }}
+          </button>
+
+          <div class="reviews-link mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
+            <span class="stars text-[13px] tracking-[1px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
+            <a class="no-underline hover:text-[#4A2E12] hover:underline" href="#reviews-module">{{ 'product.reviews_link' | t: count: section.settings.review_count }}</a>
+          </div>
+
+          <div class="action-links mb-[20px] border-t border-[#E0D6CA] pt-[14px] text-[12px] text-[#555555]">
+            <a class="no-underline hover:text-[#4A2E12] hover:underline" href="/pages/contact-us">{{ 'product.ask_a_question' | t }}</a>
+          </div>
+        {% endform %}
+
+        <div class="tabs-bar flex border-b border-[#E0D6CA]">
+          <button type="button" class="tab-btn active px-[18px] py-[10px] text-[13px] tracking-[0.06em] text-[#4A2E12]" data-tab-target="tab-details">{{ 'product.tabs.details' | t }}</button>
+          <button type="button" class="tab-btn px-[18px] py-[10px] text-[13px] tracking-[0.06em] text-[#555555]" data-tab-target="tab-shipping">{{ 'product.tabs.shipping' | t }}</button>
+        </div>
+
+        <div class="tab-panel active pt-[24px]" id="tab-details">
+          <div class="details-section mb-[36px]">
+            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.at_a_glance' | t }}</p>
+            <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.top_highlights' | t }}</h2>
+            <ul class="hl-list list-none p-0">
+              {% assign highlight_keys = 'crafted,materials,fit,personalized,guarantee,pouch' | split: ',' %}
+              {% for key in highlight_keys %}
+                <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] leading-[1.5] text-[#555555] {% if forloop.first %}border-t{% endif %}">
+                  <span class="hl-dot mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
+                  <span>{{ 'product.highlights.' | append: key | t }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="details-section mb-[36px]">
+            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.story_label' | t }}</p>
+            <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.story_title' | t }}</h2>
+            <div class="about-list flex flex-col">
+              {% for i in (1..4) %}
+                {% assign num = i | prepend: '0' %}
+                <div class="about-entry grid grid-cols-[36px_1fr] gap-x-[12px] border-b border-[#E0D6CA] py-[18px] md:grid-cols-[44px_1fr] md:gap-x-[18px] {% if forloop.first %}border-t{% endif %}">
+                  <span class="about-num pt-[2px] font-['Playfair_Display'] text-[22px] font-normal leading-none text-[#E0D6CA] md:text-[28px]">{{ num }}</span>
+                  <div>
+                    <h3 class="about-title mb-[5px] font-['Playfair_Display'] text-[15px] font-semibold leading-[1.3] text-[#4A2E12]">{{ 'product.story.entries.' | append: i | append: '.title' | t }}</h3>
+                    <p class="about-body text-[13px] leading-[1.7] text-[#555555]">{{ 'product.story.entries.' | append: i | append: '.body_html' | t }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="details-section mb-[36px]">
+            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.materials_label' | t }}</p>
+            <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.materials_title' | t }}</h2>
+            {% render 'product-accordion',
+              id: 'acc-materials',
+              title_key: 'product.accordions.materials.title',
+              hint_key: 'product.accordions.materials.hint',
+              row_count: 7,
+              key_prefix: 'product.accordions.materials'
+            %}
+            {% render 'product-accordion',
+              id: 'acc-hardware',
+              title_key: 'product.accordions.hardware.title',
+              hint_key: 'product.accordions.hardware.hint',
+              row_count: 6,
+              key_prefix: 'product.accordions.hardware'
+            %}
+          </div>
+
+          <div class="details-section mb-[36px]">
+            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.fit_label' | t }}</p>
+            <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.product_details_title' | t }}</h2>
+            {% render 'product-accordion',
+              id: 'acc-fit',
+              title_key: 'product.accordions.fit.title',
+              hint_key: 'product.accordions.fit.hint',
+              row_count: 4,
+              key_prefix: 'product.accordions.fit'
+            %}
+            {% render 'product-accordion',
+              id: 'acc-ordering',
+              title_key: 'product.accordions.ordering.title',
+              hint_key: 'product.accordions.ordering.hint',
+              row_count: 4,
+              key_prefix: 'product.accordions.ordering'
+            %}
+          </div>
+
+          <div class="details-section mb-[36px]">
+            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.returns_label' | t }}</p>
+            <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.returns_title' | t }}</h2>
+            {% render 'product-accordion',
+              id: 'acc-returns',
+              title_key: 'product.accordions.returns.title',
+              hint_key: 'product.accordions.returns.hint',
+              row_count: 5,
+              key_prefix: 'product.accordions.returns'
+            %}
+            {% render 'product-accordion',
+              id: 'acc-guarantee',
+              title_key: 'product.accordions.guarantee.title',
+              hint_key: 'product.accordions.guarantee.hint',
+              row_count: 4,
+              key_prefix: 'product.accordions.guarantee'
+            %}
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-[#4A2E12] px-[14px] py-[14px] text-[13px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#3a2210]">{{ 'product.add_to_cart' | t }}</button>
-
-        <div class="mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
-          <span class="text-[13px] tracking-[1px] text-[#9A7235]">★★★★★</span>
-          <a class="hover:text-[#4A2E12]" href="#reviews-module">{{ 'product.reviews_link' | t: count: 23 }}</a>
-        </div>
-
-        <div class="border-t border-[#E0D6CA] pt-[14px] text-[12px] text-[#555555]">
-          <a class="hover:text-[#4A2E12]" href="{{ routes.contact_url }}">{{ 'product.ask_a_question' | t }}</a>
-        </div>
-      {% endform %}
-
-      <div class="mt-[24px] border-b border-[#E0D6CA]">
-        <div class="flex">
-          <button type="button" class="tab-btn active border-b-2 border-[#4A2E12] px-[18px] py-[10px] text-[13px] font-bold uppercase tracking-[0.06em] text-[#4A2E12]" data-tab-target="tab-details">{{ 'product.tabs.details' | t }}</button>
-          <button type="button" class="tab-btn border-b-2 border-transparent px-[18px] py-[10px] text-[13px] uppercase tracking-[0.06em] text-[#555555]" data-tab-target="tab-shipping">{{ 'product.tabs.shipping' | t }}</button>
-        </div>
-      </div>
-
-      <div class="tab-panel active pt-[24px]" id="tab-details">
-        <div class="mb-[36px]">
-          <p class="mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.at_a_glance' | t }}</p>
-          <h2 class="mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.top_highlights' | t }}</h2>
-          <ul class="space-y-0">
-            <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] text-[#555555]">
-              <span class="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
-              <span>{{ 'product.highlights.crafted' | t }}</span>
-            </li>
-            <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] text-[#555555]">
-              <span class="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
-              <span>{{ 'product.highlights.materials' | t }}</span>
-            </li>
-            <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] text-[#555555]">
-              <span class="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
-              <span>{{ 'product.highlights.fit' | t }}</span>
-            </li>
-            <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] text-[#555555]">
-              <span class="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
-              <span>{{ 'product.highlights.personalized' | t }}</span>
-            </li>
-            <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] text-[#555555]">
-              <span class="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
-              <span>{{ 'product.highlights.guarantee' | t }}</span>
-            </li>
-            <li class="flex gap-[10px] py-[8px] text-[13.5px] text-[#555555]">
-              <span class="mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
-              <span>{{ 'product.highlights.pouch' | t }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mb-[36px]">
-          <p class="mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.story_label' | t }}</p>
-          <h2 class="mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.story_title' | t }}</h2>
-          <div class="space-y-[14px] text-[13px] leading-[1.7] text-[#555555]">
-            <p>{{ product.description | default: 'product.story_body' | t }}</p>
-            <p>{{ 'product.story_support' | t }}</p>
+        <div class="tab-panel hidden pt-[24px]" id="tab-shipping">
+          <div class="policy-block mb-[24px]">
+            <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.shipping.heading' | t }}</h3>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.processing' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.processing_time' | t }}</p>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.delivery' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.delivery_time' | t }}</p>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.customs' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.customs_body' | t }}</p>
           </div>
-        </div>
 
-        <div class="mb-[36px]">
-          <p class="mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.materials_label' | t }}</p>
-          <h2 class="mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.materials_title' | t }}</h2>
-          <div class="space-y-[10px] text-[13px] leading-[1.7] text-[#555555]">
-            <p>{{ 'product.materials_body' | t }}</p>
-            <p>{{ 'product.materials_note' | t }}</p>
+          <div class="policy-block mb-[24px]">
+            <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.policy.heading' | t }}</h3>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.policy.returns' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.policy.returns_body' | t }}</p>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.policy.cancellations' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.policy.cancellations_body' | t }}</p>
           </div>
-        </div>
-      </div>
 
-      <div class="tab-panel hidden pt-[24px]" id="tab-shipping">
-        <div class="mb-[24px]">
-          <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.shipping.heading' | t }}</h3>
-          <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.processing' | t }}</h4>
-          <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.processing_time' | t }}</p>
-          <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.delivery' | t }}</h4>
-          <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.delivery_time' | t }}</p>
-        </div>
-
-        <div class="mb-[24px]">
-          <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.policy.heading' | t }}</h3>
-          <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.policy.returns' | t }}</h4>
-          <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.policy.returns_body' | t }}</p>
-          <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.policy.cancellations' | t }}</h4>
-          <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.policy.cancellations_body' | t }}</p>
+          <div class="policy-block mb-[24px]">
+            <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.faq.heading' | t }}</h3>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.faq.wholesale' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.faq.wholesale_body' | t }}</p>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.faq.care' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.faq.care_body' | t }}</p>
+            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.faq.custom' | t }}</h4>
+            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.faq.custom_body' | t }}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-{% comment %}
-<h2 class="text-center topHeader">{{ product.title }}</h2>
+  <div class="lower-wrap mx-auto max-w-[1100px] border-t border-[#E0D6CA] px-[18px] pb-[80px] md:px-[32px]">
+    <div class="reviews-section py-[40px]" id="reviews-module">
+      <h2 class="reviews-heading mb-[6px] font-['Playfair_Display'] text-[20px] text-[#4A2E12]">{{ 'product.reviews.heading' | t }}</h2>
+      <p class="reviews-avg mb-[28px] text-[12px] text-[#888888]">
+        <span class="stars text-[#9A7235]" aria-hidden="true">★★★★★</span>
+        &nbsp; {{ 'product.reviews.count' | t: count: section.settings.review_count }}
+      </p>
 
-<div class="flex gap-4 flex-col lg:flex-row">
-  <div id="imageSlideshow" class="flex-1 relative overflow-hidden max-w-125 lg:max-w-1/2 w-full h-fit !mx-auto">
-    {% assign images = product.images %}
-    <div id="slidesTrack" class="duration-300 ease-in-out w-full flex">
-      {% for image in images %}
-        <div class="productSlide min-w-full flex items-center">
-          {% render 'image', class: 'object-cover', image: image %}
+      {% for i in (1..5) %}
+        <div class="review-card border-b border-[#E0D6CA] py-[18px] {% if forloop.first %}border-t{% endif %}">
+          <div class="review-meta mb-[6px] flex items-center gap-[10px]">
+            <span class="stars text-[11px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
+            <span class="reviewer-name text-[13px] font-bold">{{ 'product.reviews.sample_' | append: i | append: '.name' | t }}</span>
+            <span class="review-date text-[11px] text-[#888888]">{{ 'product.reviews.sample_' | append: i | append: '.date' | t }}</span>
+          </div>
+          <p class="review-body text-[13px] text-[#555555]">{{ 'product.reviews.sample_' | append: i | append: '.body' | t }}</p>
         </div>
       {% endfor %}
     </div>
-    {% if images.size > 1 %}
-      <button id="prevBtn" class="absolute top-1/2 -translate-y-1/2 !bg-black opacity-50 text-white p-2 cursor-pointer z-10 left-2" aria-label="Previous slide">&lt;</button>
-      <button id="nextBtn" class="absolute top-1/2 -translate-y-1/2 !bg-black opacity-50 text-white p-2 cursor-pointer z-10 right-2" aria-label="Next slide">&gt;</button>
-    {% endif %}
-  </div>
-  
-  <div class="flex-1">
-    {% if product.metafields.custom.feature_bullets.value != blank %}
-      <div id="featureBullets" class="!my-1 flex flex-col gap-1">
-        {% for bullet in product.metafields.custom.feature_bullets.value %}
-          <div class="flex gap-3 items-center mb-6">
-            {% if bullet.svg_icon != blank %}
-              <div class="p-1 bg-blue-300 rounded-full">{{ bullet.svg_icon | raw }}</div>
-            {% endif %}
-
-            <div>
-              {% if bullet.heading != blank %}
-                <h3 class="font-bold uppercase tracking-wide">{{ bullet.heading }}</h3>
-              {% endif %}
-
-              {% if bullet.description != blank %}
-                <p class="text-gray-600">{{ bullet.description }}</p>
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-    <p>{{ product.description }}</p>
-    {% for block in section.blocks %}
-      {% render block %}
-    {% endfor %}
-
-    {% assign queue = shop.metafields.custom.queue_total %}
-    {% assign limit = shop.metafields.custom.monthly_limit %}
-
-    {% if queue > limit %}
-      <div class="text-white bg-black text-center !my-2 p-1">
-        {{ shop.metafields.custom.waitlist_message }}
-      </div>
-    {% endif %}
-    
-    <div class="product-form">
-      {% form 'product', product %}
-        {% assign current_variant = product.selected_or_first_available_variant %}
-        <div id="cartAdder" class="flex !my-3 gap-3 items-center flex-wrap">
-          {% if product.variants.size > 1 %}
-            <select name="id" class="flex-1">
-              {% for variant in product.variants %}
-                <option
-                  value="{{ variant.id }}"
-                  {% if variant == current_variant %}
-                    selected="selected"
-                  {% endif %}
-                  data-price="{{ variant.price }}"
-                >
-                  {{ variant.title }} - {{ variant.price | money }}
-                </option>
-              {% endfor %}
-            </select>
-          {% endif %}
-          <div class="flex items-center rounded-2xl">
-            <a class="qtyBtn roundBtn btn w-12 h-12 flex items-center justify-center rounded-xl disabled:opacity-30 disabled:hover:bg-transparent transition-all duration-200 active:scale-90 text-3xl" aria-label="Decrease quantity">
-              -
-            </a>
-            <span id="qty" class="w-14 text-center font-bold text-2xl text-slate-800 select-none">
-              1
-            </span>
-            <a class="qtyBtn roundBtn btn w-12 h-12 flex items-center justify-center rounded-xl disabled:opacity-30 disabled:hover:bg-transparent transition-all duration-200 active:scale-90 text-3xl" aria-label="Increase quantity">+</a>
-          </div>
-          <div class="text-lg flex gap-1">
-            <b>Price: </b><span id="price" class="inline-block"></span>
-          </div>
-        </div>
-        {{ form | payment_button }}
-      {% endform %}
-    </div>
   </div>
 </div>
-{% endcomment %}
 
 <script>
   const productData = {{ product | json }};
@@ -270,130 +260,214 @@
 </script>
 
 {% stylesheet %}
-button.shopify-payment-button__button {
-  color: black;
-  font-weight: bold;
-  background: var(--accent-color) !important;
-  box-shadow: 1.5px 1.5px 2px var(--text-color);
-  border-radius: 999rem;
-  transition: opacity 0.3s;
-}
+  .product-page .variant-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+
+  .product-page .qty-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+  }
+
+  .product-page .thumb-btn.active {
+    opacity: 1;
+    border-color: var(--site-brown, #4A2E12);
+  }
+
+  .product-page .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .product-page .tab-btn.active {
+    border-bottom-color: var(--site-brown, #4A2E12);
+    font-weight: 700;
+  }
+
+  .product-page .tab-btn:not(.active):hover {
+    color: var(--site-brown, #4A2E12);
+  }
+
+  .product-page .acc-btn[aria-expanded="true"] {
+    background: var(--site-tan, #F7F0E8);
+    border-bottom: 1px solid var(--site-border, #E0D6CA);
+  }
+
+  .product-page .acc-btn[aria-expanded="true"] .acc-icon {
+    transform: rotate(180deg);
+  }
+
+  .product-page .acc-icon {
+    transition: transform 0.2s;
+  }
+
+  .product-page .acc-body.open {
+    display: block;
+    animation: product-fade-down 0.18s ease;
+  }
+
+  @keyframes product-fade-down {
+    from { opacity: 0; transform: translateY(-3px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .product-page .spec-table tbody tr:nth-child(odd) { background: #fff; }
+  .product-page .spec-table tbody tr:nth-child(even) { background: var(--site-tan, #F7F0E8); }
+  .product-page .spec-table tbody tr:hover { background: #f0e6d8; }
+  .product-page .spec-table td:first-child { width: 38%; white-space: nowrap; }
+
+  @media (max-width: 480px) {
+    .product-page .spec-table td:first-child { white-space: normal; }
+  }
+
+  .product-page .about-body em {
+    font-style: italic;
+    color: var(--site-brown, #4A2E12);
+  }
+
+  .product-page .btn-cart:hover {
+    text-decoration: none;
+  }
 {% endstylesheet %}
 
 {% javascript %}
-const track = document.querySelector('#slidesTrack');
-const slides = document.querySelectorAll('#imageSlideshow .productSlide');
-const prevButton = document.querySelector('#prevBtn');
-const nextButton = document.querySelector('#nextBtn');
-const qtySpan = document.querySelector('#qty');
-const priceSpan = document.querySelector('#price');
-const variantSelect = document.querySelector('select[name="id"]');
-const decreaseQtyBtn = document.querySelectorAll('.qtyBtn')[0];
-const increaseQtyBtn = document.querySelectorAll('.qtyBtn')[1];
+  const mainImage = document.getElementById('product-main-image');
+  const thumbButtons = document.querySelectorAll('.thumb-btn');
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  const accordionButtons = document.querySelectorAll('[data-accordion-btn]');
+  const optionSelects = document.querySelectorAll('[data-option-select]');
+  const variantIdInput = document.getElementById('variant-id');
+  const priceEl = document.getElementById('price');
+  const comparePriceEl = document.getElementById('compare-price');
+  const qtySelect = document.getElementById('qty');
 
-let currentIndex = 0;
-
-function updateSlidePosition() {
-  const slideWidth = track.parentElement.offsetWidth;
-  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-}
-
-window.addEventListener('resize', updateSlidePosition);
-
-if (prevButton) {
-  prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
-    updateSlidePosition();
-  });
-}
-
-if (nextButton) {
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
-    updateSlidePosition();
-  });
-}
-
-function formatMoney(cents, format) {
-  if (typeof cents === 'string') cents = cents.replace('.', '');
-  const value = parseFloat(cents) / 100;
-  format = format || '{{ amount }}';
-
-  function formatWithDelimiters(number, precision, thousands, decimal) {
-    if (isNaN(number) || number == null) return 0;
-    precision = precision || 2;
-    thousands = thousands || ',';
-    decimal = decimal || '.';
-    number = (number / 1).toFixed(precision);
-
-    const parts = number.split('.');
-    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
-    const decimalPart = parts[1] ? decimal + parts[1] : '';
-
-    return integerPart + decimalPart;
-  }
-
-  let formattedValue;
-
-  if (format.includes('{{amount_no_decimals}}')) {
-    formattedValue = formatWithDelimiters(value, 0);
-  } else if (format.includes('{{amount_with_comma_separator}}')) {
-    formattedValue = formatWithDelimiters(value, 2, '.', ',');
-  } else if (format.includes('{{amount_no_decimals_with_comma_separator}}')) {
-    formattedValue = formatWithDelimiters(value, 0, '.', ',');
-  } else {
-    formattedValue = formatWithDelimiters(value, 2);
-  }
-
-  return format.replace(/{{.*}}/, formattedValue);
-}
-
-function updatePrice() {
-  let currPrice;
-
-  if (variantSelect && variantSelect.options.length > 1) {
-    const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
-    currPrice = Number(selectedVariant.getAttribute('data-price'));
-  } else currPrice = productData.price;
-
-  const quantity = parseInt(qtySpan.textContent, 10);
-  const totalPrice = currPrice * quantity;
-  priceSpan.textContent = formatMoney(totalPrice, moneyFormat);
-}
-
-decreaseQtyBtn.addEventListener('click', () => {
-  let quantity = parseInt(qtySpan.textContent, 10);
-  if (quantity > 1) {
-    qtySpan.textContent = quantity - 1;
-    updatePrice();
-  }
-});
-
-increaseQtyBtn.addEventListener('click', () => {
-  let quantity = parseInt(qtySpan.textContent, 10);
-  qtySpan.textContent = quantity + 1;
-  updatePrice();
-});
-
-if (variantSelect) variantSelect.addEventListener('change', updatePrice);
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (variantSelect) {
-    Array.from(variantSelect.options).forEach(option => {
-      const variantId = option.value;
-      const variant = productData.variants.find(v => v.id == variantId);
-      if (variant) option.setAttribute('data-price', variant.price);
+  thumbButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!mainImage) return;
+      mainImage.src = button.dataset.imageSrc;
+      mainImage.alt = button.dataset.imageAlt || '';
+      thumbButtons.forEach((thumb) => thumb.classList.remove('active'));
+      button.classList.add('active');
     });
+  });
+
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetId = button.dataset.tabTarget;
+      tabButtons.forEach((tab) => tab.classList.remove('active'));
+      tabPanels.forEach((panel) => {
+        panel.classList.remove('active');
+        panel.classList.add('hidden');
+      });
+      button.classList.add('active');
+      const panel = document.getElementById(targetId);
+      if (panel) {
+        panel.classList.add('active');
+        panel.classList.remove('hidden');
+      }
+    });
+  });
+
+  accordionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+      const body = document.getElementById(button.getAttribute('aria-controls'));
+      button.setAttribute('aria-expanded', String(!isOpen));
+      if (body) {
+        body.classList.toggle('open', !isOpen);
+        body.classList.toggle('hidden', isOpen);
+      }
+    });
+  });
+
+  function formatMoney(cents, format) {
+    if (typeof cents === 'string') cents = cents.replace('.', '');
+    const value = parseFloat(cents) / 100;
+    format = format || '{{ amount }}';
+
+    function formatWithDelimiters(number, precision, thousands, decimal) {
+      if (isNaN(number) || number == null) return 0;
+      precision = precision || 2;
+      thousands = thousands || ',';
+      decimal = decimal || '.';
+      number = (number / 1).toFixed(precision);
+      const parts = number.split('.');
+      const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands);
+      const decimalPart = parts[1] ? decimal + parts[1] : '';
+      return integerPart + decimalPart;
+    }
+
+    let formattedValue;
+    if (format.includes('{{amount_no_decimals}}')) {
+      formattedValue = formatWithDelimiters(value, 0);
+    } else if (format.includes('{{amount_with_comma_separator}}')) {
+      formattedValue = formatWithDelimiters(value, 2, '.', ',');
+    } else if (format.includes('{{amount_no_decimals_with_comma_separator}}')) {
+      formattedValue = formatWithDelimiters(value, 0, '.', ',');
+    } else {
+      formattedValue = formatWithDelimiters(value, 2);
+    }
+
+    return format.replace(/{{.*}}/, formattedValue);
   }
 
-  updatePrice();
-});
+  function getSelectedVariant() {
+    if (!productData.variants || productData.variants.length <= 1) {
+      return productData.variants[0];
+    }
+
+    const selectedOptions = Array.from(optionSelects).map((select) => select.value);
+    return productData.variants.find((variant) =>
+      variant.options.every((option, index) => option === selectedOptions[index])
+    );
+  }
+
+  function updateVariantState() {
+    const variant = getSelectedVariant();
+    if (!variant || !priceEl) return;
+
+    if (variantIdInput) variantIdInput.value = variant.id;
+
+    const quantity = qtySelect ? parseInt(qtySelect.value, 10) : 1;
+    priceEl.textContent = formatMoney(variant.price * quantity, moneyFormat);
+
+    if (comparePriceEl) {
+      if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+        comparePriceEl.textContent = formatMoney(variant.compare_at_price * quantity, moneyFormat);
+        comparePriceEl.classList.remove('hidden');
+      } else {
+        comparePriceEl.classList.add('hidden');
+      }
+    }
+  }
+
+  optionSelects.forEach((select) => select.addEventListener('change', updateVariantState));
+  if (qtySelect) qtySelect.addEventListener('change', updateVariantState);
+
+  document.addEventListener('DOMContentLoaded', updateVariantState);
 {% endjavascript %}
 
 {% schema %}
 {
   "name": "t:general.product",
-  "settings": [],
+  "settings": [
+    {
+      "type": "number",
+      "id": "review_count",
+      "label": "t:product.review_count",
+      "default": 23
+    }
+  ],
   "blocks": [
     {
       "type": "@app"
