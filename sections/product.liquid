@@ -435,7 +435,6 @@
   function updateVariantState() {
     const variant = getSelectedVariant();
     if (!variant || !priceEl) return;
-
     if (variantIdInput) variantIdInput.value = variant.id;
 
     const quantity = qtySelect ? parseInt(qtySelect.value, 10) : 1;
@@ -445,9 +444,7 @@
       if (variant.compare_at_price && variant.compare_at_price > variant.price) {
         comparePriceEl.textContent = formatMoney(variant.compare_at_price * quantity, moneyFormat);
         comparePriceEl.classList.remove('hidden');
-      } else {
-        comparePriceEl.classList.add('hidden');
-      }
+      } else comparePriceEl.classList.add('hidden');
     }
   }
 

@@ -1,4 +1,4 @@
-<header class="site-nav sticky top-0 z-[100] flex h-[64px] items-center justify-between border-b border-[#E0D6CA] bg-white px-[18px] md:px-[32px]">
+<header class="site-nav sticky top-0 flex h-[64px] items-center justify-between border-b border-[#E0D6CA] bg-white px-[18px] md:px-[32px]">
   <a href="{{ routes.root_url }}" class="font-['Playfair_Display'] text-[22px] font-semibold tracking-[0.04em] text-[#4A2E12] no-underline hover:no-underline">
     {{ shop.name }}
   </a>
@@ -25,3 +25,9 @@
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+  div.shopify-section-group-header-group {
+    display: block;
+  }
+{% endstylesheet %}
