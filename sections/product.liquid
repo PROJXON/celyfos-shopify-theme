@@ -32,7 +32,7 @@
             {% for image in product.images %}
               <button
                 type="button"
-                class="thumb-btn {% if forloop.first %}active{% endif %} h-[68px] w-[68px] overflow-hidden border border-[#E0D6CA] opacity-75 transition hover:border-[#4A2E12] hover:opacity-100"
+                class="thumb-btn {% if forloop.first %}active{% endif %} h-[68px] w-[68px] overflow-hidden border border-[#E0D6CA] opacity-75 transition hover:border-[#4A2E12] hover:opacity-100 cursor-pointer"
                 data-image-src="{{ image | image_url: width: 1600 }}"
                 data-image-alt="{{ image.alt | default: product.title | escape }}"
                 aria-label="{{ 'product.view_image' | t: index: forloop.index }}"
@@ -90,9 +90,18 @@
             </select>
           </div>
 
-          <button type="submit" class="btn-cart mb-[10px] w-full border-0 bg-[#4A2E12] px-[14px] py-[14px] text-[13px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#3a2210] hover:no-underline">
+          <button type="submit" class="btn-cart mb-[10px] w-full border-0 bg-[#4A2E12] px-[14px] py-[14px] text-[13px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-[#3a2210] hover:no-underline cursor-pointer">
             {{ 'product.add_to_cart' | t }}
           </button>
+
+          {% assign queue = shop.metafields.custom.queue_total %}
+          {% assign limit = shop.metafields.custom.monthly_limit %}
+
+          {% if queue > limit %}
+            <div class="text-white bg-black text-center !my-2 p-1">
+              {{ shop.metafields.custom.waitlist_message }}
+            </div>
+          {% endif %}
 
           <div class="reviews-link mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
             <span class="stars text-[13px] tracking-[1px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
@@ -104,12 +113,7 @@
           </div>
         {% endform %}
 
-        <div class="tabs-bar flex border-b border-[#E0D6CA]">
-          <button type="button" class="tab-btn active px-[18px] py-[10px] text-[13px] tracking-[0.06em] text-[#4A2E12]" data-tab-target="tab-details">{{ 'product.tabs.details' | t }}</button>
-          <button type="button" class="tab-btn px-[18px] py-[10px] text-[13px] tracking-[0.06em] text-[#555555]" data-tab-target="tab-shipping">{{ 'product.tabs.shipping' | t }}</button>
-        </div>
-
-        <div class="tab-panel active pt-[24px]" id="tab-details">
+        <div class="active pt-[24px]" id="tab-details">
           <div class="details-section mb-[36px]">
             <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.at_a_glance' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.top_highlights' | t }}</h2>
@@ -198,39 +202,15 @@
             %}
           </div>
         </div>
-
-        <div class="tab-panel hidden pt-[24px]" id="tab-shipping">
-          <div class="policy-block mb-[24px]">
-            <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.shipping.heading' | t }}</h3>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.processing' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.processing_time' | t }}</p>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.delivery' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.delivery_time' | t }}</p>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.shipping.customs' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.shipping.customs_body' | t }}</p>
-          </div>
-
-          <div class="policy-block mb-[24px]">
-            <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.policy.heading' | t }}</h3>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.policy.returns' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.policy.returns_body' | t }}</p>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.policy.cancellations' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.policy.cancellations_body' | t }}</p>
-          </div>
-
-          <div class="policy-block mb-[24px]">
-            <h3 class="mb-[8px] font-['Playfair_Display'] text-[14px] font-semibold text-[#4A2E12]">{{ 'product.faq.heading' | t }}</h3>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.faq.wholesale' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.faq.wholesale_body' | t }}</p>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.faq.care' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.faq.care_body' | t }}</p>
-            <h4 class="mb-[4px] mt-[14px] text-[12px] font-bold uppercase tracking-[0.06em] text-[#555555]">{{ 'product.faq.custom' | t }}</h4>
-            <p class="text-[13px] leading-[1.65] text-[#555555]">{{ 'product.faq.custom_body' | t }}</p>
-          </div>
-        </div>
       </div>
     </div>
   </div>
+
+  {% comment %}
+    {% for block in section.blocks %}
+      {% render block %}
+    {% endfor %}
+  {% endcomment %}
 
   <div class="lower-wrap mx-auto max-w-[1100px] border-t border-[#E0D6CA] px-[18px] pb-[80px] md:px-[32px]">
     <div class="reviews-section py-[40px]" id="reviews-module">
@@ -279,24 +259,6 @@
     border-color: var(--site-brown, #4A2E12);
   }
 
-  .product-page .tab-btn {
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    margin-bottom: -1px;
-    transition: color 0.15s, border-color 0.15s;
-  }
-
-  .product-page .tab-btn.active {
-    border-bottom-color: var(--site-brown, #4A2E12);
-    font-weight: 700;
-  }
-
-  .product-page .tab-btn:not(.active):hover {
-    color: var(--site-brown, #4A2E12);
-  }
-
   .product-page .acc-btn[aria-expanded="true"] {
     background: var(--site-tan, #F7F0E8);
     border-bottom: 1px solid var(--site-border, #E0D6CA);
@@ -342,8 +304,6 @@
 {% javascript %}
   const mainImage = document.getElementById('product-main-image');
   const thumbButtons = document.querySelectorAll('.thumb-btn');
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabPanels = document.querySelectorAll('.tab-panel');
   const accordionButtons = document.querySelectorAll('[data-accordion-btn]');
   const optionSelects = document.querySelectorAll('[data-option-select]');
   const variantIdInput = document.getElementById('variant-id');
@@ -358,23 +318,6 @@
       mainImage.alt = button.dataset.imageAlt || '';
       thumbButtons.forEach((thumb) => thumb.classList.remove('active'));
       button.classList.add('active');
-    });
-  });
-
-  tabButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const targetId = button.dataset.tabTarget;
-      tabButtons.forEach((tab) => tab.classList.remove('active'));
-      tabPanels.forEach((panel) => {
-        panel.classList.remove('active');
-        panel.classList.add('hidden');
-      });
-      button.classList.add('active');
-      const panel = document.getElementById(targetId);
-      if (panel) {
-        panel.classList.add('active');
-        panel.classList.remove('hidden');
-      }
     });
   });
 
