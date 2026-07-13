@@ -220,16 +220,19 @@
         &nbsp; {{ 'product.reviews.count' | t: count: section.settings.review_count }}
       </p>
 
-      {% for i in (1..5) %}
-        <div class="review-card border-b border-[#E0D6CA] py-[18px] {% if forloop.first %}border-t{% endif %}">
-          <div class="review-meta mb-[6px] flex items-center gap-[10px]">
-            <span class="stars text-[11px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
-            <span class="reviewer-name text-[13px] font-bold">{{ 'product.reviews.sample_' | append: i | append: '.name' | t }}</span>
-            <span class="review-date text-[11px] text-[#888888]">{{ 'product.reviews.sample_' | append: i | append: '.date' | t }}</span>
-          </div>
-          <p class="review-body text-[13px] text-[#555555]">{{ 'product.reviews.sample_' | append: i | append: '.body' | t }}</p>
-        </div>
-      {% endfor %}
+      <div class="judgeme-reviews-wrapper">
+        <div
+          id="judgeme_product_reviews"
+          class="jdgm-widget jdgm-review-widget"
+          data-product-title="{{ product.title | escape }}"
+          data-id="{{ product.id }}"
+          data-handle="{{ product.handle }}"
+          data-review-count="{{ product.metafields.judgeme.review_count }}"
+          data-template="product"
+        ></div>
+      </div>
+
+      <script async src="https://cdn.judge.me/loader.js"></script>
     </div>
   </div>
 </div>
