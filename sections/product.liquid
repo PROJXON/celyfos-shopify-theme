@@ -161,10 +161,56 @@
             </div>
           {% endif %}
 
-          <div class="reviews-link mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
-            <span class="stars text-[13px] tracking-[1px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
-            <a class="no-underline hover:text-[#4A2E12] hover:underline" href="#reviews-module">{{ 'product.reviews_link' | t: count: section.settings.review_count }}</a>
-          </div>
+          {% liquid
+            assign review_rating = product.metafields.reviews.rating.value.rating
+            assign review_scale_max = product.metafields.reviews.rating.value.scale_max | default: 5 | round
+            assign review_count = product.metafields.reviews.rating_count.value | default: 0 | plus: 0
+
+            if review_count == 0 and product.metafields.judgeme.review_count != blank
+              assign review_count = product.metafields.judgeme.review_count | plus: 0
+            endif
+
+            if review_rating == blank and product.metafields.judgeme.rating != blank
+              assign review_rating = product.metafields.judgeme.rating | plus: 0
+            endif
+
+            if review_count > 0 and review_rating != blank
+              assign review_rating_rounded = review_rating | round
+              assign show_custom_review_summary = true
+            else
+              assign show_custom_review_summary = false
+            endif
+          %}
+
+          {% if show_custom_review_summary %}
+            <div class="reviews-link mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
+              <span
+                class="stars text-[13px] tracking-[1px] text-[#9A7235]"
+                role="img"
+                aria-label="{{ 'product.reviews_rating_label' | t: rating: review_rating, max: review_scale_max }}"
+              >
+                {% for i in (1..review_scale_max) %}
+                  {% if i <= review_rating_rounded %}
+                    <span aria-hidden="true">★</span>
+                  {% else %}
+                    <span class="star--empty text-[#D4B896]" aria-hidden="true">☆</span>
+                  {% endif %}
+                {% endfor %}
+              </span>
+              <a class="no-underline hover:text-[#4A2E12] hover:underline" href="#reviews-module">
+                {{- 'product.reviews_link' | t: count: review_count -}}
+              </a>
+            </div>
+          {% else %}
+            <a
+              class="reviews-link reviews-link--judgeme mb-[18px] inline-flex items-center gap-[6px] text-[12px] text-[#555555] no-underline hover:text-[#4A2E12]"
+              href="#reviews-module"
+            >
+              <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+                {{ product.metafields.judgeme.badge }}
+              </div>
+            </a>
+          {% endif %}
 
           <div class="action-links mb-[20px] border-t border-[#E0D6CA] pt-[14px] text-[12px] text-[#555555]">
             <a class="no-underline hover:text-[#4A2E12] hover:underline" href="/pages/contact-us">{{ 'product.ask_a_question' | t }}</a>
@@ -266,19 +312,7 @@
 
   <div class="lower-wrap mx-auto max-w-[1100px] border-t border-[#E0D6CA] px-[18px] pb-[80px] md:px-[32px]">
     <div class="reviews-section py-[40px]" id="reviews-module">
-      <h2 class="reviews-heading mb-[6px] font-['Playfair_Display'] text-[20px] text-[#4A2E12]">{{ 'product.reviews.heading' | t }}</h2>
-      <p class="reviews-avg mb-[28px] text-[12px] text-[#888888]">
-        <span class="stars text-[#9A7235]" aria-hidden="true">★★★★★</span>
-        &nbsp; {{ 'product.reviews.count' | t: count: section.settings.review_count }}
-      </p>
-
       <div class="judgeme-reviews-wrapper">
-        {%- comment -%}
-          Judge.me OS 2.0: render the Review Widget app block here.
-          Add it in the theme editor (Product section → Add block → Apps → Judge.me Review Widget).
-          Manual Liquid shells stay empty when product.metafields.judgeme.widget is blank
-          and Judge.me widget revamp is enabled.
-        {%- endcomment -%}
         {% for block in section.blocks %}
           {% render block %}
         {% endfor %}
@@ -362,6 +396,168 @@
 
   .product-page .btn-cart:hover {
     text-decoration: none;
+  }
+
+  .product-page .reviews-link--judgeme .jdgm-preview-badge,
+  .product-page .reviews-link--judgeme .jdgm-star,
+  .product-page .reviews-link--judgeme [class*='jdgm-star'] {
+    color: #9A7235 !important;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .product-page .reviews-link--judgeme .jdgm-prev-badge__text,
+  .product-page .reviews-link--judgeme .jdgm-preview-badge span {
+    color: #555555;
+    font-size: 12px;
+  }
+
+  .product-page .reviews-link--judgeme:hover .jdgm-prev-badge__text,
+  .product-page .reviews-link--judgeme:hover .jdgm-preview-badge span {
+    color: #4A2E12;
+    text-decoration: underline;
+  }
+
+  /* Judge.me review widget — match product page typography and palette */
+  .product-page .judgeme-reviews-wrapper {
+    color: #555555;
+    font-family: Lato, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg,
+  .product-page .judgeme-reviews-wrapper .jdgm-widget {
+    font-family: inherit;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__title,
+  .product-page .judgeme-reviews-wrapper .jdgm-widget-actions-wrapper + .jdgm-rev-widg__header,
+  .product-page .judgeme-reviews-wrapper h2,
+  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__summary-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    color: #4A2E12;
+    letter-spacing: 0;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__title {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-star,
+  .product-page .judgeme-reviews-wrapper .jdgm-star.svg,
+  .product-page .judgeme-reviews-wrapper [class*='jdgm-star'] {
+    color: #9A7235 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-histogram__bar-content {
+    background: #9A7235 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-histogram__bar {
+    background: #F7F0E8 !important;
+    border-radius: 0;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev,
+  .product-page .judgeme-reviews-wrapper .jdgm-quest {
+    border-color: #E0D6CA !important;
+    border-radius: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev__author,
+  .product-page .judgeme-reviews-wrapper .jdgm-rev__title {
+    color: #222222;
+    font-weight: 700;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev__timestamp,
+  .product-page .judgeme-reviews-wrapper .jdgm-rev__buyer-badge,
+  .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown-wrapper,
+  .product-page .judgeme-reviews-wrapper .jdgm-histogram__frequency,
+  .product-page .judgeme-reviews-wrapper .jdgm-histogram__bar-info {
+    color: #888888;
+    font-size: 12px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev__body,
+  .product-page .judgeme-reviews-wrapper .jdgm-rev__content {
+    color: #555555;
+    font-size: 13px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-btn,
+  .product-page .judgeme-reviews-wrapper .jdgm-write-rev-link,
+  .product-page .judgeme-reviews-wrapper .jdgm-submit-rev,
+  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page,
+  .product-page .judgeme-reviews-wrapper a.jdgm-write-rev-link {
+    border-radius: 0 !important;
+    font-family: Lato, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-write-rev-link,
+  .product-page .judgeme-reviews-wrapper .jdgm-btn--solid,
+  .product-page .judgeme-reviews-wrapper .jdgm-submit-rev,
+  .product-page .judgeme-reviews-wrapper .jdgm-btn.jdgm-btn--solid {
+    background: #4A2E12 !important;
+    border-color: #4A2E12 !important;
+    color: #fff !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-write-rev-link:hover,
+  .product-page .judgeme-reviews-wrapper .jdgm-btn--solid:hover,
+  .product-page .judgeme-reviews-wrapper .jdgm-submit-rev:hover {
+    background: #3a2210 !important;
+    border-color: #3a2210 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-btn--border,
+  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page,
+  .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown {
+    border: 1px solid #E0D6CA !important;
+    background: #fff !important;
+    color: #4A2E12 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page.jdgm-curt,
+  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page:hover {
+    background: #F7F0E8 !important;
+    border-color: #4A2E12 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__summary,
+  .product-page .judgeme-reviews-wrapper .jdgm-histogram {
+    border-color: #E0D6CA;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__summary-average,
+  .product-page .judgeme-reviews-wrapper .jdgm-row-rating {
+    color: #222222;
+  }
+
+  .product-page .judgeme-reviews-wrapper input,
+  .product-page .judgeme-reviews-wrapper textarea,
+  .product-page .judgeme-reviews-wrapper select {
+    border: 1px solid #E0D6CA !important;
+    border-radius: 0 !important;
+    color: #222222;
+    font-family: Lato, sans-serif;
+    font-size: 13px;
+  }
+
+  .product-page .judgeme-reviews-wrapper input:focus,
+  .product-page .judgeme-reviews-wrapper textarea:focus,
+  .product-page .judgeme-reviews-wrapper select:focus {
+    border-color: #4A2E12 !important;
+    outline: none;
   }
 {% endstylesheet %}
 
@@ -464,14 +660,7 @@
 {% schema %}
 {
   "name": "t:general.product",
-  "settings": [
-    {
-      "type": "number",
-      "id": "review_count",
-      "label": "t:product.review_count",
-      "default": 23
-    }
-  ],
+  "settings": [],
   "blocks": [
     {
       "type": "@app"
