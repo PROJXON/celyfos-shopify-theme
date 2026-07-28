@@ -6,12 +6,70 @@
 {% assign featured_image = product.featured_image | default: product.images.first %}
 {% assign current_variant = product.selected_or_first_available_variant %}
 
+{% liquid
+  assign product_custom_option = product.metafields.custom.option.value
+  assign option_breadcrumb_url = ''
+  assign option_breadcrumb_name = ''
+
+  if product_custom_option != blank
+    assign option_breadcrumb_name = product_custom_option.name
+    assign shop_collection = nil
+
+    for col in product.collections
+      assign collection_options = col.metafields.custom.available_options.value
+      if collection_options == blank
+        assign collection_options = nil
+      endif
+
+      if collection_options != blank
+        for available_option in collection_options
+          if available_option.system.id == product_custom_option.system.id
+            assign shop_collection = col
+            break
+          endif
+        endfor
+      endif
+
+      if shop_collection != nil
+        break
+      endif
+
+      if collection_options != blank and shop_collection == nil
+        for available_option in collection_options
+          if available_option.name == product_custom_option.name
+            assign shop_collection = col
+            break
+          endif
+        endfor
+      endif
+
+      if shop_collection != nil
+        break
+      endif
+    endfor
+
+    if shop_collection != nil and product_custom_option.system.id != blank
+      assign option_metaobject_gid = 'gid://shopify/Metaobject/' | append: product_custom_option.system.id
+      assign option_filter_param = option_metaobject_gid | url_param_escape
+      assign option_breadcrumb_url = shop_collection.url | append: '?filter.p.m.custom.option=' | append: option_filter_param
+    endif
+  endif
+%}
+
 <div class="product-page">
   <div class="!mx-auto max-w-[1100px] px-[18px] pb-[60px] md:px-[32px]">
     <nav class="breadcrumb py-[14px] text-[12px] tracking-[0.04em] text-[#888888]" aria-label="{{ 'product.breadcrumb_label' | t }}">
       <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
       <span class="mx-[6px]">›</span>
       <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
+      {% if option_breadcrumb_name != blank %}
+        <span class="mx-[6px]">›</span>
+        {% if option_breadcrumb_url != blank %}
+          <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ option_breadcrumb_url }}">{{ option_breadcrumb_name }}</a>
+        {% else %}
+          <span class="text-[#888888]">{{ option_breadcrumb_name }}</span>
+        {% endif %}
+      {% endif %}
       <span class="mx-[6px]">›</span>
       <span class="text-[#222222]">{{ product.title }}</span>
     </nav>
