@@ -6,12 +6,68 @@
 {% assign featured_image = product.featured_image | default: product.images.first %}
 {% assign current_variant = product.selected_or_first_available_variant %}
 
+{% liquid
+  assign product_custom_option = product.metafields.custom.option.value
+  assign option_breadcrumb_url = ''
+  assign option_breadcrumb_name = ''
+
+  if product_custom_option != blank
+    assign option_breadcrumb_name = product_custom_option.name
+    assign shop_collection = nil
+
+    for col in product.collections
+      assign collection_options = col.metafields.custom.available_options.value
+      if collection_options == blank
+        assign collection_options = nil
+      endif
+
+      if collection_options != blank
+        for available_option in collection_options
+          if available_option.system.id == product_custom_option.system.id
+            assign shop_collection = col
+            break
+          endif
+        endfor
+      endif
+
+      if shop_collection != nil
+        break
+      endif
+
+      if collection_options != blank and shop_collection == nil
+        for available_option in collection_options
+          if available_option.name == product_custom_option.name
+            assign shop_collection = col
+            break
+          endif
+        endfor
+      endif
+
+      if shop_collection != nil
+        break
+      endif
+    endfor
+
+    if shop_collection != nil and product_custom_option.system.id != blank
+      assign option_metaobject_gid = 'gid://shopify/Metaobject/' | append: product_custom_option.system.id
+      assign option_filter_param = option_metaobject_gid | url_param_escape
+      assign option_breadcrumb_url = shop_collection.url | append: '?filter.p.m.custom.option=' | append: option_filter_param
+    endif
+  endif
+%}
+
 <div class="product-page">
   <div class="!mx-auto max-w-[1100px] px-[18px] pb-[60px] md:px-[32px]">
     <nav class="breadcrumb py-[14px] text-[12px] tracking-[0.04em] text-[#888888]" aria-label="{{ 'product.breadcrumb_label' | t }}">
       <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
-      <span class="mx-[6px]">›</span>
-      <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
+      {% if option_breadcrumb_name != blank %}
+        <span class="mx-[6px]">›</span>
+        {% if option_breadcrumb_url != blank %}
+          <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ option_breadcrumb_url }}">{{ option_breadcrumb_name }}</a>
+        {% else %}
+          <span class="text-[#888888]">{{ option_breadcrumb_name }}</span>
+        {% endif %}
+      {% endif %}
       <span class="mx-[6px]">›</span>
       <span class="text-[#222222]">{{ product.title }}</span>
     </nav>
@@ -103,19 +159,60 @@
             </div>
           {% endif %}
 
-          <div class="reviews-link mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
-            <span class="stars text-[13px] tracking-[1px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
-            <a class="no-underline hover:text-[#4A2E12] hover:underline" href="#reviews-module">{{ 'product.reviews_link' | t: count: section.settings.review_count }}</a>
-          </div>
+          {% liquid
+            assign review_rating = product.metafields.reviews.rating.value.rating
+            assign review_scale_max = product.metafields.reviews.rating.value.scale_max | default: 5 | round
+            assign review_count = product.metafields.reviews.rating_count.value | default: 0 | plus: 0
 
-          <div class="action-links mb-[20px] border-t border-[#E0D6CA] pt-[14px] text-[12px] text-[#555555]">
-            <a class="no-underline hover:text-[#4A2E12] hover:underline" href="/pages/contact-us">{{ 'product.ask_a_question' | t }}</a>
-          </div>
+            if review_count == 0 and product.metafields.judgeme.review_count != blank
+              assign review_count = product.metafields.judgeme.review_count | plus: 0
+            endif
+
+            if review_rating == blank and product.metafields.judgeme.rating != blank
+              assign review_rating = product.metafields.judgeme.rating | plus: 0
+            endif
+
+            if review_count > 0 and review_rating != blank
+              assign review_rating_rounded = review_rating | round
+              assign show_custom_review_summary = true
+            else
+              assign show_custom_review_summary = false
+            endif
+          %}
+
+          {% if show_custom_review_summary %}
+            <div class="reviews-link mb-[18px] flex items-center gap-[6px] text-[12px] text-[#555555]">
+              <span
+                class="stars text-[13px] tracking-[1px] text-[#9A7235]"
+                role="img"
+                aria-label="{{ 'product.reviews_rating_label' | t: rating: review_rating, max: review_scale_max }}"
+              >
+                {% for i in (1..review_scale_max) %}
+                  {% if i <= review_rating_rounded %}
+                    <span aria-hidden="true">★</span>
+                  {% else %}
+                    <span class="star--empty text-[#D4B896]" aria-hidden="true">☆</span>
+                  {% endif %}
+                {% endfor %}
+              </span>
+              <a class="no-underline hover:text-[#4A2E12] hover:underline" href="#reviews-module">
+                {{- 'product.reviews_link' | t: count: review_count -}}
+              </a>
+            </div>
+          {% else %}
+            <a
+              class="reviews-link reviews-link--judgeme mb-[18px] inline-flex items-center gap-[6px] text-[12px] text-[#555555] no-underline hover:text-[#4A2E12]"
+              href="#reviews-module"
+            >
+              <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+                {{ product.metafields.judgeme.badge }}
+              </div>
+            </a>
+          {% endif %}
         {% endform %}
 
         <div class="active pt-[24px]" id="tab-details">
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.materials_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.materials_title' | t }}</h2>
             {% render 'product-accordion',
               id: 'acc-materials',
@@ -134,7 +231,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.fit_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.product_details_title' | t }}</h2>
             {% render 'product-accordion',
               id: 'acc-fit',
@@ -153,7 +249,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.returns_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.returns_title' | t }}</h2>
             {% render 'product-accordion',
               id: 'acc-returns',
@@ -172,7 +267,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.at_a_glance' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.top_highlights' | t }}</h2>
             <ul class="hl-list list-none p-0">
               {% assign highlight_keys = 'crafted,materials,fit,personalized,guarantee,pouch' | split: ',' %}
@@ -186,7 +280,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.story_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.story_title' | t }}</h2>
             <div class="about-list flex flex-col">
               {% for i in (1..4) %}
@@ -206,30 +299,24 @@
     </div>
   </div>
 
-  {% comment %}
-    {% for block in section.blocks %}
-      {% render block %}
-    {% endfor %}
-  {% endcomment %}
+  <div class="lower-wrap mx-auto max-w-[1100px] px-[18px] pb-[80px] md:px-[32px]">
+    <div class="reviews-section border-t border-[#E0D6CA] py-[40px]" id="reviews-module">
+      <div class="judgeme-reviews-wrapper">
+        {% for block in section.blocks %}
+          {% render block %}
+        {% endfor %}
 
-  <div class="lower-wrap mx-auto max-w-[1100px] border-t border-[#E0D6CA] px-[18px] pb-[80px] md:px-[32px]">
-    <div class="reviews-section py-[40px]" id="reviews-module">
-      <h2 class="reviews-heading mb-[6px] font-['Playfair_Display'] text-[20px] text-[#4A2E12]">{{ 'product.reviews.heading' | t }}</h2>
-      <p class="reviews-avg mb-[28px] text-[12px] text-[#888888]">
-        <span class="stars text-[#9A7235]" aria-hidden="true">★★★★★</span>
-        &nbsp; {{ 'product.reviews.count' | t: count: section.settings.review_count }}
-      </p>
-
-      {% for i in (1..5) %}
-        <div class="review-card border-b border-[#E0D6CA] py-[18px] {% if forloop.first %}border-t{% endif %}">
-          <div class="review-meta mb-[6px] flex items-center gap-[10px]">
-            <span class="stars text-[11px] text-[#9A7235]" aria-hidden="true">★★★★★</span>
-            <span class="reviewer-name text-[13px] font-bold">{{ 'product.reviews.sample_' | append: i | append: '.name' | t }}</span>
-            <span class="review-date text-[11px] text-[#888888]">{{ 'product.reviews.sample_' | append: i | append: '.date' | t }}</span>
+        {%- if section.blocks.size == 0 and product.metafields.judgeme.widget != blank -%}
+          <div
+            id="judgeme_product_reviews"
+            class="jdgm-widget jdgm-review-widget"
+            data-product-title="{{ product.title | escape }}"
+            data-id="{{ product.id }}"
+          >
+            {{ product.metafields.judgeme.widget }}
           </div>
-          <p class="review-body text-[13px] text-[#555555]">{{ 'product.reviews.sample_' | append: i | append: '.body' | t }}</p>
-        </div>
-      {% endfor %}
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </div>
@@ -254,9 +341,14 @@
     padding-right: 28px;
   }
 
+  .product-page .thumb-btn {
+    border: 1px solid #E0D6CA;
+  }
+
   .product-page .thumb-btn.active {
     opacity: 1;
-    border-color: var(--site-brown, #4A2E12);
+    border-color: #4A2E12;
+    border-width: 1.5px;
   }
 
   .product-page .acc-btn[aria-expanded="true"] {
@@ -298,6 +390,176 @@
 
   .product-page .btn-cart:hover {
     text-decoration: none;
+  }
+
+  .product-page .reviews-link--judgeme .jdgm-preview-badge,
+  .product-page .reviews-link--judgeme .jdgm-star,
+  .product-page .reviews-link--judgeme [class*='jdgm-star'] {
+    color: #9A7235 !important;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .product-page .reviews-link--judgeme .jdgm-prev-badge__text,
+  .product-page .reviews-link--judgeme .jdgm-preview-badge span {
+    color: #555555;
+    font-size: 12px;
+  }
+
+  .product-page .reviews-link--judgeme:hover .jdgm-prev-badge__text,
+  .product-page .reviews-link--judgeme:hover .jdgm-preview-badge span {
+    color: #4A2E12;
+    text-decoration: underline;
+  }
+
+  /*
+    Judge.me revamp widget (jm-*).
+    Colors are driven by CSS variables set inline by Judge.me — override them here.
+  */
+  .product-page .judgeme-reviews-wrapper,
+  .product-page .judgeme-reviews-wrapper .jdgm-widget,
+  .product-page .judgeme-reviews-wrapper .jm-review-widget,
+  .product-page .judgeme-reviews-wrapper .jm-review-item,
+  .product-page .judgeme-reviews-wrapper [data-widget-container='review-widget'] {
+    --jm-review-widget-star-and-histogram-color: #9A7235 !important;
+    --jm-review-widget-button-color: #4A2E12 !important;
+    --jm-review-widget-button-text-color: #ffffff !important;
+    --jm-review-widget-text-color: #222222 !important;
+    --jm-review-widget-lighter-text-color: #888888 !important;
+    --jm-widget-primary-color: #4A2E12 !important;
+    --jm-widget-border-radius: 0 !important;
+    --jm-widget-border-radius-simplified: 0 !important;
+    --jm-review-widget-form-border-radius: 0 !important;
+    --jm-review-widget-form-button-color: #4A2E12 !important;
+    --jm-review-widget-form-button-text-color: #ffffff !important;
+    --jm-review-widget-form-field-background-color: #f7f0e8 !important;
+    --jm-review-widget-form-text-color: #222222 !important;
+    --thumbnail-active-border-color: #4A2E12 !important;
+    --thumbnail-border-radius: 0 !important;
+    font-family: Lato, sans-serif !important;
+    color: #555555;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-text,
+  .product-page .judgeme-reviews-wrapper .jm-button,
+  .product-page .judgeme-reviews-wrapper .jm-sort-filter__select,
+  .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown,
+  .product-page .judgeme-reviews-wrapper input,
+  .product-page .judgeme-reviews-wrapper textarea,
+  .product-page .judgeme-reviews-wrapper select,
+  .product-page .judgeme-reviews-wrapper button {
+    font-family: Lato, sans-serif !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-review-widget-minimal-header__title {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    letter-spacing: 0;
+    color: #4A2E12 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-average-rating-display .jm-text {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: #4A2E12 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-average-rating-display .jm-text:last-child {
+    font-family: Lato, sans-serif !important;
+    color: #888888 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-star-rating,
+  .product-page .judgeme-reviews-wrapper .jm-star-rating__font-icon {
+    color: #9A7235 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-button--primary,
+  .product-page .judgeme-reviews-wrapper .jm-action-buttons__button {
+    background: #4A2E12 !important;
+    border-color: #4A2E12 !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-button--primary:hover,
+  .product-page .judgeme-reviews-wrapper .jm-action-buttons__button:hover {
+    background: #3a2210 !important;
+    border-color: #3a2210 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-button--secondary,
+  .product-page .judgeme-reviews-wrapper .jm-custom-answer-filter,
+  .product-page .judgeme-reviews-wrapper .jm-sort-filter,
+  .product-page .judgeme-reviews-wrapper .jm-sort-filter__select,
+  .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown {
+    border: 1px solid #E0D6CA !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    color: #4A2E12 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-review-item {
+    border-bottom: 1px solid #E0D6CA;
+    padding-bottom: 20px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-reviewer-info__name {
+    color: #222222 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-review-content__body,
+  .product-page .judgeme-reviews-wrapper .jdgm-review-content__body-content {
+    color: #555555 !important;
+    font-size: 13.5px !important;
+    line-height: 1.55;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-verified-buyer-badge__text {
+    color: #9A7235 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-reviewer-avatar__initial {
+    background: #F7F0E8 !important;
+    color: #4A2E12 !important;
+    border-radius: 0 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-media-grid__item,
+  .product-page .judgeme-reviews-wrapper .jm-media-thumbnail-list__thumbnail {
+    border: 1px solid #E0D6CA !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-media-grid__item[aria-selected='true'],
+  .product-page .judgeme-reviews-wrapper .jm-media-grid__item[aria-selected='true'] .jm-media-grid__image-container {
+    border-color: #4A2E12 !important;
+    outline: 1.5px solid #4A2E12;
+    outline-offset: -1.5px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-media-thumbnail-list__thumbnail--default {
+    border-radius: 0 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper input,
+  .product-page .judgeme-reviews-wrapper textarea,
+  .product-page .judgeme-reviews-wrapper select {
+    border: 1px solid #E0D6CA !important;
+    border-radius: 0 !important;
+    color: #222222;
+  }
+
+  .product-page .judgeme-reviews-wrapper input:focus,
+  .product-page .judgeme-reviews-wrapper textarea:focus,
+  .product-page .judgeme-reviews-wrapper select:focus {
+    border-color: #4A2E12 !important;
+    outline: none;
   }
 {% endstylesheet %}
 
@@ -400,14 +662,7 @@
 {% schema %}
 {
   "name": "t:general.product",
-  "settings": [
-    {
-      "type": "number",
-      "id": "review_count",
-      "label": "t:product.review_count",
-      "default": 23
-    }
-  ],
+  "settings": [],
   "blocks": [
     {
       "type": "@app"
