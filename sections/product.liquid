@@ -299,8 +299,8 @@
     </div>
   </div>
 
-  <div class="lower-wrap mx-auto max-w-[1100px] border-t border-[#E0D6CA] px-[18px] pb-[80px] md:px-[32px]">
-    <div class="reviews-section py-[40px]" id="reviews-module">
+  <div class="lower-wrap mx-auto max-w-[1100px] px-[18px] pb-[80px] md:px-[32px]">
+    <div class="reviews-section border-t border-[#E0D6CA] py-[40px]" id="reviews-module">
       <div class="judgeme-reviews-wrapper">
         {% for block in section.blocks %}
           {% render block %}
@@ -341,9 +341,14 @@
     padding-right: 28px;
   }
 
+  .product-page .thumb-btn {
+    border: 1px solid #E0D6CA;
+  }
+
   .product-page .thumb-btn.active {
     opacity: 1;
-    border-color: var(--site-brown, #4A2E12);
+    border-color: #4A2E12;
+    border-width: 1.5px;
   }
 
   .product-page .acc-btn[aria-expanded="true"] {
@@ -407,129 +412,139 @@
     text-decoration: underline;
   }
 
-  /* Judge.me review widget — match product page typography and palette */
-  .product-page .judgeme-reviews-wrapper {
+  /*
+    Judge.me revamp widget (jm-*).
+    Colors are driven by CSS variables set inline by Judge.me — override them here.
+  */
+  .product-page .judgeme-reviews-wrapper,
+  .product-page .judgeme-reviews-wrapper .jdgm-widget,
+  .product-page .judgeme-reviews-wrapper .jm-review-widget,
+  .product-page .judgeme-reviews-wrapper .jm-review-item,
+  .product-page .judgeme-reviews-wrapper [data-widget-container='review-widget'] {
+    --jm-review-widget-star-and-histogram-color: #9A7235 !important;
+    --jm-review-widget-button-color: #4A2E12 !important;
+    --jm-review-widget-button-text-color: #ffffff !important;
+    --jm-review-widget-text-color: #222222 !important;
+    --jm-review-widget-lighter-text-color: #888888 !important;
+    --jm-widget-primary-color: #4A2E12 !important;
+    --jm-widget-border-radius: 0 !important;
+    --jm-widget-border-radius-simplified: 0 !important;
+    --jm-review-widget-form-border-radius: 0 !important;
+    --jm-review-widget-form-button-color: #4A2E12 !important;
+    --jm-review-widget-form-button-text-color: #ffffff !important;
+    --jm-review-widget-form-field-background-color: #f7f0e8 !important;
+    --jm-review-widget-form-text-color: #222222 !important;
+    --thumbnail-active-border-color: #4A2E12 !important;
+    --thumbnail-border-radius: 0 !important;
+    font-family: Lato, sans-serif !important;
     color: #555555;
-    font-family: Lato, sans-serif;
-    font-size: 13px;
-    line-height: 1.55;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg,
-  .product-page .judgeme-reviews-wrapper .jdgm-widget {
-    font-family: inherit;
+  .product-page .judgeme-reviews-wrapper .jm-text,
+  .product-page .judgeme-reviews-wrapper .jm-button,
+  .product-page .judgeme-reviews-wrapper .jm-sort-filter__select,
+  .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown,
+  .product-page .judgeme-reviews-wrapper input,
+  .product-page .judgeme-reviews-wrapper textarea,
+  .product-page .judgeme-reviews-wrapper select,
+  .product-page .judgeme-reviews-wrapper button {
+    font-family: Lato, sans-serif !important;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__title,
-  .product-page .judgeme-reviews-wrapper .jdgm-widget-actions-wrapper + .jdgm-rev-widg__header,
-  .product-page .judgeme-reviews-wrapper h2,
-  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__summary-text {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 400;
-    color: #4A2E12;
+  .product-page .judgeme-reviews-wrapper .jm-review-widget-minimal-header__title {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
     letter-spacing: 0;
+    color: #4A2E12 !important;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__title {
-    font-size: 20px;
-    margin-bottom: 18px;
+  .product-page .judgeme-reviews-wrapper .jm-average-rating-display .jm-text {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: #4A2E12 !important;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-star,
-  .product-page .judgeme-reviews-wrapper .jdgm-star.svg,
-  .product-page .judgeme-reviews-wrapper [class*='jdgm-star'] {
+  .product-page .judgeme-reviews-wrapper .jm-average-rating-display .jm-text:last-child {
+    font-family: Lato, sans-serif !important;
+    color: #888888 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-star-rating,
+  .product-page .judgeme-reviews-wrapper .jm-star-rating__font-icon {
     color: #9A7235 !important;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-histogram__bar-content {
-    background: #9A7235 !important;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-histogram__bar {
-    background: #F7F0E8 !important;
-    border-radius: 0;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-rev,
-  .product-page .judgeme-reviews-wrapper .jdgm-quest {
-    border-color: #E0D6CA !important;
-    border-radius: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-rev__author,
-  .product-page .judgeme-reviews-wrapper .jdgm-rev__title {
-    color: #222222;
-    font-weight: 700;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-rev__timestamp,
-  .product-page .judgeme-reviews-wrapper .jdgm-rev__buyer-badge,
-  .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown-wrapper,
-  .product-page .judgeme-reviews-wrapper .jdgm-histogram__frequency,
-  .product-page .judgeme-reviews-wrapper .jdgm-histogram__bar-info {
-    color: #888888;
-    font-size: 12px;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-rev__body,
-  .product-page .judgeme-reviews-wrapper .jdgm-rev__content {
-    color: #555555;
-    font-size: 13px;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-btn,
-  .product-page .judgeme-reviews-wrapper .jdgm-write-rev-link,
-  .product-page .judgeme-reviews-wrapper .jdgm-submit-rev,
-  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page,
-  .product-page .judgeme-reviews-wrapper a.jdgm-write-rev-link {
+  .product-page .judgeme-reviews-wrapper .jm-button--primary,
+  .product-page .judgeme-reviews-wrapper .jm-action-buttons__button {
+    background: #4A2E12 !important;
+    border-color: #4A2E12 !important;
     border-radius: 0 !important;
-    font-family: Lato, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-write-rev-link,
-  .product-page .judgeme-reviews-wrapper .jdgm-btn--solid,
-  .product-page .judgeme-reviews-wrapper .jdgm-submit-rev,
-  .product-page .judgeme-reviews-wrapper .jdgm-btn.jdgm-btn--solid {
-    background: #4A2E12 !important;
-    border-color: #4A2E12 !important;
-    color: #fff !important;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-write-rev-link:hover,
-  .product-page .judgeme-reviews-wrapper .jdgm-btn--solid:hover,
-  .product-page .judgeme-reviews-wrapper .jdgm-submit-rev:hover {
+  .product-page .judgeme-reviews-wrapper .jm-button--primary:hover,
+  .product-page .judgeme-reviews-wrapper .jm-action-buttons__button:hover {
     background: #3a2210 !important;
     border-color: #3a2210 !important;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-btn--border,
-  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page,
+  .product-page .judgeme-reviews-wrapper .jm-button--secondary,
+  .product-page .judgeme-reviews-wrapper .jm-custom-answer-filter,
+  .product-page .judgeme-reviews-wrapper .jm-sort-filter,
+  .product-page .judgeme-reviews-wrapper .jm-sort-filter__select,
   .product-page .judgeme-reviews-wrapper .jdgm-sort-dropdown {
     border: 1px solid #E0D6CA !important;
+    border-radius: 0 !important;
     background: #fff !important;
     color: #4A2E12 !important;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page.jdgm-curt,
-  .product-page .judgeme-reviews-wrapper .jdgm-paginate__page:hover {
+  .product-page .judgeme-reviews-wrapper .jm-review-item {
+    border-bottom: 1px solid #E0D6CA;
+    padding-bottom: 20px;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-reviewer-info__name {
+    color: #222222 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-review-content__body,
+  .product-page .judgeme-reviews-wrapper .jdgm-review-content__body-content {
+    color: #555555 !important;
+    font-size: 13.5px !important;
+    line-height: 1.55;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-verified-buyer-badge__text {
+    color: #9A7235 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-reviewer-avatar__initial {
     background: #F7F0E8 !important;
+    color: #4A2E12 !important;
+    border-radius: 0 !important;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-media-grid__item,
+  .product-page .judgeme-reviews-wrapper .jm-media-thumbnail-list__thumbnail {
+    border: 1px solid #E0D6CA !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+  }
+
+  .product-page .judgeme-reviews-wrapper .jm-media-grid__item[aria-selected='true'],
+  .product-page .judgeme-reviews-wrapper .jm-media-grid__item[aria-selected='true'] .jm-media-grid__image-container {
     border-color: #4A2E12 !important;
+    outline: 1.5px solid #4A2E12;
+    outline-offset: -1.5px;
   }
 
-  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__summary,
-  .product-page .judgeme-reviews-wrapper .jdgm-histogram {
-    border-color: #E0D6CA;
-  }
-
-  .product-page .judgeme-reviews-wrapper .jdgm-rev-widg__summary-average,
-  .product-page .judgeme-reviews-wrapper .jdgm-row-rating {
-    color: #222222;
+  .product-page .judgeme-reviews-wrapper .jm-media-thumbnail-list__thumbnail--default {
+    border-radius: 0 !important;
   }
 
   .product-page .judgeme-reviews-wrapper input,
@@ -538,8 +553,6 @@
     border: 1px solid #E0D6CA !important;
     border-radius: 0 !important;
     color: #222222;
-    font-family: Lato, sans-serif;
-    font-size: 13px;
   }
 
   .product-page .judgeme-reviews-wrapper input:focus,
