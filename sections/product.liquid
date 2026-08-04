@@ -60,8 +60,6 @@
   <div class="!mx-auto max-w-[1100px] px-[18px] pb-[60px] md:px-[32px]">
     <nav class="breadcrumb py-[14px] text-[12px] tracking-[0.04em] text-[#888888]" aria-label="{{ 'product.breadcrumb_label' | t }}">
       <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
-      <span class="mx-[6px]">›</span>
-      <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
       {% if option_breadcrumb_name != blank %}
         <span class="mx-[6px]">›</span>
         {% if option_breadcrumb_url != blank %}
@@ -211,15 +209,10 @@
               </div>
             </a>
           {% endif %}
-
-          <div class="action-links mb-[20px] border-t border-[#E0D6CA] pt-[14px] text-[12px] text-[#555555]">
-            <a class="no-underline hover:text-[#4A2E12] hover:underline" href="/pages/contact-us">{{ 'product.ask_a_question' | t }}</a>
-          </div>
         {% endform %}
 
         <div class="active pt-[24px]" id="tab-details">
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.materials_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.materials_title' | t }}</h2>
             {% render 'product-accordion',
               id: 'acc-materials',
@@ -238,7 +231,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.fit_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.product_details_title' | t }}</h2>
             {% render 'product-accordion',
               id: 'acc-fit',
@@ -257,7 +249,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.returns_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.returns_title' | t }}</h2>
             {% render 'product-accordion',
               id: 'acc-returns',
@@ -276,7 +267,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.at_a_glance' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.top_highlights' | t }}</h2>
             <ul class="hl-list list-none p-0">
               {% assign highlight_keys = 'crafted,materials,fit,personalized,guarantee,pouch' | split: ',' %}
@@ -290,7 +280,6 @@
           </div>
 
           <div class="details-section mb-[36px]">
-            <p class="details-eyebrow mb-[4px] text-[9.5px] font-bold uppercase tracking-[0.3em] text-[#9A7235]">{{ 'product.story_label' | t }}</p>
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.story_title' | t }}</h2>
             <div class="about-list flex flex-col">
               {% for i in (1..4) %}
