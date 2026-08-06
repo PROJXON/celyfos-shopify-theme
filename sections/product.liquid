@@ -247,25 +247,6 @@
               key_prefix: 'product.accordions.ordering'
             %}
           </div>
-
-          <div class="details-section mb-[36px]">
-            <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.returns_title' | t }}</h2>
-            {% render 'product-accordion',
-              id: 'acc-returns',
-              title_key: 'product.accordions.returns.title',
-              hint_key: 'product.accordions.returns.hint',
-              row_count: 5,
-              key_prefix: 'product.accordions.returns'
-            %}
-            {% render 'product-accordion',
-              id: 'acc-guarantee',
-              title_key: 'product.accordions.guarantee.title',
-              hint_key: 'product.accordions.guarantee.hint',
-              row_count: 4,
-              key_prefix: 'product.accordions.guarantee'
-            %}
-          </div>
-
           <div class="details-section mb-[36px]">
             <h2 class="details-heading mb-[18px] inline-block border-b-[1.5px] border-[#D4B896] pb-[8px] font-['Playfair_Display'] text-[17px] font-semibold text-[#4A2E12]">{{ 'product.top_highlights' | t }}</h2>
             <ul class="hl-list list-none p-0">
