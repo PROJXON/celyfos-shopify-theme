@@ -24,9 +24,12 @@
 
 {% stylesheet %}
   .collections {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
+    --min-col: var(--collection-card-size, 280px);
+    --gap: var(--grid-gap, 10px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap);
     margin-bottom: 2rem;
   }
   .collections--compact {
@@ -35,10 +38,27 @@
   .collections--full {
     --collection-card-size: 280px;
   }
+  .collections > * {
+    box-sizing: border-box;
+    flex: 1 1 var(--min-col);
+    max-width: min(100%, var(--min-col));
+  }
   .collection-card {
     display: flex;
     flex-direction: column;
     width: 100%;
+  }
+
+  @supports (width: round(down, 1px)) and (width: 1cqi) {
+    .collections {
+      container-type: inline-size;
+    }
+
+    .collections > * {
+      --cols: Max(1, round(down, (100cqi + var(--gap)) / (var(--min-col) + var(--gap))));
+      flex: 0 0 min(100%, calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)));
+      max-width: none;
+    }
   }
 {% endstylesheet %}
 

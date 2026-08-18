@@ -7,7 +7,7 @@
   {% render 'product-grid', items: collection.products %}
 {% enddoc %}
 
-<div class="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 !mb-[2rem]">
+<div class="product-grid">
   {% for product in items %}
     <a href="{{ product.url }}">
       <div class="product-card flex flex-col border border-[#ddd] p-4 rounded-lg text-center overflow-hidden h-full">
@@ -44,3 +44,33 @@
     </a>
   {% endfor %}
 </div>
+
+{% stylesheet %}
+  .product-grid {
+    --min-col: 300px;
+    --gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap);
+    margin-bottom: 2rem;
+  }
+
+  .product-grid > * {
+    box-sizing: border-box;
+    flex: 1 1 var(--min-col);
+    max-width: min(100%, var(--min-col));
+  }
+
+  @supports (width: round(down, 1px)) and (width: 1cqi) {
+    .product-grid {
+      container-type: inline-size;
+    }
+
+    .product-grid > * {
+      --cols: Max(1, round(down, (100cqi + var(--gap)) / (var(--min-col) + var(--gap))));
+      flex: 0 0 min(100%, calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)));
+      max-width: none;
+    }
+  }
+{% endstylesheet %}
