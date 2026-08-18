@@ -209,6 +209,9 @@
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
+  .top-\[7px\] {
+    top: 7px;
+  }
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
@@ -369,6 +372,9 @@
   .flex-1 {
     flex: 1;
   }
+  .flex-shrink {
+    flex-shrink: 1;
+  }
   .shrink-0 {
     flex-shrink: 0;
   }
@@ -380,6 +386,9 @@
   }
   .cursor-pointer {
     cursor: pointer;
+  }
+  .resize {
+    resize: both;
   }
   .list-none {
     list-style-type: none;
@@ -743,6 +752,9 @@
   }
   .no-underline {
     text-decoration-line: none;
+  }
+  .underline {
+    text-decoration-line: underline;
   }
   .opacity-0 {
     opacity: 0%;

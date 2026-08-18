@@ -253,7 +253,7 @@
               {% assign highlight_keys = 'crafted,materials,fit,personalized,guarantee,pouch' | split: ',' %}
               {% for key in highlight_keys %}
                 <li class="flex gap-[10px] border-b border-[#E0D6CA] py-[8px] text-[13.5px] leading-[1.5] text-[#555555] {% if forloop.first %}border-t{% endif %}">
-                  <span class="hl-dot mt-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
+                  <span class="hl-dot relative top-[7px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#9A7235]"></span>
                   <span>{{ 'product.highlights.' | append: key | t }}</span>
                 </li>
               {% endfor %}
