@@ -1,5 +1,5 @@
 <footer class="site-footer border-t border-[#E0D6CA] bg-[#F7F0E8] px-[32px] py-[32px]">
-  <div class="mx-auto grid max-w-[1100px] grid-cols-1 gap-[24px] sm:grid-cols-2 md:grid-cols-3">
+  <div class="footer-columns mx-auto">
     <div class="footer-col">
       <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ 'footer.navigate' | t }}</h4>
       <ul class="list-none">
@@ -42,11 +42,27 @@
     </div>
   </div>
 
-  <div class="mx-auto mt-[20px] flex max-w-[1100px] flex-col justify-between gap-[8px] border-t border-[#E0D6CA] pt-[16px] text-[11px] text-[#888888] sm:flex-row">
+  <div class="mx-auto mt-[20px] flex flex-col justify-between gap-[8px] border-t border-[#E0D6CA] pt-[16px] text-[11px] text-[#888888] sm:flex-row">
     <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ 'footer.rights' | t }}</span>
-    <span>{{ 'footer.powered_by' | t }}</span>
+    <span>Built by PROJXON</span>
   </div>
 </footer>
+
+{% stylesheet %}
+  .footer-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .footer-col {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

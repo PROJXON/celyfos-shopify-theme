@@ -58,21 +58,21 @@
 
 <div class="product-page">
   <div class="!mx-auto max-w-[1100px] px-[18px] pb-[60px] md:px-[32px]">
-    <nav class="breadcrumb py-[14px] text-[12px] tracking-[0.04em] text-[#888888]" aria-label="{{ 'product.breadcrumb_label' | t }}">
-      <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
+    <nav class="breadcrumb py-[14px] text-[12px] tracking-[0.04em] text-[#665E57]" aria-label="{{ 'product.breadcrumb_label' | t }}">
+      <a class="text-[#665E57] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.root_url }}">{{ 'product.breadcrumb_home' | t }}</a>
       {% if shop_collection != nil %}
         <span class="mx-[6px]">›</span>
-        <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ shop_collection.url }}">{{ shop_collection.title }}</a>
+        <a class="text-[#665E57] no-underline hover:text-[#4A2E12] hover:underline" href="{{ shop_collection.url }}">{{ shop_collection.title }}</a>
       {% else %}
         <span class="mx-[6px]">›</span>
-        <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
+        <a class="text-[#665E57] no-underline hover:text-[#4A2E12] hover:underline" href="{{ routes.all_products_collection_url }}">{{ 'product.breadcrumb_shop' | t }}</a>
       {% endif %}
       {% if option_breadcrumb_name != blank %}
         <span class="mx-[6px]">›</span>
         {% if option_breadcrumb_url != blank %}
-          <a class="text-[#888888] no-underline hover:text-[#4A2E12] hover:underline" href="{{ option_breadcrumb_url }}">{{ option_breadcrumb_name }}</a>
+          <a class="text-[#665E57] no-underline hover:text-[#4A2E12] hover:underline" href="{{ option_breadcrumb_url }}">{{ option_breadcrumb_name }}</a>
         {% else %}
-          <span class="text-[#888888]">{{ option_breadcrumb_name }}</span>
+          <span class="text-[#665E57]">{{ option_breadcrumb_name }}</span>
         {% endif %}
       {% endif %}
       <span class="mx-[6px]">›</span>
@@ -113,11 +113,11 @@
         <div class="listing-price mb-[6px]">
           <span id="price" class="price-sale mr-[10px] text-[22px] font-bold text-[#C0392B]">{{ current_variant.price | money }}</span>
           {% if current_variant.compare_at_price > current_variant.price %}
-            <span id="compare-price" class="price-original text-[15px] text-[#888888] line-through">{{ current_variant.compare_at_price | money }}</span>
+            <span id="compare-price" class="price-original text-[15px] text-[#665E57] line-through">{{ current_variant.compare_at_price | money }}</span>
           {% endif %}
         </div>
 
-        <p class="shipping-note mb-[20px] text-[12px] text-[#888888]">{{ 'product.shipping_note' | t }}</p>
+        <p class="shipping-note mb-[20px] text-[12px] text-[#665E57]">{{ 'product.shipping_note' | t }}</p>
 
         {% form 'product', product %}
           <input type="hidden" name="id" id="variant-id" value="{{ current_variant.id }}">
@@ -406,7 +406,7 @@
     --jm-review-widget-button-color: #4A2E12 !important;
     --jm-review-widget-button-text-color: #ffffff !important;
     --jm-review-widget-text-color: #222222 !important;
-    --jm-review-widget-lighter-text-color: #888888 !important;
+    --jm-review-widget-lighter-text-color: #665E57 !important;
     --jm-widget-primary-color: #4A2E12 !important;
     --jm-widget-border-radius: 0 !important;
     --jm-widget-border-radius-simplified: 0 !important;
@@ -447,7 +447,7 @@
 
   .product-page .judgeme-reviews-wrapper .jm-average-rating-display .jm-text:last-child {
     font-family: Lato, sans-serif !important;
-    color: #888888 !important;
+    color: #665E57 !important;
   }
 
   .product-page .judgeme-reviews-wrapper .jm-star-rating,
