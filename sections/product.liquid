@@ -95,7 +95,7 @@
             {% for image in product.images %}
               <button
                 type="button"
-                class="thumb-btn {% if forloop.first %}active{% endif %} h-[68px] w-[68px] overflow-hidden border border-[#E0D6CA] opacity-75 transition hover:border-[#4A2E12] hover:opacity-100 cursor-pointer"
+                class="thumb-btn {% if forloop.first %}active{% endif %} h-[68px] w-[68px] overflow-hidden border border-[#4A2E12] opacity-75 transition hover:border-[#4A2E12] hover:opacity-100 cursor-pointer"
                 data-image-src="{{ image | image_url: width: 1600 }}"
                 data-image-alt="{{ image.alt | default: product.title | escape }}"
                 aria-label="{{ 'product.view_image' | t: index: forloop.index }}"
@@ -287,7 +287,7 @@
     </div>
   </div>
 
-  <div class="lower-wrap mx-auto max-w-[1100px] px-[18px] pb-[80px] md:px-[32px]">
+  <div class="lower-wrap !mx-auto max-w-[1100px] px-[18px] pb-[80px] md:px-[32px]">
     <div class="reviews-section border-t border-[#E0D6CA] py-[40px]" id="reviews-module">
       <div class="judgeme-reviews-wrapper">
         {% for block in section.blocks %}

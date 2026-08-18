@@ -478,6 +478,9 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1.5px;
   }
+  .border-\[\#4A2E12\] {
+    border-color: #4A2E12;
+  }
   .border-\[\#9A7235\] {
     border-color: #9A7235;
   }
