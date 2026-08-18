@@ -168,32 +168,6 @@
         "row_4_label": "Frame Style",
         "row_4_value": "Larger frames, acetate, oversized"
       },
-      "ordering": {
-        "title": "Ordering & Shipping",
-        "hint": "lead time, processing, origin",
-        "row_1_label": "Production",
-        "row_1_value": "Made-to-order — see current bench time in shipping details",
-        "row_2_label": "Processing Time",
-        "row_2_value": "1–5 business days",
-        "row_3_label": "Ships From",
-        "row_3_value": "Athens, Greece",
-        "row_4_label": "Manufacturer",
-        "row_4_value": "Celyfos SCE — Andrew Vasilas, Founder & Aircraft Engineer"
-      },
-      "returns": {
-        "title": "Returns Policy",
-        "hint": "timeframe, process, conditions",
-        "row_1_label": "Return Window",
-        "row_1_value": "21 days from delivery",
-        "row_2_label": "Condition",
-        "row_2_value": "Unused and in original condition",
-        "row_3_label": "Process",
-        "row_3_value": "As each Atlas is made to order, please reach out before returning — we'll find the best resolution",
-        "row_4_label": "Return Shipping",
-        "row_4_value": "At the buyer's cost",
-        "row_5_label": "Contact",
-        "row_5_value": "info@celyfos.com"
-      },
       "guarantee": {
         "title": "Lifetime Guarantee",
         "hint": "what it covers, how it works",
@@ -206,31 +180,6 @@
         "row_4_label": "Duration",
         "row_4_value": "For as long as Andrew is at his workbench — a craftsman's promise, not a corporate policy"
       }
-    },
-    "shipping": {
-      "heading": "Shipping from Greece",
-      "processing": "Processing time",
-      "processing_time": "1–5 business days",
-      "delivery": "Estimated delivery",
-      "delivery_time": "5–9 business days for EU · 7–20 business days for North America. Expedited shipping via FedEx available on request.",
-      "customs": "Customs and import taxes",
-      "customs_body": "Buyers are responsible for any customs and import taxes that may apply. We are not responsible for delays due to customs."
-    },
-    "policy": {
-      "heading": "Returns & Exchanges",
-      "returns": "Returns accepted within 21 days",
-      "returns_body": "Buyers are responsible for return shipping costs. If the item is not returned in its original condition, the buyer is responsible for any loss in value. Custom and personalised orders cannot be returned unless faulty.",
-      "cancellations": "Cancellations",
-      "cancellations_body": "Request a cancellation within 3 hours of purchase."
-    },
-    "faq": {
-      "heading": "Frequently Asked Questions",
-      "wholesale": "Wholesale",
-      "wholesale_body": "We accept wholesale orders. Contact us and we'll respond with an offer.",
-      "care": "Care instructions",
-      "care_body": "Keep it dry. Don't leave it under sun or rain. If it gets wet, let it dry naturally away from heat. Treat occasionally with a beeswax-based leather cream — apply by hand, let dry, wipe with soft cotton cloth.",
-      "custom": "Custom orders",
-      "custom_body": "Unique designs and sizes available on request. If a desired colour is not listed, contact us — we may be able to source it."
     },
     "reviews": {
       "heading": "Reviews",
