@@ -1,67 +1,67 @@
-<footer class="site-footer border-t border-[#E0D6CA] bg-[#F7F0E8] px-[32px] py-[32px]">
-  <div class="footer-columns mx-auto">
-    <div class="footer-col">
-      <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ 'footer.navigate' | t }}</h4>
-      <ul class="list-none">
-        {% for link in section.settings.footer_menu.links %}
-          <li class="mb-[5px]">
-            <a href="{{ link.url }}" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">{{ link.title }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+{% comment %} {% for link in section.settings.footer_menu.links %}
+  <li class="mb-[5px]">
+    <a href="{{ link.url }}" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">{{ link.title }}</a>
+  </li>
+{% endfor %} {% endcomment %}
 
-    <div class="footer-col">
-      <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ 'footer.elsewhere' | t }}</h4>
-      <ul class="list-none">
-        {% unless settings.facebook == blank %}
-          <li class="mb-[5px]">
-            <a href="{{ settings.facebook }}" target="_blank" rel="noopener" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">Facebook</a>
-          </li>
-        {% endunless %}
-        {% unless settings.instagram == blank %}
-          <li class="mb-[5px]">
-            <a href="{{ settings.instagram }}" target="_blank" rel="noopener" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">Instagram</a>
-          </li>
-        {% endunless %}
-      </ul>
-    </div>
+<footer class='w-full bg-[#F7F0E8] border-t-[0.5px] border-t-[#E0D6CA] font-[Lato] font-light m-0 p-0'>
+  {%- comment -%} Value badges {%- endcomment -%}
+  <div class='flex justify-center gap-[12px] md:gap-[32px] flex-wrap py-[24px] px-[32px] border-b-[0.5px] border-b-[#E0D6CA] flex-col md:flex-row items-center md:items-start'>
+    {% render 'footer-badge', text: 'Engineered by an Aviation Engineer' %}
+    {% render 'footer-badge', text: '100% Hand-made in Athens' %}
+    {% render 'footer-badge', text: 'My Lifetime Guarantee' %}
+  </div>
 
-    <div class="footer-col">
-      <h4 class="mb-[10px] font-['Playfair_Display'] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#4A2E12]">{{ shop.name }}®</h4>
-      <ul class="list-none">
-        <li class="mb-[5px]">
-          <span class="text-[12.5px] text-[#555555]">{{ 'footer.established' | t }}</span>
-        </li>
-        {% unless section.settings.email == blank %}
-          <li class="mb-[5px]">
-            <a href="mailto:{{ section.settings.email }}" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">{{ section.settings.email }}</a>
-          </li>
-        {% endunless %}
-      </ul>
+  {%- comment -%} Columns {%- endcomment -%}
+  <div class='grid grid-cols-[1fr] md:grid-cols-[1.2fr_1fr_1.2fr] gap-[24px] md:gap-[32px] py-[28px] px-[32px] text-center md:text-left'>
+    <div class='footer-col'>
+      <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] mb-[14px]">Quick Links</h4>
+      <a href='{{ routes.root_url }}'>Home</a>
+      <a href='{{ routes.collections_url }}'>Catalog</a>
+      <a href='/pages/shipping-policy'>Shipping Policy</a>
+      <a href='/pages/returns-guarantee'>Returns &amp; Guarantee</a>
+      <a href='/pages/ordering-shipping'>Ordering &amp; Shipping</a>
+    </div>
+    <div class='footer-col'>
+      <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] mb-[14px]">Follow Us</h4>
+      <a href='https://www.facebook.com/celyfos'
+         target='_blank' rel='noopener'>Facebook</a>
+      <a href='https://www.instagram.com/celyfos'
+         target='_blank' rel='noopener'>Instagram</a>
+    </div>
+    <div class='footer-col'>
+      <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] mb-[14px]">CELYFOS&reg;</h4>
+      <p>Est. 2014 &middot; Athens, Greece</p>
+      <a href="mailto:info@celyfos.com">info@celyfos.com</a>
     </div>
   </div>
 
-  <div class="mx-auto mt-[20px] flex flex-col justify-between gap-[8px] border-t border-[#E0D6CA] pt-[16px] text-[11px] text-[#888888] sm:flex-row">
-    <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ 'footer.rights' | t }}</span>
+  {%- comment -%} Bottom bar {%- endcomment -%}
+  <div class='flex justify-between items-center py-[14px] px-[32px] bt-[0.5px] bt-[#E0D6CA] text-[11px] text-[#888888]'>
+    <span>&copy; {{ 'now' | date: '%Y' }} Celyfos
+      &middot; All rights reserved</span>
     <span>Built by PROJXON</span>
   </div>
 </footer>
 
 {% stylesheet %}
-  .footer-columns {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
-  }
 
-  .footer-col {
-    flex: 0 0 auto;
-    max-width: 100%;
-  }
+.footer-col a, .footer-col p {
+  display: block;
+  font-size: 13px;
+  color: #4A4A4A;
+  text-decoration: none;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.footer-col a:hover { color: #4A2E12; }
+
+/* Hide Shopify branding */
+.footer__powered-by,
+.shopify-section--footer-powered-by {
+  display: none !important;
+}
 {% endstylesheet %}
 
 {% schema %}
