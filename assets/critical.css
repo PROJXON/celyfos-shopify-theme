@@ -150,3 +150,44 @@ main#mainArea {
 .shopify-section > .full-width {
   grid-column: 1 / -1;
 }
+
+/* ── Global typography update ─────────────────────── */
+body,
+p,
+li,
+td,
+span,
+a {
+  color: #4a4a4a;
+  font-size: 15px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* Secondary / muted text */
+.text-muted,
+.caption,
+.subtitle-hint,
+.product-form__info-label {
+  color: #888888;
+  font-size: 12px;
+}
+
+/* Keep small labels compact */
+.section-eyebrow,
+.series-eyebrow,
+.card-eyebrow,
+.ftr-col h4 {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Tab subtitle hints stay at 13px */
+.tab-subtitle,
+.accordion-subtitle {
+  font-size: 13px;
+  color: #888888;
+  font-style: italic;
+}
