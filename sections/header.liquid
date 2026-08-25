@@ -1,33 +1,49 @@
-<header class="site-nav sticky top-0 flex h-[64px] items-center justify-between border-b border-[#E0D6CA] bg-white px-[18px] md:px-[32px]">
-  <a href="{{ routes.root_url }}" class="font-['Playfair_Display'] text-[22px] font-semibold tracking-[0.04em] text-[#4A2E12] no-underline hover:no-underline">
+{%- comment -%} Logo with brand mark {%- endcomment -%}
+<div class="h-[60px] flex items-center justify-between px-[32px] bg-[#ffffff] border-b-[0.5px] border-b-[#E0D6CA]">
+  <a href='{{ routes.root_url }}' class='header__heading-link font-[Playfair_Display] uppercase font-semibold text-[#4A2E12] tracking-[.04em] no-underline flex items-center gap-[10px]'>
+    <div class='w-[34px] h-[34px] rounded-[50px] border-[1.5px] border-[#9A7235] flex items-center justify-center shrink-[0]'>
+      <svg width='20' height='20' viewBox='0 0 24 24' fill='none'
+          xmlns='http://www.w3.org/2000/svg'>
+        <circle cx='12' cy='12' r='8.5' stroke='#9A7235'
+                stroke-width='1.2'/>
+        <path d='M8.5 12c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57
+              3.5 3.5-1.57 3.5-3.5 3.5'
+              stroke='#4A2E12' stroke-width='1.2'
+              stroke-linecap='round'/>
+        <circle cx='12' cy='12' r='1.4' fill='#9A7235'/>
+      </svg>
+    </div>
     {{ shop.name }}
   </a>
 
-  <ul class="flex list-none gap-[16px] text-[11px] font-normal uppercase tracking-[0.06em] text-[#555555] md:gap-[28px] md:text-[13px]">
-    {% for link in section.settings.sections.links %}
-      <li>
-        <a href="{{ link.url }}" class="no-underline hover:text-[#4A2E12] hover:no-underline">{{ link.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-</header>
-
-{% schema %}
-{
-  "name": "t:general.header",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "sections",
-      "label": "t:labels.sections",
-      "default": "main-menu"
-    }
-  ]
-}
-{% endschema %}
+  {%- comment -%} Nav: search pill + links {%- endcomment -%}
+  <nav class='flex items-center gap-2'>
+    <button class='flex items-center gap-[6px] bg-[#F7F8FA] border-[0.5px] border-[#E0D6CA] rounded-[8px] py-[6px] px-[12px] cursor-pointer font-[Lato] font-[12px] text-[#888888] tracking-[.02em] hover:border-[#4A2E12] hover:text-[#4A2E12]' data-action='toggle-search'>
+      <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+        <circle cx='11' cy='11' r='7'/>
+        <path d='m16.5 16.5 4 4' stroke-linecap='round'/>
+      </svg>
+      Search
+    </button>
+    <div class='header-nav-divider w-[0.5px] h-[16px] bg-[#E0D6CA]'></div>
+    <div class="flex uppercase">
+      {% render 'header-link', link: routes.root_url, text: 'Home' %}
+      {% render 'header-link', link: routes.collections_url, text: 'Catalog' %}
+      {% render 'header-link', link: '/pages/contact', text: 'Contact' %}
+    </div>
+  </nav>
+</div>
 
 {% stylesheet %}
-  div.shopify-section-group-header-group {
-    display: block;
-  }
+/* ── Logo mark + wordmark ──────────────────────────── */
+.header__heading-link {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Divider between search and links */
+.header-nav-divider {
+  margin: 0 4px;
+}
 {% endstylesheet %}
