@@ -1,0 +1,51 @@
+{% doc %}
+  Renders a footer column with a heading and a list of links or paragraphs.
+
+  Liquid cannot pass arrays of objects to snippets the way React passes props.
+  Instead, pass `items` as an array of strings, each formatted as:
+  - "text" — rendered as a `<p>` tag
+  - "text|href" — rendered as an `<a>` tag
+  - "text|href|blank" — rendered as an external `<a>` with target="_blank"
+
+  Build the array in the parent with `capture` and `split` when URLs are dynamic.
+
+  @param {string} heading - Column heading text
+  @param {array} items - Array of pipe-delimited item strings
+
+  @example
+  {% capture quick_links_lines %}
+  Home|{{ routes.root_url }}
+  Catalog|{{ routes.collections_url }}
+  Shipping policy|/pages/shipping-policy
+  {% endcapture %}
+  {% assign quick_links_items = quick_links_lines | strip | split: '
+' %}
+  {% render 'footer-col', heading: 'Quick Links', items: quick_links_items %}
+{% enddoc %}
+
+{% assign classes = 'block text-[13px] text-[#4A4A4A] no-underline !mb-[8px] leading-[1.5]' %}
+
+<div>
+  <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] !mb-[14px]">{{ heading }}</h4>
+  {%- for item in items -%}
+    {%- assign item = item | strip -%}
+    {%- if item == blank -%}
+      {%- continue -%}
+    {%- endif -%}
+    {%- assign parts = item | split: '|' -%}
+    {%- assign item_text = parts[0] | strip -%}
+    {%- assign item_href = parts[1] | strip -%}
+    {%- assign item_target = parts[2] | strip -%}
+    {%- if item_href == blank -%}
+      <p class="{{ classes }}">{{ item_text }}</p>
+    {%- else -%}
+      <a
+        href="{{ item_href }}"
+        class="{{ classes | append: ' !w-fit hover:text-[#4A2E12]' }}"
+        {%- if item_target == 'blank' %}
+          target="_blank" rel="noopener"
+        {%- endif -%}
+      >{{ item_text }}</a>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

@@ -13,27 +13,34 @@
   </div>
 
   {%- comment -%} Columns {%- endcomment -%}
+  {%- capture quick_links_lines -%}
+    Home|{{ routes.root_url }}
+    Catalog|{{ routes.collections_url }}
+    Shipping Policy|/pages/shipping-policy
+    Returns & Guarantee|/pages/returns-guarantee
+    Ordering & Shipping|/pages/ordering-shipping
+  {%- endcapture -%}
+  {%- assign quick_links_items = quick_links_lines | strip | split: '
+' -%}
+
+  {%- capture follow_us_lines -%}
+    Facebook|https://www.facebook.com/celyfos|blank
+    Instagram|https://www.instagram.com/celyfos|blank
+  {%- endcapture -%}
+  {%- assign follow_us_items = follow_us_lines | strip | split: '
+' -%}
+
+  {%- capture celyfos_lines -%}
+    Est. 2014 · Athens, Greece
+    info@celyfos.com|mailto:info@celyfos.com
+  {%- endcapture -%}
+  {%- assign celyfos_items = celyfos_lines | strip | split: '
+' -%}
+
   <div class='grid grid-cols-[1fr] md:grid-cols-[1.2fr_1fr_1.2fr] gap-[24px] md:gap-[32px] py-[28px] px-[32px] text-center md:text-left'>
-    <div class='footer-col'>
-      <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] mb-[14px]">Quick Links</h4>
-      <a href='{{ routes.root_url }}'>Home</a>
-      <a href='{{ routes.collections_url }}'>Catalog</a>
-      <a href='/pages/shipping-policy'>Shipping Policy</a>
-      <a href='/pages/returns-guarantee'>Returns &amp; Guarantee</a>
-      <a href='/pages/ordering-shipping'>Ordering &amp; Shipping</a>
-    </div>
-    <div class='footer-col'>
-      <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] mb-[14px]">Follow Us</h4>
-      <a href='https://www.facebook.com/celyfos'
-         target='_blank' rel='noopener'>Facebook</a>
-      <a href='https://www.instagram.com/celyfos'
-         target='_blank' rel='noopener'>Instagram</a>
-    </div>
-    <div class='footer-col'>
-      <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] mb-[14px]">CELYFOS&reg;</h4>
-      <p>Est. 2014 &middot; Athens, Greece</p>
-      <a href="mailto:info@celyfos.com">info@celyfos.com</a>
-    </div>
+    {% render 'footer-col', heading: 'Quick Links', items: quick_links_items %}
+    {% render 'footer-col', heading: 'Follow Us', items: follow_us_items %}
+    {% render 'footer-col', heading: 'CELYFOS®', items: celyfos_items %}
   </div>
 
   {%- comment -%} Bottom bar {%- endcomment -%}
@@ -45,18 +52,6 @@
 </footer>
 
 {% stylesheet %}
-
-.footer-col a, .footer-col p {
-  display: block;
-  font-size: 13px;
-  color: #4A4A4A;
-  text-decoration: none;
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.footer-col a:hover { color: #4A2E12; }
-
 /* Hide Shopify branding */
 .footer__powered-by,
 .shopify-section--footer-powered-by {
