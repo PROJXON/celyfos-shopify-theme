@@ -14,13 +14,35 @@
 
   {%- comment -%} Nav: search pill + links {%- endcomment -%}
   <nav class='flex items-center gap-2'>
-    <button class='flex items-center gap-[6px] bg-[#F7F8FA] border-[0.5px] border-[#E0D6CA] rounded-[8px] py-[6px] px-[12px] cursor-pointer font-[Lato] font-[12px] text-[#888888] tracking-[.02em] hover:border-[#4A2E12] hover:text-[#4A2E12]' data-action='toggle-search'>
-      <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
-        <circle cx='11' cy='11' r='7'/>
-        <path d='m16.5 16.5 4 4' stroke-linecap='round'/>
-      </svg>
-      Search
-    </button>
+    <form
+      action='{{ routes.search_url }}'
+      method='get'
+      role='search'
+      class='header-search flex items-center gap-[6px] bg-[#F7F8FA] border-[0.5px] border-[#E0D6CA] rounded-[8px] py-[6px] px-[12px] font-[Lato] text-[12px] text-[#888888] tracking-[.02em]'
+      data-header-search
+    >
+      <span class='header-search__label shrink-0' data-header-search-label>Search</span>
+      <input
+        type='search'
+        name='q'
+        class='header-search__input'
+        placeholder='{{ 'search.placeholder' | t }}'
+        autocomplete='off'
+        aria-label='{{ 'search.title' | t }}'
+        data-header-search-input
+      >
+      <button
+        type='button'
+        class='header-search__submit shrink-0 flex items-center justify-center text-current'
+        aria-label='{{ 'search.submit' | t }}'
+        data-header-search-submit
+      >
+        <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' aria-hidden='true'>
+          <circle cx='11' cy='11' r='7'/>
+          <path d='m16.5 16.5 4 4' stroke-linecap='round'/>
+        </svg>
+      </button>
+    </form>
     <div class='header-nav-divider w-[0.5px] h-[16px] bg-[#E0D6CA]'></div>
     <div class="flex uppercase">
       {% render 'header-link', link: routes.root_url, text: 'Home' %}
@@ -42,4 +64,121 @@
 .header-nav-divider {
   margin: 0 4px;
 }
+
+/* Expandable header search */
+.header-search {
+  max-width: 7.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    max-width 0.25s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.header-search:hover,
+.header-search.is-expanded {
+  border-color: #4a2e12;
+  color: #4a2e12;
+}
+
+.header-search.is-expanded {
+  max-width: 18rem;
+  cursor: text;
+}
+
+.header-search__label {
+  transition: opacity 0.15s ease;
+}
+
+.header-search.is-expanded .header-search__label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.header-search__input {
+  flex: 1;
+  min-width: 0;
+  width: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #4a2e12;
+  opacity: 0;
+  outline: none;
+  transition: opacity 0.2s ease;
+}
+
+.header-search__input::placeholder {
+  color: #888888;
+}
+
+.header-search.is-expanded .header-search__input {
+  width: auto;
+  opacity: 1;
+}
+
+.header-search__input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.header-search__submit {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 {% endstylesheet %}
+
+{% javascript %}
+  const headerSearchForm = document.querySelector('[data-header-search]');
+  if (headerSearchForm) {
+    const headerSearchInput = headerSearchForm.querySelector('[data-header-search-input]');
+    const headerSearchSubmit = headerSearchForm.querySelector('[data-header-search-submit]');
+
+    function expandHeaderSearch() {
+      headerSearchForm.classList.add('is-expanded');
+      headerSearchInput.focus();
+    }
+
+    function collapseHeaderSearch() {
+      headerSearchForm.classList.remove('is-expanded');
+      headerSearchInput.value = '';
+    }
+
+    headerSearchForm.addEventListener('click', (event) => {
+      if (!headerSearchForm.classList.contains('is-expanded')) {
+        event.preventDefault();
+        expandHeaderSearch();
+      }
+    });
+
+    headerSearchSubmit.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (!headerSearchForm.classList.contains('is-expanded')) {
+        expandHeaderSearch();
+      } else {
+        headerSearchForm.submit();
+      }
+    });
+
+    headerSearchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        collapseHeaderSearch();
+        headerSearchInput.blur();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (
+        headerSearchForm.classList.contains('is-expanded') &&
+        !headerSearchForm.contains(event.target)
+      ) {
+        collapseHeaderSearch();
+      }
+    });
+  }
+{% endjavascript %}
