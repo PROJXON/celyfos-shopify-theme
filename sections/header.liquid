@@ -1,6 +1,6 @@
 {%- comment -%} Logo with brand mark {%- endcomment -%}
 <div class="h-[60px] flex items-center justify-between px-[32px] bg-[#ffffff] border-b-[0.5px] border-b-[#E0D6CA]">
-  <a href='{{ routes.root_url }}' class='header__heading-link font-[Playfair_Display] uppercase font-semibold text-[#4A2E12] tracking-[.04em] no-underline flex items-center gap-[10px]'>
+  <a href='{{ routes.root_url }}' class='font-[Playfair_Display] uppercase font-semibold text-[#4A2E12] tracking-[.04em] no-underline flex items-center gap-[10px] text-[20px]'>
     <div class='w-[34px] h-[34px] rounded-[50px] border-[1.5px] border-[#9A7235] flex items-center justify-center shrink-[0]'>
       <svg width='20' height='20' viewBox='0 0 24 24' fill='none'
           xmlns='http://www.w3.org/2000/svg'>
@@ -15,17 +15,19 @@
   {%- comment -%} Nav: search pill + links {%- endcomment -%}
   <nav class='flex items-center gap-2'>
     <form
+      id="headerSearch"
       action='{{ routes.search_url }}'
       method='get'
       role='search'
-      class='header-search flex items-center gap-[6px] bg-[#F7F8FA] border-[0.5px] border-[#E0D6CA] rounded-[8px] py-[6px] px-[12px] font-[Lato] text-[12px] text-[#888888] tracking-[.02em]'
+      class='header-search max-w-[7.5rem] overflow-hidden cursor-pointer flex items-center gap-[6px] bg-[#F7F8FA] border-[0.5px] border-[#E0D6CA] rounded-[8px] py-[6px] px-[12px] font-[Lato] text-[12px] text-[#888888] tracking-[.02em]'
       data-header-search
     >
       <span class='header-search__label shrink-0' data-header-search-label>Search</span>
       <input
+        id="headerSearchInput"
         type='search'
         name='q'
-        class='header-search__input'
+        class='flex-1 min-w-0 w-0 border-0 bg-transparent p-0 m-0 text-[#4a2e12] opacity-0 outline-none placeholder:text-[#888888]'
         placeholder='{{ 'search.placeholder' | t }}'
         autocomplete='off'
         aria-label='{{ 'search.title' | t }}'
@@ -33,7 +35,7 @@
       >
       <button
         type='button'
-        class='header-search__submit shrink-0 flex items-center justify-center text-current'
+        class='p-0 border-0 bg-none cursor-pointer shrink-0 flex items-center justify-center text-current'
         aria-label='{{ 'search.submit' | t }}'
         data-header-search-submit
       >
@@ -43,7 +45,7 @@
         </svg>
       </button>
     </form>
-    <div class='header-nav-divider w-[0.5px] h-[16px] bg-[#E0D6CA]'></div>
+    <div class='my-0 !mx-[4px] w-[0.5px] h-[16px] bg-[#E0D6CA]'></div>
     <div class="flex uppercase">
       {% render 'header-link', link: routes.root_url, text: 'Home' %}
       {% render 'header-link', link: routes.collections_url, text: 'Catalog' %}
@@ -53,36 +55,22 @@
 </div>
 
 {% stylesheet %}
-/* ── Logo mark + wordmark ──────────────────────────── */
-.header__heading-link {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* Divider between search and links */
-.header-nav-divider {
-  margin: 0 4px;
-}
 
 /* Expandable header search */
-.header-search {
-  max-width: 7.5rem;
-  overflow: hidden;
-  cursor: pointer;
+#headerSearch {
   transition:
     max-width 0.25s ease,
     border-color 0.2s ease,
     color 0.2s ease;
 }
 
-.header-search:hover,
-.header-search.is-expanded {
+#headerSearch:hover,
+#headerSearch.is-expanded {
   border-color: #4a2e12;
   color: #4a2e12;
 }
 
-.header-search.is-expanded {
+#headerSearch.is-expanded {
   max-width: 18rem;
   cursor: text;
 }
@@ -91,45 +79,23 @@
   transition: opacity 0.15s ease;
 }
 
-.header-search.is-expanded .header-search__label {
+#headerSearch.is-expanded .header-search__label {
   opacity: 0;
   width: 0;
   overflow: hidden;
 }
 
-.header-search__input {
-  flex: 1;
-  min-width: 0;
-  width: 0;
-  border: none;
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  color: #4a2e12;
-  opacity: 0;
-  outline: none;
+#headerSearchInput {
   transition: opacity 0.2s ease;
 }
 
-.header-search__input::placeholder {
-  color: #888888;
-}
-
-.header-search.is-expanded .header-search__input {
+#headerSearch.is-expanded #headerSearchInput {
   width: auto;
   opacity: 1;
 }
 
-.header-search__input::-webkit-search-cancel-button {
+#headerSearchInput::-webkit-search-cancel-button {
   -webkit-appearance: none;
-}
-
-.header-search__submit {
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
 }
 {% endstylesheet %}
 
