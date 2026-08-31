@@ -1,9 +1,3 @@
-{% comment %} {% for link in section.settings.footer_menu.links %}
-  <li class="mb-[5px]">
-    <a href="{{ link.url }}" class="text-[12.5px] text-[#555555] no-underline hover:text-[#4A2E12] hover:no-underline">{{ link.title }}</a>
-  </li>
-{% endfor %} {% endcomment %}
-
 <footer class='w-full bg-[#F7F0E8] border-t-[0.5px] border-t-[#E0D6CA] font-[Lato] font-light m-0 p-0'>
   {%- comment -%} Value badges {%- endcomment -%}
   <div class='flex justify-center gap-[12px] md:gap-[32px] flex-wrap py-[24px] px-[32px] border-b-[0.5px] border-b-[#E0D6CA] flex-col md:flex-row items-center md:items-start'>
@@ -13,16 +7,6 @@
   </div>
 
   {%- comment -%} Columns {%- endcomment -%}
-  {%- capture quick_links_lines -%}
-    Home|{{ routes.root_url }}
-    Catalog|{{ routes.collections_url }}
-    Shipping Policy|/pages/shipping-policy
-    Returns & Guarantee|/pages/returns-guarantee
-    Ordering & Shipping|/pages/ordering-shipping
-  {%- endcapture -%}
-  {%- assign quick_links_items = quick_links_lines | strip | split: '
-' -%}
-
   {%- capture follow_us_lines -%}
     Facebook|https://www.facebook.com/celyfos|blank
     Instagram|https://www.instagram.com/celyfos|blank
@@ -32,13 +16,13 @@
 
   {%- capture celyfos_lines -%}
     Est. 2014 · Athens, Greece
-    info@celyfos.com|mailto:info@celyfos.com
+    {{ section.settings.email }}|mailto:{{ section.settings.email }}
   {%- endcapture -%}
   {%- assign celyfos_items = celyfos_lines | strip | split: '
 ' -%}
 
   <div class='grid grid-cols-[1fr] md:grid-cols-[1.2fr_1fr_1.2fr] gap-[24px] md:gap-[32px] py-[28px] px-[32px] text-center md:text-left'>
-    {% render 'footer-col', heading: 'Quick Links', items: quick_links_items %}
+    {% render 'footer-col', heading: section.settings.footer_menu.title, items: section.settings.footer_menu.links %}
     {% render 'footer-col', heading: 'Follow Us', items: follow_us_items %}
     {% render 'footer-col', heading: 'CELYFOS®', items: celyfos_items %}
   </div>

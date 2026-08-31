@@ -1,26 +1,28 @@
 {% doc %}
   Renders a footer column with a heading and a list of links or paragraphs.
 
-  Liquid cannot pass arrays of objects to snippets the way React passes props.
-  Instead, pass `items` as an array of strings, each formatted as:
-  - "text" — rendered as a `<p>` tag
-  - "text|href" — rendered as an `<a>` tag
-  - "text|href|blank" — rendered as an external `<a>` with target="_blank"
+  Pass `items` as either:
+  - A link_list `.links` array (each item uses `title` and `url`), or
+  - An array of pipe-delimited strings:
+    - "text" — rendered as a `<p>` tag
+    - "text|href" — rendered as an `<a>` tag
+    - "text|href|blank" — rendered as an external `<a>` with target="_blank"
 
-  Build the array in the parent with `capture` and `split` when URLs are dynamic.
+  Build pipe-delimited arrays in the parent with `capture` and `split` when URLs are dynamic.
 
   @param {string} heading - Column heading text
-  @param {array} items - Array of pipe-delimited item strings
+  @param {array} items - Link objects or pipe-delimited item strings
 
   @example
-  {% capture quick_links_lines %}
-  Home|{{ routes.root_url }}
-  Catalog|{{ routes.collections_url }}
-  Shipping policy|/pages/shipping-policy
+  {% render 'footer-col', heading: section.settings.footer_menu.title, items: section.settings.footer_menu.links %}
+
+  @example
+  {% capture follow_us_lines %}
+  Facebook|https://www.facebook.com/celyfos|blank
   {% endcapture %}
-  {% assign quick_links_items = quick_links_lines | strip | split: '
+  {% assign follow_us_items = follow_us_lines | strip | split: '
 ' %}
-  {% render 'footer-col', heading: 'Quick Links', items: quick_links_items %}
+  {% render 'footer-col', heading: 'Follow Us', items: follow_us_items %}
 {% enddoc %}
 
 {% assign classes = 'block text-[13px] text-[#4A4A4A] no-underline !mb-[8px] leading-[1.5]' %}
@@ -28,14 +30,20 @@
 <div>
   <h4 class="text-[10px] font-bold tracking-[0.12em] uppercase text-[#4A2E12] !mb-[14px]">{{ heading }}</h4>
   {%- for item in items -%}
-    {%- assign item = item | strip -%}
-    {%- if item == blank -%}
-      {%- continue -%}
+    {%- if item.type -%}
+      {%- assign item_text = item.title -%}
+      {%- assign item_href = item.url -%}
+      {%- assign item_target = blank -%}
+    {%- else -%}
+      {%- assign item = item | strip -%}
+      {%- if item == blank -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign parts = item | split: '|' -%}
+      {%- assign item_text = parts[0] | strip -%}
+      {%- assign item_href = parts[1] | strip -%}
+      {%- assign item_target = parts[2] | strip -%}
     {%- endif -%}
-    {%- assign parts = item | split: '|' -%}
-    {%- assign item_text = parts[0] | strip -%}
-    {%- assign item_href = parts[1] | strip -%}
-    {%- assign item_target = parts[2] | strip -%}
     {%- if item_href == blank -%}
       <p class="{{ classes }}">{{ item_text }}</p>
     {%- else -%}
