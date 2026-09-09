@@ -1,0 +1,36 @@
+{% doc %}
+  Renders a single tile for hard-coded policy pages.
+
+  @param {string} label - Tile label text
+  @param {string} val - Tile value text
+  @param {string} [class] - Optional extra classes on the tile (e.g. 'full accent')
+  @param {boolean} [italic] - When true, italicizes the value text
+
+  @example
+  {% render 'policy-tile', label: 'Return window', val: '21 days from delivery' %}
+  {% render 'policy-tile', label: 'Process', val: 'Please reach out before returning', class: 'full accent' %}
+  {% render 'policy-tile', label: "Andrew's word", val: 'Quote here', class: 'full accent', italic: true %}
+{% enddoc %}
+
+<div class="policy-tile bg-[#F7F0E8] border-[0.5px] border-[#E0D6CA] rounded-[10px] py-[16px] px-[18px]{% if class != blank %} {{ class }}{% endif %}">
+  <div class="text-[9px] font-bold tracking-[0.2em] uppercase text-[#9A7235] !mb-[6px]">
+    {{ label }}
+  </div>
+  <div
+    class="text-[14px] text-[#1A1A1A] leading-[1.55]"
+    {% if italic %}
+      style="font-style: italic;"
+    {% endif %}
+  >
+    {{ val }}
+  </div>
+</div>
+
+{% stylesheet %}
+  .policy-tile.full { grid-column: 1 / -1; }
+
+  .policy-tile.accent {
+    border-left: 3px solid #9A7235;
+    border-radius: 0 10px 10px 0;
+  }
+{% endstylesheet %}

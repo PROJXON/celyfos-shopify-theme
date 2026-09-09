@@ -1,0 +1,60 @@
+{% capture lifetime_guarantee %}
+  {% render 'policy-row', key: 'Processing time', val: '1–5 business days' %}
+  {% render 'policy-row', key: 'EU delivery', val: '5–9 business days' %}
+  {% render 'policy-row', key: 'North America', val: '7–20 business days' %}
+  {% render 'policy-row', key: 'Expedited', val: 'FedEx available on request' %}
+  {% render 'policy-row', key: 'Customs & import taxes', val: 'Buyer’s responsibility — we are not liable for customs delays' %}
+{% endcapture %}
+
+{% capture returns_tiles %}
+  {% render 'policy-tile', label: 'Return window', val: '21 days from delivery' %}
+  {% render 'policy-tile', label: 'Condition', val: 'Unused and in original condition' %}
+  {% render 'policy-tile', label: 'Return shipping', val: 'At the buyer’s cost' %}
+  {% render 'policy-tile', label: 'Contact', val: 'info@celyfos.com' %}
+  {% render 'policy-tile',
+    label: 'Process',
+    val: 'Each case is made to order — please reach out before returning and we’ll find the best resolution',
+    class: 'full accent'
+  %}
+{% endcapture %}
+
+{% capture guarantee_tiles %}
+  {% render 'policy-tile',
+    label: 'What it covers',
+    val: 'Structural failure, stitching, hardware — any defect in craft or materials'
+  %}
+  {% render 'policy-tile',
+    label: 'Cost to you',
+    val: 'No charge for repair — for the life of the product'
+  %}
+  {% render 'policy-tile',
+    label: 'How it works',
+    val: 'The case returns to Andrew’s bench in Athens. He repairs and sends it back.'
+  %}
+  {% render 'policy-tile', label: 'Duration', val: 'For as long as Andrew is at his workbench' %}
+  {% render 'policy-tile',
+    label: 'Andrew’s word',
+    val: '“If this shell ever fails you, it returns to my bench in Athens for repair. As long as I am standing at my workbench, I’ve got your back.” — No forms. No fine print.',
+    class: 'full accent',
+    italic: true
+  %}
+{% endcapture %}
+
+{% capture page_content %}
+  {% render 'policy-tile-grid', content: returns_tiles %}
+  {% render 'policy-section', title: 'Lifetime Guarantee', content: lifetime_guarantee %}
+  {% render 'policy-tile-grid', content: guarantee_tiles %}
+{% endcapture %}
+
+{% render 'custom-page',
+  title: 'Returns & Guarantee',
+  subtitle: 'Our commitment to every Celyfos customer',
+  content: page_content
+%}
+
+{% schema %}
+{
+  "name": "Returns & Guarantee",
+  "settings": []
+}
+{% endschema %}

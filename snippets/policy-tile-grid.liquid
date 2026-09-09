@@ -1,0 +1,15 @@
+{% doc %}
+  Wraps policy tiles in the shared tile grid layout.
+
+  @param {string} content - Grid body HTML (usually from a `capture` of policy-tile snippets)
+
+  @example
+  {% capture tiles %}
+    {% render 'policy-tile', label: 'Return window', val: '21 days from delivery' %}
+  {% endcapture %}
+  {% render 'policy-tile-grid', content: tiles %}
+{% enddoc %}
+
+<div class="grid grid-cols-[repeat(2,_1fr)] gap-[14px] !mb-[24px]">
+  {{ content }}
+</div>
