@@ -242,6 +242,9 @@
   .\!mt-3 {
     margin-top: calc(var(--spacing) * 3) !important;
   }
+  .\!mt-\[20px\] {
+    margin-top: 20px !important;
+  }
   .mr-1 {
     margin-right: calc(var(--spacing) * 1);
   }
@@ -253,6 +256,9 @@
   }
   .\!mb-4 {
     margin-bottom: calc(var(--spacing) * 4) !important;
+  }
+  .\!mb-\[2px\] {
+    margin-bottom: 2px !important;
   }
   .\!mb-\[6px\] {
     margin-bottom: 6px !important;
@@ -363,6 +369,9 @@
   .h-\[34px\] {
     height: 34px;
   }
+  .h-\[36px\] {
+    height: 36px;
+  }
   .h-\[60px\] {
     height: 60px;
   }
@@ -395,6 +404,9 @@
   }
   .w-\[34px\] {
     width: 34px;
+  }
+  .w-\[36px\] {
+    width: 36px;
   }
   .w-\[40px\] {
     width: 40px;
@@ -545,6 +557,12 @@
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
+  .rounded-tr-\[10px\] {
+    border-top-right-radius: 10px;
+  }
+  .rounded-br-\[10px\] {
+    border-bottom-right-radius: 10px;
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -581,6 +599,10 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1.5px;
   }
+  .border-l-\[3px\] {
+    border-left-style: var(--tw-border-style);
+    border-left-width: 3px;
+  }
   .border-\[\#4A2E12\] {
     border-color: #4A2E12;
   }
@@ -601,6 +623,9 @@
   }
   .border-b-\[\#E0D6CA\] {
     border-bottom-color: #E0D6CA;
+  }
+  .border-l-\[\#9A7235\] {
+    border-left-color: #9A7235;
   }
   .bg-\[\#1a1a1a\] {
     background-color: #1a1a1a;
@@ -801,6 +826,9 @@
   .text-\[17px\] {
     font-size: 17px;
   }
+  .text-\[18px\] {
+    font-size: 18px;
+  }
   .text-\[20px\] {
     font-size: 20px;
   }
@@ -817,6 +845,10 @@
   .leading-\[1\.5\] {
     --tw-leading: 1.5;
     line-height: 1.5;
+  }
+  .leading-\[1\.6\] {
+    --tw-leading: 1.6;
+    line-height: 1.6;
   }
   .leading-\[1\.7\] {
     --tw-leading: 1.7;
@@ -933,6 +965,9 @@
   }
   .text-\[\#E0D6CA\] {
     color: #E0D6CA;
+  }
+  .text-\[\#F7F0E8\] {
+    color: #F7F0E8;
   }
   .text-current {
     color: currentcolor;
@@ -1158,6 +1193,11 @@
   .md\:grid-cols-\[minmax\(0\,1fr\)_420px\] {
     @media (width >= 48rem) {
       grid-template-columns: minmax(0,1fr) 420px;
+    }
+  }
+  .md\:grid-cols-\[repeat\(2\,_1fr\)\] {
+    @media (width >= 48rem) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   .md\:flex-row {

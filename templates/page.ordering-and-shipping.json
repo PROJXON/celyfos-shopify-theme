@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-ordering-and-shipping",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,50 @@
+{% comment %}
+  Pipe-delimited order cards: icon|title|subtitle|detail
+  One card per line — looped like a React map.
+{% endcomment %}
+{% capture order_card_lines %}
+⚒|Production|Every case is made to order|Each Celyfos case is built by hand after your order is placed. See the current bench time in shipping details at checkout.
+⏰|Processing time|Before it ships|1–5 business days from order confirmation, depending on current bench workload.
+📍|Ships from|Athens, Greece|All orders ship directly from the workshop in Athens via international courier.
+👤|Manufacturer|The man behind every case|Celyfos SCE — Andrew Vasilas, Founder and Aircraft Engineer.
+{% endcapture %}
+
+{% assign order_cards = order_card_lines | strip | split: '
+' %}
+
+{% capture page_content %}
+  {% for line in order_cards %}
+    {% assign line = line | strip %}
+    {% if line == blank %}
+      {% continue %}
+    {% endif %}
+    {% assign parts = line | split: '|' %}
+    {% render 'order-card',
+      icon: parts[0],
+      title: parts[1],
+      subtitle: parts[2],
+      detail: parts[3]
+    %}
+  {% endfor %}
+
+  <div class="bg-[#F7F0E8] border-[0.5px] border-[#E0D6CA] border-l-[3px] border-l-[#9A7235] rounded-tr-[10px] rounded-br-[10px] py-[14px] px-[18px] text-[14px] text-[#4A4A4A] leading-[1.65] italic !mt-[20px]">
+    Questions about your order? Email us at
+    <a href="mailto:{{ shop.metafields.custom.email.value }}" class="text-[#9A7235] no-underline">
+      {{ shop.metafields.custom.email.value }}
+    </a>
+    — we’ll always find the best resolution.
+  </div>
+{% endcapture %}
+
+{% render 'custom-page',
+  title: 'Order & Shipping',
+  subtitle: 'Made to order · Ships from Athens, Greece',
+  content: page_content
+%}
+
+{% schema %}
+{
+  "name": "Ordering & Shipping",
+  "settings": []
+}
+{% endschema %}

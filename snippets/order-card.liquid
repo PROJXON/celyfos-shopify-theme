@@ -1,0 +1,27 @@
+{% doc %}
+  Renders a single order info card for the ordering & shipping page.
+
+  @param {string} icon - Emoji or symbol shown in the icon column
+  @param {string} title - Card title
+  @param {string} subtitle - Short line under the title
+  @param {string} detail - Longer supporting detail text
+
+  @example
+  {% render 'order-card',
+    icon: '⚒',
+    title: 'Production',
+    subtitle: 'Every case is made to order',
+    detail: 'Each Celyfos case is built by hand after your order is placed.'
+  %}
+{% enddoc %}
+
+<div class="bg-[#F7F0E8] border-[0.5px] border-[#E0D6CA] rounded-[10px] py-[16px] px-[18px] !mb-[12px] flex gap-[14px] items-start">
+  <div class="w-[36px] h-[36px] bg-[#4A2E12] rounded-[8px] flex items-center justify-center shrink-0 text-[#F7F0E8] text-[18px]">
+    {{ icon }}
+  </div>
+  <div>
+    <div class="text-[13px] font-bold text-[#4A2E12] !mb-[2px]">{{ title }}</div>
+    <div class="text-[11px] text-[#888888] !mb-[8px]">{{ subtitle }}</div>
+    <div class="text-[14px] text-[#4A4A4A] leading-[1.6]">{{ detail }}</div>
+  </div>
+</div>

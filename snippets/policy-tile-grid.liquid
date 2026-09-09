@@ -10,6 +10,19 @@
   {% render 'policy-tile-grid', content: tiles %}
 {% enddoc %}
 
-<div class="grid grid-cols-[repeat(2,_1fr)] gap-[14px] !mb-[24px]">
+<div class="policy-tile-grid grid grid-cols-[repeat(2,_1fr)] gap-[14px] !mb-[24px]">
   {{ content }}
 </div>
+
+{% stylesheet %}
+  @media (max-width: 640px) {
+    .policy-tile-grid {
+      grid-template-columns: 1fr;
+    }
+    .policy-row {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .policy-row__val { text-align: left; }
+  }
+{% endstylesheet %}
