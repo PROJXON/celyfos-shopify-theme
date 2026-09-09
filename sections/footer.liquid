@@ -8,8 +8,8 @@
 
   {%- comment -%} Columns {%- endcomment -%}
   {%- capture follow_us_lines -%}
-    Facebook|https://www.facebook.com/celyfos|blank
-    Instagram|https://www.instagram.com/celyfos|blank
+    Facebook|{{ section.settings.facebook }}|blank
+    Instagram|{{ section.settings.instagram }}|blank
   {%- endcapture -%}
   {%- assign follow_us_items = follow_us_lines | strip | split: '
 ' -%}
@@ -58,6 +58,18 @@
       "id": "email",
       "label": "t:labels.email",
       "default": "info@celyfos.com"
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "t:labels.facebook",
+      "default": "https://www.facebook.com/celyfos"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "t:labels.instagram",
+      "default": "https://www.instagram.com/celyfos"
     }
   ]
 }
