@@ -19,12 +19,17 @@
       {% continue %}
     {% endif %}
     {% assign parts = line | split: '|' %}
-    {% render 'order-card',
-      icon: parts[0],
-      title: parts[1],
-      subtitle: parts[2],
-      detail: parts[3]
-    %}
+    
+    <div class="bg-[#F7F0E8] border-[0.5px] border-[#E0D6CA] rounded-[10px] py-[16px] px-[18px] !mb-[12px] flex gap-[14px] items-start">
+      <div class="w-[36px] h-[36px] bg-[#4A2E12] rounded-[8px] flex items-center justify-center shrink-0 text-[#F7F0E8] text-[18px]">
+        {{ parts[0] }}
+      </div>
+      <div>
+        <div class="text-[13px] font-bold text-[#4A2E12] !mb-[2px]">{{ parts[1] }}</div>
+        <div class="text-[11px] text-[#888888] !mb-[8px]">{{ parts[2] }}</div>
+        <div class="text-[14px] text-[#4A4A4A] leading-[1.6]">{{ parts[3] }}</div>
+      </div>
+    </div>
   {% endfor %}
 
   <div class="bg-[#F7F0E8] border-[0.5px] border-[#E0D6CA] border-l-[3px] border-l-[#9A7235] rounded-tr-[10px] rounded-br-[10px] py-[14px] px-[18px] text-[14px] text-[#4A4A4A] leading-[1.65] italic !mt-[20px]">
