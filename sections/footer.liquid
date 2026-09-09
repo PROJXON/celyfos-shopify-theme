@@ -1,9 +1,12 @@
 <footer class='w-full bg-[#F7F0E8] border-t-[0.5px] border-t-[#E0D6CA] font-[Lato] font-light m-0 p-0'>
   {%- comment -%} Value badges {%- endcomment -%}
   <div class='flex justify-center gap-[12px] md:gap-[32px] flex-wrap py-[24px] px-[32px] border-b-[0.5px] border-b-[#E0D6CA] flex-col md:flex-row items-center md:items-start'>
-    {% render 'footer-badge', text: 'Engineered by an Aviation Engineer' %}
-    {% render 'footer-badge', text: '100% Hand-made in Athens' %}
-    {% render 'footer-badge', text: 'My Lifetime Guarantee' %}
+    {% for bullet in shop.metafields.custom.footer_bullets.value %}
+      <div class='flex items-center gap-[8px] text-[12px] text-[#4A4A4A] tracking-[0.02em]'>
+        <div class='w-[5px] h-[5px] rounded-[50%] bg-[#9A7235] shrink-[0]'></div>
+        {{ bullet }}
+      </div>
+    {% endfor %}
   </div>
 
   {%- comment -%} Columns {%- endcomment -%}
