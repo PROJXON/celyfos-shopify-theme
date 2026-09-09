@@ -1,11 +1,3 @@
-{% capture lifetime_guarantee %}
-  {% render 'policy-row', key: 'Processing time', val: '1–5 business days' %}
-  {% render 'policy-row', key: 'EU delivery', val: '5–9 business days' %}
-  {% render 'policy-row', key: 'North America', val: '7–20 business days' %}
-  {% render 'policy-row', key: 'Expedited', val: 'FedEx available on request' %}
-  {% render 'policy-row', key: 'Customs & import taxes', val: 'Buyer’s responsibility — we are not liable for customs delays' %}
-{% endcapture %}
-
 {% capture returns_tiles %}
   {% render 'policy-tile', label: 'Return window', val: '21 days from delivery' %}
   {% render 'policy-tile', label: 'Condition', val: 'Unused and in original condition' %}
@@ -40,10 +32,13 @@
   %}
 {% endcapture %}
 
+{% capture lifetime_guarantee %}
+  {% render 'policy-tile-grid', content: guarantee_tiles %}
+{% endcapture %}
+
 {% capture page_content %}
   {% render 'policy-tile-grid', content: returns_tiles %}
   {% render 'policy-section', title: 'Lifetime Guarantee', content: lifetime_guarantee %}
-  {% render 'policy-tile-grid', content: guarantee_tiles %}
 {% endcapture %}
 
 {% render 'custom-page',
