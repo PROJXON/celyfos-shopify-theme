@@ -19,7 +19,7 @@
 
   {%- capture celyfos_lines -%}
     Est. 2014 · Athens, Greece
-    {{ section.settings.email }}|mailto:{{ section.settings.email }}
+    {{ shop.metafields.custom.email.value }}|mailto:{{ shop.metafields.custom.email.value }}
   {%- endcapture -%}
   {%- assign celyfos_items = celyfos_lines | strip | split: '
 ' -%}
@@ -55,12 +55,6 @@
       "id": "footer_menu",
       "label": "t:labels.footer_menu",
       "default": "footer"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "t:labels.email",
-      "default": "info@celyfos.com"
     },
     {
       "type": "url",
