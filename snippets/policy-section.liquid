@@ -1,0 +1,29 @@
+{% doc %}
+  Renders a titled section block for a hard-coded policy page.
+
+  @param {string} title - Section heading
+  @param {string} content - Section body HTML (usually from a `capture` of policy-row snippets)
+
+  @example
+  {% capture rows %}
+    {% render 'policy-row', key: 'Processing time', val: '1–5 business days' %}
+  {% endcapture %}
+  {% render 'policy-section', title: 'Shipping from Greece', content: rows %}
+{% enddoc %}
+
+<div class="!mb-[28px]">
+  <h2 class="font-['Playfair_Display'] text-[16px] font-semibold text-[#4A2E12] !mb-[12px] pb-[8px] border-b-[0.5px] border-b-[#E0D6CA]">
+    {{- title -}}
+  </h2>
+  {{ content }}
+</div>
+
+{% stylesheet %}
+  .policy-row {
+    border-bottom: 0.5px solid #f2f3f8;
+  }
+
+  .policy-row:last-child {
+    border-bottom: none;
+  }
+{% endstylesheet %}

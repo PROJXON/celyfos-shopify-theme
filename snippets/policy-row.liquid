@@ -1,0 +1,14 @@
+{% doc %}
+  Renders a single key/value row for a hard-coded policy page.
+
+  @param {string} key - Left-hand label
+  @param {string} val - Right-hand value text
+
+  @example
+  {% render 'policy-row', key: 'Processing time', val: '1–5 business days' %}
+{% enddoc %}
+
+<div class="policy-row flex justify-between items-start py-[10px] text-[14px]">
+  <span class="text-[#888888] text-[12px] tracking-[0.03em] min-w-[160px] shrink-0">{{ key }}</span>
+  <span class="text-[#4A4A4A] text-right max-w-[500px] leading-[1.5]">{{ val }}</span>
+</div>

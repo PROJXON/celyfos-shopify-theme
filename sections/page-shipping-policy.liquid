@@ -1,0 +1,39 @@
+{% capture shipping_from_greece %}
+  {% render 'policy-row', key: 'Processing time', val: '1–5 business days' %}
+  {% render 'policy-row', key: 'EU delivery', val: '5–9 business days' %}
+  {% render 'policy-row', key: 'North America', val: '7–20 business days' %}
+  {% render 'policy-row', key: 'Expedited', val: 'FedEx available on request' %}
+  {% render 'policy-row', key: 'Customs & import taxes', val: 'Buyer’s responsibility — we are not liable for customs delays' %}
+{% endcapture %}
+
+{% capture returns_and_exchanges %}
+  {% render 'policy-row', key: 'Returns accepted', val: 'Within 21 days from delivery' %}
+  {% render 'policy-row', key: 'Return shipping', val: 'At the buyer’s cost' %}
+  {% render 'policy-row', key: 'Cancellations', val: 'Request within 3 hours of purchase' %}
+  {% render 'policy-row', key: 'Custom / personalised orders', val: 'Cannot be returned unless faulty' %}
+{% endcapture %}
+
+{% capture faqs %}
+  {% render 'policy-row', key: 'Wholesale', val: 'We accept wholesale orders — contact us and we’ll respond with an offer' %}
+  {% render 'policy-row', key: 'Care instructions', val: 'Keep dry, away from sun. Treat occasionally with beeswax leather cream' %}
+  {% render 'policy-row', key: 'Custom orders', val: 'Unique designs and sizes available on request — contact us if a colour is not listed' %}
+{% endcapture %}
+
+{% capture page_content %}
+  {% render 'policy-section', title: 'Shipping from Greece', content: shipping_from_greece %}
+  {% render 'policy-section', title: 'Returns & Exchanges', content: returns_and_exchanges %}
+  {% render 'policy-section', title: 'Frequently Asked Questions', content: faqs %}
+{% endcapture %}
+
+{% render 'custom-page',
+  title: 'Shipping Policy',
+  subtitle: 'Handcrafted in Athens · Shipped Worldwide',
+  content: page_content
+%}
+
+{% schema %}
+{
+  "name": "Shipping policy",
+  "settings": []
+}
+{% endschema %}

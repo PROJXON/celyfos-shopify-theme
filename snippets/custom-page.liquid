@@ -1,0 +1,30 @@
+{% doc %}
+  Shared layout wrapper for hard-coded page templates.
+
+  Renders a centered page frame with title, subtitle, gold divider, and custom content.
+
+  @param {string} title - Page heading text
+  @param {string} subtitle - Small uppercase line under the heading
+  @param {string} content - HTML body for the page (usually from a `capture`)
+
+  @example
+  {% capture page_content %}
+    <div class="!mb-[28px]">...</div>
+  {% endcapture %}
+  {% render 'custom-page',
+    title: 'Shipping Policy',
+    subtitle: 'Handcrafted in Athens · Shipped Worldwide',
+    content: page_content
+  %}
+{% enddoc %}
+
+<div class="max-w-[860px] !mx-auto pt-[36px] px-[32px] pb-[64px]">
+  <h1 class="font-['Playfair_Display'] text-[28px] font-normal text-[#1A1A1A] text-center tracking-[0.04em] !mb-[8px]">
+    {{ title }}
+  </h1>
+  <p class="text-[11px] text-[#888888] text-center tracking-[0.08em] uppercase !mb-[18px]">
+    {{ subtitle }}
+  </p>
+  <div class="w-[40px] h-[1px] bg-[#9A7235] !mx-auto !mb-[32px]"></div>
+  {{ content }}
+</div>
