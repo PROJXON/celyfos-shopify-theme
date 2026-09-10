@@ -13,10 +13,6 @@
         <div class="w-full aspect-[1] bg-[#F7F0E8]"></div>
     {% endif %}
   </div>
-
-  {% if description != blank %}
-    <p class="text-[12px] text-[#555555] font-light leading-[1.65] px-[20px] pb-[18px]">{{ description | strip_html | truncatewords: 15 }}</p>
-  {% endif %}
 </a>
 
 {% stylesheet %}
