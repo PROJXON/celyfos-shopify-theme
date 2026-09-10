@@ -47,9 +47,16 @@
     {%- if item_href == blank -%}
       <p class="{{ classes }}">{{ item_text }}</p>
     {%- else -%}
+      {%- assign link_classes = classes | append: ' !w-fit hover:text-[#4A2E12]' -%}
+      {%- if item.current -%}
+        {%- assign link_classes = link_classes | append: ' !font-bold' -%}
+      {%- endif -%}
       <a
         href="{{ item_href }}"
-        class="{{ classes | append: ' !w-fit hover:text-[#4A2E12]' }}"
+        class="{{ link_classes }}"
+        {%- if item.current %}
+          aria-current="page"
+        {%- endif -%}
         {%- if item_target == 'blank' %}
           target="_blank" rel="noopener"
         {%- endif -%}

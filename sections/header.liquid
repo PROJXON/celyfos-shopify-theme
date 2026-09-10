@@ -48,7 +48,11 @@
     <div class='my-0 !mx-[4px] w-[0.5px] h-[16px] bg-[#E0D6CA]'></div>
     <div class="flex uppercase">
       {% for link in section.settings.header_menu.links %}
-        <a class="font-[Lato] font-[11.5px] font-normal tracking-[.07em] uppercase text-[#4A4A4A] py-[7px] px-[13px] rounded-[6px] hover:text-[#4A2E12]" href='{{ link.url }}'>
+        {% assign link_classes = 'font-[Lato] font-[11.5px] font-normal tracking-[.07em] uppercase text-[#4A4A4A] py-[7px] px-[13px] rounded-[6px] hover:text-[#4A2E12]' %}
+        {% if link.current %}
+          {% assign link_classes = link_classes | append: ' !font-bold' %}
+        {% endif %}
+        <a class="{{ link_classes }}" href='{{ link.url }}'>
           {{ link.title }}
         </a>
       {% endfor %}
