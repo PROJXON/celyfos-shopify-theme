@@ -18,8 +18,13 @@
         <div class="relative h-full h-auto group">
           {% assign image_classes_base = "absolute top-0 left-0 w-full h-auto object-cover duration-300 ease-in-out" %}
           {% assign image_classes_default = image_classes_base | append: " opacity-100 group-hover:opacity-0" %}
+          {% if alternate_image %}
+            {% assign image_classes = image_classes_default %}
+          {% else %}
+            {% assign image_classes = image_classes_base %}
+          {% endif %}
           {% render 'image',
-            class: alternate_image ? image_classes_default : image_classes_base,
+            class: image_classes,
             image: product.featured_image,
             width: 400,
             height: 400,
